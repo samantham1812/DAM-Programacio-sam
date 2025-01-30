@@ -7,7 +7,7 @@ public class Main {
         /* TODO descomenta aquest codi a mida
            que la implementació dels objectes
            estigui llesta
-
+*/
         OcellVolador ocell = new OcellVolador("Piolín", 2, "groc");
         Dofi dofi = new Dofi("Flipper", 5, "suau");
     
@@ -16,6 +16,6 @@ public class Main {
     
         System.out.println(dofi);
         dofi.nedar();
-        */
+        /**/
     }
 }

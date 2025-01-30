@@ -2,6 +2,7 @@ package com.exercicis;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Exercici0000 {
@@ -9,6 +10,9 @@ public class Exercici0000 {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(addImaginaries("1+2i", "4+5i"));
+
+        int[][] entrada = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
+        transpose.matrix(entrada);
 
         scanner.close();
     }
@@ -33,7 +37,11 @@ public class Exercici0000 {
      * @param int nivells del triangle (0 fins a n)
      */
     private static void drawPascal(int n) {
+        ArrayList<ArrayList<Integer>> pascal = new ArrayList<>();
+            pascal.add(new ArrayList<>(List.of(1)));
 
+
+       /* Hacer listas y luego  ir ñadiendo + 1 para formar la torre  */
     }
 
     /**
@@ -43,7 +51,12 @@ public class Exercici0000 {
      * @return resultat de la suma
      */
     private static double addList(ArrayList<Double> list) {
-        return 0.0;
+       Double suma = 0.0;
+        
+       for (int i = 0; i < list.size(); i++){
+            suma = suma + list.get(i);
+       }
+        return suma;
     }
 
     /** 
@@ -78,9 +91,27 @@ public class Exercici0000 {
      * @param int[][] matriu a transposar
      * @return int[][] matriu transposada
      */
-    public static int[][] transpose(int[][] matrix) {
-        return null;
-    }
+    /*public static int[][] transpose(int[][] matrix) {
+        int fils = matrix.length;
+        int cols = matrix[0].length;
+        int[][] transposedMatrix = new int[cols][fils];
+
+        for (int i = 0; i < fils; i++) {
+            for (int j = 0; j < cols; j++) {
+            transposedMatrix[j][i] = matrix[i][j];
+            }
+        }
+
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < fils; j++) {
+            System.out.print(transposedMatrix[i][j]);
+            if (j != (fils - 1)) {
+                System.out.print(",");
+            }
+            }
+            System.out.println();
+        }
+    }*/
 
     /**
      * Fes una funció que troba el primer caràcter que
@@ -109,7 +140,13 @@ public class Exercici0000 {
      * @return char primer caràcter que no es repeteix
      */
     public static char firstNonRepeated(String str) {
-        return 'a';
+        for (char i = 0; i < car.length; i++){
+            if (car ){
+                car =+ 1;
+            }
+        }
+
+        return '_';
     }
 
     /**
@@ -120,7 +157,13 @@ public class Exercici0000 {
      * @return int número resultant
      */
     public static int inverInt(int num) {
-        return 0;
+        String Numero = "";
+        String numString = Integer.toString(num);
+        for (int n = numString.length()-1; n >= 0; n--){
+            Numero = Numero + numString.substring(n, n+1);
+        }
+        int nombre = Integer.parseInt(Numero);
+        return nombre;
     }
 
     /**
@@ -141,6 +184,12 @@ public class Exercici0000 {
      * @return ArrayList<Integer> Llista amb els dos números de sortida [mínim, màxim]
      */
     public ArrayList<Integer> minMaxAdd(ArrayList<Integer> nums) {
+        ArrayList<Integer> entrada = new ArrayList<>();
+
+        ArrayList.sort(entrada);
+
+        for (int n = 0; n < entrada.size(); n++){ }
+        
         return new ArrayList<>(Arrays.asList(0, 0));
     }
 
@@ -161,6 +210,14 @@ public class Exercici0000 {
      * @return int Resultat de la suma de a i b sense utilitzar l'operació de suma
      */
     public int sumaSenseSumar(int a, int b) {
+        String numa = numa.repeat(numa);
+        String numb = numb.repeat(numb);
+
+        String numstr = Integer.toString(a,b);
+        String concat = concat(numa, numb);
+
+
+
         return 0;
     }
 
@@ -195,6 +252,10 @@ public class Exercici0000 {
      */
     public ArrayList<Integer> minDistances(String text, char target) {
         ArrayList<Integer> distances = new ArrayList<>(text.length());
+
+        for (int i = 0; i < distances.size(); i++){
+
+        }
         return distances;
     }
 
