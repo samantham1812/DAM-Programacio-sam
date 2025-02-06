@@ -1,23 +1,38 @@
 package com.exercici0400;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.print.attribute.standard.MediaPrintableArea;
 
 import main.java.com.exercici0400.Component;
 import main.java.com.exercici0400.Container;
 
 public class Main {
     public static void main(String[] args) {
-
+        /* 
         Text txt0 = new Text(1, 0, 3, 4, "0123456789AB", 3, false, "left");
         Text txt1 = new Text(7, 2 , 3, 5, "(*)( )(-)( )(*)", 3, false, "left");
         Text txt2 = new Text(22, 6 , 4, 3, "abcdefghijkl", 3, false, "left");
+        */
 
-        ArrayList<Component> components = new ArrayList<>();
+        HashMap<Integer, String[]> mapMnu = new HashMap<>();
+        String[] arr0 = {"Sortit", "sortir", "exit"};
+        mapMnu.put(0, arr0);
+        String[] arr1 = {"Alinear esquerra", "esquerra", "left"};
+        mapMnu.put(0, arr1);
+        String[] arr2 = {"Alinear dreta", "dreta", "right"};
+        mapMnu.put(0, arr2);
+
+        Menu mnu0 = new Menu(1,1,20,8, "Titol Menu", mapMnu,false);
+        Menu mnu1 = new Menu(22,1,25,8, "Titol Menu", mapMnu,true);
+
+        /*ArrayList<Component> components = new ArrayList<>();
         components.add(txt0);
         components.add(txt1);
-        components.add(txt2);
+        components.add(txt2);*/
 
-        Container container = new Container(25, 8, components);
+        Container container = new Container(50, 10, components);
         container.draw();
     }
 }

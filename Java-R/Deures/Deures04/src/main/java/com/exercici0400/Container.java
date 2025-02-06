@@ -18,20 +18,20 @@ public class Container extends Component {
         return rst;
     }
 
-    private ArrayList<String> addBorder(ArrayList<String> buffCmp) {
+    public ArrayList<String> addBorder(ArrayList<String> buffCmp) {
         ArrayList<String> resul = new ArrayList<>();
 
         for (int cntLine = 0; cntLine < buffCmp.size(); cntLine = cntLine + 1){
             String line = buffCmp.get(cntLine);
             if (cntLine == 0 || cntLine == (buffCmp.size() - 1)) {
-                line = "*".repeat(line.length());
+                line = "|".repeat(line.length());
             } else {
-                char[] slc = line.toCharArray();
-                slc[0] = "*";
-                slc[slc.length-1] = "*";
-                line = String.valueOf(slc);
+                char[] rray = line.toCharArray();
+                rray[0] = "|";
+                rray[rray.length - 1] = "|";
+                line = String.valueOf(rray);
             }
-            slc.add(line);
+            rray.add(line);
         }
         return resul;
     }
