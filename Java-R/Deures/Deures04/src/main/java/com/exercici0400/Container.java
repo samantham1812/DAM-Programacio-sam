@@ -18,23 +18,40 @@ public class Container extends Component {
         return rst;
     }
 
-    public void draw(){
+    public void draw() {
         ArrayList<String> buffer;
+
+        clearScreen();
 
         buffer = new ArrayList<>();
         for (int cnt = 0; cnt < height; cnt = cnt + 1) {
-            String linea = " ".repeat(width);
-            buffer.add(linea);
-        }
+            String linia = " ".repeat(width);
+            buffer.add(linia);
+        } /*Inicia el buffer con espacios en blanco */
 
         for (Component cmp : components) {
-            ArrayList<String> buffCmp = cmp.render();
-            for (int lineCmp = 0; lineCmp < buffCmp.size(); lineCmp = lineCmp + 1);
-            // int posY = y + lineCmp;
-            // String cmpLineStr = buffCmp.get(lineCmp);
-            //if (posY < buffer.size()) {
-            //    String oldString = buffer.get(posY)
-            }//
+            ArrayList<String> buffCmp = cmp.render();  
+            int posY = cmp.getY();
+            for (String lineCmp : buffCmp) {
+                if (posY < height) {
+                    int posX = cmp.getX();
+                    if (posX < width) {
+                        String buffLine = buffer.get(posY);
+                        String partA = buffLine.substring(0, posX);
+                        String partB = lineCmp;
+                        if (posX + partB.length() > width) {
+                            partB = partB.substring(0, width - posX);
+                        }
+                        String partC = buffLine.substring(posX + partB.length());
+                        buffer.set(posY, partA + partB + partC);
+                    } /*Dibuja componentes en el buffer */
+                }
+                posY++;
+            }
         }
-}
 
+        for (String line : buffer) {
+            System.out.println(line); 
+        } /*Escribe el buffer en el terminal */
+    }
+}
