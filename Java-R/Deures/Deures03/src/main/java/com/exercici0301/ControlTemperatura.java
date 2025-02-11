@@ -11,8 +11,8 @@ public class ControlTemperatura {
     public ControlTemperatura(String nomZona, double temperatura) {
         this.nomZona = nomZona;
         this.temperatura = temperatura;
-        temperaturaTotal =+ temperatura;
-        comptadorZones = comptadorZones + 1;
+        temperaturaTotal += temperatura;
+        comptadorZones++;
     }
 
     public String getNomZona(){
@@ -24,16 +24,16 @@ public class ControlTemperatura {
     }
 
     public void ajustaTemperatura(double novaTemperatura) {
-        temperaturaTotal = temperaturaTotal - this.temperatura;
+        temperaturaTotal -= this.temperatura;
         this.temperatura = novaTemperatura;
-        temperaturaTotal = temperaturaTotal + novaTemperatura;
+        temperaturaTotal += novaTemperatura;
     }
 
     public static double getTemperaturaMitjana() {
         if (comptadorZones == 0) {
-            return 0;
+            return 0.0;
         }
-        return temperaturaTotal / comptadorZones;
+        return temperaturaTotal/comptadorZones;
     }
 }
 
