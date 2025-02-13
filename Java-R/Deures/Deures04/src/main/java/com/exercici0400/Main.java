@@ -8,6 +8,7 @@ import javax.swing.plaf.MenuItemUI;
 
 import main.java.com.exercici0400.Component;
 import main.java.com.exercici0400.Container;
+import main.java.com.exercici0400.Menu;
 
 public class Main {
     public static void main(String[] args) {

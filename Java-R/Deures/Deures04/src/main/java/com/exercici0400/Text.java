@@ -53,6 +53,11 @@ public class Text extends Component implements Alignable {
 
     public ArrayList<String> render() {
         ArrayList<String> rst = new ArrayList<String>();
+
+        for (int cnt = 0; cnt < height; cnt = cnt + 1) {
+            String linea = "x".repeat(width);
+            rst.add(linea);
+        }
         return rst;
     } 
 }
