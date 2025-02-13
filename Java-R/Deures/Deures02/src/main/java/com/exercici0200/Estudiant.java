@@ -4,8 +4,14 @@ public class Estudiant {
 
     private String nom;
     private String id;
+
+    private static int comptadorEstudiants=0;
+    private static int capacidadmax = 0;
+
+    static public int CAPACITAT_MAXIMA = 5;
+
     
-    // Constructor
+    /* Constructor */
     public Estudiant(String nom, String id) {
         this.nom = nom;
         this.id = id;
@@ -28,7 +34,7 @@ public class Estudiant {
         this.id = id;
     }
 
-    // Mètodes públics estàtics
+    /* Mètodes públics estàtics */
     public static int getComptadorEstudiants() {
         
         return -1;

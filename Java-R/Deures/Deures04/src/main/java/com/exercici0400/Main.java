@@ -20,17 +20,19 @@ public class Main {
         String[] arr0 = {"Sortit", "sortir", "exit"};
         mapMnu.put(0, arr0);
         String[] arr1 = {"Alinear esquerra", "esquerra", "left"};
-        mapMnu.put(0, arr1);
+        mapMnu.put(1, arr1);
         String[] arr2 = {"Alinear dreta", "dreta", "right"};
-        mapMnu.put(0, arr2);
+        mapMnu.put(2, arr2);
+        String[] arr3 = {"Alinear centrado", "centrado", "center"};
+        mapMnu.put(3, arr3);
 
         Menu mnu0 = new Menu(1,1,20,8, "Titol Menu", mapMnu,false);
         Menu mnu1 = new Menu(22,1,25,8, "Titol Menu", mapMnu,true);
 
-        /*ArrayList<Component> components = new ArrayList<>();
-        components.add(txt0);
-        components.add(txt1);
-        components.add(txt2);*/
+        ArrayList<Component> components = new ArrayList<>();
+        components.add(mnu0);
+        components.add(mnu1);
+        /*components.add(txt2);*/
 
         Container container = new Container(50, 10, components);
         container.draw();
