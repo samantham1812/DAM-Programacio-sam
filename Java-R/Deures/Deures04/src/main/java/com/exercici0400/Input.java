@@ -1,6 +1,7 @@
 package main.java.com.exercici0400;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Input extends Component {
 

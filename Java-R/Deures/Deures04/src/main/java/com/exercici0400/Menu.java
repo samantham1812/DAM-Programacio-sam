@@ -2,14 +2,16 @@ package main.java.com.exercici0400;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
+import com.exercici0400.MenuItem;
 
 public class Menu extends Component {
 
     private String title;
-    private HashMap<Integer, Object> items;
+    private HashMap<Integer, MenuItem> items;
     private boolean lastZero;
     
-    public Menu(int x, int y, int width, int height, String title, HashMap<Integer, String[]> items, boolean lastZero) {
+    public Menu(int x, int y, int width, int height, String title, HashMap<Integer, MenuItem> items, boolean lastZero) {
         super(x, y, width, height);
         this.title = title;
         this.items = items;
@@ -47,27 +49,32 @@ public class Menu extends Component {
     }
 
     public ArrayList<String> render() {
-        ArrayList<String> rst = new ArrayList<String>();
+        ArrayList<String> rst = new ArrayList<String>(); 
+        Integer countZero = 0; 
 
-        Set<Integer> claus = items.keySet();        
+        int begin = 0;
+        if (lastZero) {
+            begin = 1;
+        }
+
+
         rst.add(" ".repeat(width));
-        for (int cnti = 0; cnti < height; cnti++) {
-            if (items.get(cnti) != null) {
-                String linia = " " + items.get(cnti);
-                if (linia.length() < width) {
-                    String espais = " ".repeat(width - linia.length());
-                    rst.add(linia + espais);
-                } else {
-                    String nouString = linia.substring(0, width);
-                    rst.add(nouString);
-                }
+        for (int i = begin; i < height; i++) {
+            if (items.get(i) != null) {
+                String linia = " " + items.get(i).getTitle();
+                rst.add(fixLine(linia));
             } else {
+                if (lastZero && countZero == 0) {
+                    String line = " " + items.get(0).getTitle();
+                    rst.add(fixLine(line));
+                    countZero++;
+                }
                 String linia = " ".repeat(width);
                 rst.add(linia);
-            }
-            
+            } 
         }
         
+
         return rst;
     } 
 }
