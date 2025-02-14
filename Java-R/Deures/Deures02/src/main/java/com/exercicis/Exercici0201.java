@@ -185,8 +185,12 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testGeneraArrayDecimals
      */
     public static double[] generaArrayDecimals(int mida) {
-        double[] rst = new double[0];
-        return rst;
+        double[] array = new double[mida];
+        Random num = new Random();
+        for (int n = 0; n < mida; n = n + 1){
+            array[n] = num.nextDouble() * 100;
+        }
+        return array;
     }
 
     /**
