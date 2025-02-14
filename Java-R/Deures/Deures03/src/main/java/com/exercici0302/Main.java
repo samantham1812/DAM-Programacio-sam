@@ -9,7 +9,7 @@ public class Main {
         /* TODO A mida que hagis completat "Autor", "Llibre"
            i "Prestec", ves descomentant aquest codi
            per validar el funcionament dels objectes
-
+        */
         // Creació d'autors
         Autor autor1 = new Autor("Gabriel García Márquez", "Colombiana");
         Autor autor2 = new Autor("J.K. Rowling", "Britànica");
@@ -36,6 +36,6 @@ public class Main {
             System.out.println("Està en termini? " + prestec.estaEnTermini());
             System.out.println("-----");
         }
-        */
+        
     }
 }

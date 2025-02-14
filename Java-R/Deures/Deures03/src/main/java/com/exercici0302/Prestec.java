@@ -41,8 +41,10 @@ public class Prestec {
     }
 
     public boolean estaEnTermini() {
-        
-        return false;
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate RetornData = LocalDate.parse(dataRetorn, formato);
+        LocalDate hoy = LocalDate.now();
+        return !hoy.isAfter(RetornData);
     }
 }
 
