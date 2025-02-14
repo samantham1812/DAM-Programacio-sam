@@ -121,21 +121,24 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testFiltraArrayParaulesAmbA
      */
     public static void filtraArrayParaulesAmbA() {
-        System.out.print("Escriu 5 paraules separades per ',' o ', ':");
-        String inipalabras = scanner.nextLine();
-        String paraules[] = inipalabras.replace(",", ", ").split(",");
+        System.out.println("Escriu 5 paraules separades per ',' o ', ':");
+        String words = scanner.nextLine();
 
-        int cnt = 0;
+        words = words.replace(", ", ",");
+        String[] paraules = words.split(",");
 
-        for (String paraula : paraules) {
-            if (paraula.toLowerCase.startsWith("a"));
-            cnt = cnt + 1;
+        String filtrades = "";
+        for (int cnt = 0; cnt < paraules.length; cnt++) {
+            String paraula = paraules[cnt];
+            if (paraula.toLowerCase().startsWith("a")){
+                if (filtrades.length()<1){
+                    filtrades = filtrades+paraula;
+                }else{
+                    filtrades = filtrades+", "+paraula;
+                }
+            }
         }
-        
-
-
-
-
+        System.out.println("Paraules que comencen amb 'a':" + filtrades);
     }
        
     /**
@@ -151,6 +154,24 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testFiltraLlistaParaulesAmbA
      */
     public static void filtraLlistaParaulesAmbA() {
+        System.out.print("Escriu 5 paraules separades per ',' o ', ':");
+        String inipalabras = scanner.nextLine();
+
+        inipalabras = inipalabras.replace(",", ", ");
+        ArrayList<String> paraules = split(",");
+
+        String filtro = "";
+        for (int cnt = 0; cnt < paraules.size(); cnt = cnt + 1) {
+            String paraula = paraules.get(cnt);
+            if (paraula.toLowerCase().startsWith("a")) {
+                if (filtro.size()<1){
+                    filtro = filtro + paraula;
+                } else {
+                    filtro = filtro + ", " + paraula;
+                }
+            }
+        }
+        System.out.println("Paraules que comencen amb 'a' :" + filtro);
 
     }
 
