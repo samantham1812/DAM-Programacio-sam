@@ -87,7 +87,14 @@ public class Exercici0200 {
      * @test ./runTest.sh com.exercicis.TestExercici0200#testDrawPascalFive
      */
     public static void drawPascal(int n) {
-
+        for (int i = 0; i < n; i++) {
+            int nivel = 1;
+            for (int j = 0; j <= i; j++) {
+                System.out.println(nivel + " ");
+                nivel = nivel * (i - j) / (j + 1);
+            }
+            System.out.println();
+        }
     }
 
     /**
@@ -104,7 +111,12 @@ public class Exercici0200 {
      * @test ./runTest.sh com.exercicis.TestExercici0200#testAddListDecimals
      */
     public static double addList(ArrayList<Double> list) {
-        return 0.0;
+        Double sumaTotal = 0;
+
+        for (int i = 0; i < list.length(); i = i + 1) {
+            sumaTotal =+ list.get(i);
+        }
+        return sumaTotal;
     }
 
     /** 
