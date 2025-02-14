@@ -158,7 +158,8 @@ public class Exercici0201 {
         String inipalabras = scanner.nextLine();
 
         inipalabras = inipalabras.replace(",", ", ");
-        ArrayList<String> paraules = split(",");
+        String cosas[] = split(",");
+        ArrayList<String> paraules = new Array.asList(cosas);
 
         String filtro = "";
         for (int cnt = 0; cnt < paraules.size(); cnt = cnt + 1) {
