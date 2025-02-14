@@ -121,6 +121,20 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testFiltraArrayParaulesAmbA
      */
     public static void filtraArrayParaulesAmbA() {
+        System.out.print("Escriu 5 paraules separades per ',' o ', ':");
+        String inipalabras = scanner.nextLine();
+        String paraules[] = inipalabras.replace(",", ", ").split(",");
+
+        int cnt = 0;
+
+        for (String paraula : paraules) {
+            if (paraula.toLowerCase.startsWith("a"));
+            cnt = cnt + 1;
+        }
+        
+
+
+
 
     }
        
