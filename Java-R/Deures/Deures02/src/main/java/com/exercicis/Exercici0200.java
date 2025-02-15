@@ -72,9 +72,15 @@ public class Exercici0200 {
      * @test ./runTest.sh com.exercicis.TestExercici0200#testAddImaginariesLargeNumbers
      */
     public static String addImaginaries(String num0, String num1) {
-        return "";
-    }
+        int realn0 = getParteReal(num0);
+        int Imaginarian0 = getParteImaginaria(num0);
+        int realn1 = getParteReal(num1);
+        int Imaginarian1 = getParteImaginaria(num1);
 
+        int rstReal = realn0 + realn1;
+        int rstImaginaria = Imaginarian0 + Imaginarian1;
+        return rstReal + "+" + rstImaginaria + "i";
+    }
     /**
      * Fes un programa que dibuixi el triangle de pascal
      * 
@@ -111,7 +117,7 @@ public class Exercici0200 {
      * @test ./runTest.sh com.exercicis.TestExercici0200#testAddListDecimals
      */
     public static double addList(ArrayList<Double> list) {
-        Double sumaTotal = 0;
+        Double sumaTotal = 0.0;
 
         for (int i = 0; i < list.length(); i = i + 1) {
             sumaTotal =+ list.get(i);
@@ -133,7 +139,12 @@ public class Exercici0200 {
      * @test ./runTest.sh com.exercicis.TestExercici0200#testPrintMatrixEmpty
      */
     public static void printMatrix(int[][] matrix) {
-
+        for (int i = 0; i < matrix.length; i = i +1) {
+            for (int j = 0; j < matrix[i].length; j = j + 1) {
+                System.out.println(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
     /**
@@ -190,6 +201,7 @@ public class Exercici0200 {
      * @test ./runTest.sh com.exercicis.TestExercici0200#testFirstNonRepeatedLongString
      */
     public static char firstNonRepeated(String str) {
+
         return '_';
     }
 
@@ -205,7 +217,9 @@ public class Exercici0200 {
      * @test ./runTest.sh com.exercicis.TestExercici0200#testInverIntSingleDigit
      */
     public static int inverInt(int num) {
-        return 0;
+        String numstring = String.valueOf(num);
+        StringBuffer invertidos = new StringBuilder(numstring).reverse.toString();
+        return Integer.parseInt(invertidos);
     }
 
     /**
