@@ -176,8 +176,23 @@ public class Exercici0200 {
      * @test ./runTest.sh com.exercicis.TestExercici0200#testTransposeSingleElement
      */
     public static int[][] transpose(int[][] matrix) {
-        int[][] rst = new int[0][0];
-        return rst;
+        int filas= matrix.length;
+        int columnas = matrix[0].length;
+
+        int[][] transposada = new int[filas][columnas];
+        for (int i = 0; i < filas; i = i + 1){
+            for (int j = 0; j < columnas; j = j + 1){
+                transposada[j][i] = matrix[i][j];
+            }
+        }
+        System.out.println("Matriz transposada: ");
+        for (int i = 0; i < columnas; i = i + 1){
+            for (int j = 0; j < filas; j = j + 1){
+                System.out.print(transposada[i][j] + ",");
+            }
+            System.out.println();
+        }
+        return transposada;
     }
 
     /**
@@ -244,8 +259,31 @@ public class Exercici0200 {
      * @test ./runTest.sh com.exercicis.TestExercici0200#testMinMaxAddWithDuplicates
      */
     public static ArrayList<Integer> minMaxAdd(ArrayList<Integer> nums) {
-        ArrayList<Integer> rst = new ArrayList<>();
-        return rst;
+        int numero = 0;
+        int numero_final = 0;
+        
+        /*Ordena  */
+        for (int i = 0; i < nums.size() - 1; i = i +1){
+            for (int j = 0; j < nums.size() - i - 1; j = j + 1){
+                if (nums.get(j) > nums.get(j + 1)){
+                    int ord = nums.get(j);
+                    nums.set(j, nums.get(j + 1));
+                    nums.set(j + 1, ord);
+                }
+            }
+        }
+
+        /*Suma 4 numeros más pequeños */
+        for(int i = 0; i < 4; i = i + 1){
+            numero += nums.get(i);
+        }
+
+        /*Suma 4 numeros más grandes(desde lista ordenada) */
+        for(int i = 1; i < 5; i = i + 1){
+            numero_final += nums.get(i);
+        }
+        
+        return new ArrayList<>(Arrays.asList(numero, numero_final));
     }
 
     /**
@@ -320,6 +358,19 @@ public class Exercici0200 {
      * @test ./runTest.sh com.exercicis.TestExercici0200#testFindUniqueNumberNoUnique
      */
     public static Double findUniqueNumber(ArrayList<Double> nums) {
-        return 0.0;
+        HashMap<Double, Integer> countMap = new HashMap<>();
+
+        /*Cuenta frecuencia de cada número */
+        for(Double num : nums) {
+            countMap.put(num, countMap.getOrDefault(num, 0) + 1);
+        }
+
+        /*Encuentra el numero que solo está 1 vez */
+        for (Double num : countMap.keySet()) {
+            if (countMap.get(num) == 1) {
+                return num;
+            }
+        }
+        return null; /* Si no se encuentra ningún número*/
     }
 }
