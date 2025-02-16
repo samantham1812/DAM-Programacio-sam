@@ -1,5 +1,6 @@
 package com.exercicis;
 
+import java.lang.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -76,7 +77,6 @@ public class Exercici0200 {
         int Imaginarian0 = getParteImaginaria(num0);
         int realn1 = getParteReal(num1);
         int Imaginarian1 = getParteImaginaria(num1);
-
         int rstReal = realn0 + realn1;
         int rstImaginaria = Imaginarian0 + Imaginarian1;
         return rstReal + "+" + rstImaginaria + "i";
@@ -216,7 +216,12 @@ public class Exercici0200 {
      * @test ./runTest.sh com.exercicis.TestExercici0200#testFirstNonRepeatedLongString
      */
     public static char firstNonRepeated(String str) {
-
+        for (int i = 0; i < str.length(); i = i + 1) {
+            char carac = str.charAt(i);
+            if (str.indexOf(carac) == str.lastIndexOf(carac)) { /*Mira que el caracter solo aprece 1 vez en el string */
+                return carac;
+            }
+        }
         return '_';
     }
 
