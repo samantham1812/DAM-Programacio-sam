@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class Exercici0201 {
@@ -34,15 +35,16 @@ public class Exercici0201 {
         /*
         ArrayList<Double> lstDecimals = generaLlistaDecimals(15);
         filtraLlistaDecimalsSuperiors50(lstDecimals);*/
-        
+        /* 
         HashMap<String, Integer> persones = new HashMap<>();
         persones.put("Anna", 25);
         persones.put("Joan", 30);
         persones.put("Marc", 20);
         mostrarLlistaOrdenadesPerEdat(persones);
-        /*
-        mostrarFrecuenciaParaules();
+
+        mostrarFrecuenciaParaules(); */
         invertirMapaClauValor();
+        /*
         fusionarMapesSumantValors();
         ordenarMapaPerClaus();
         calcularEstadistiquesNotesEstudiants();
@@ -289,12 +291,19 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testMostrarLlistaOrdenadesPerEdat
      */
     public static void mostrarLlistaOrdenadesPerEdat(HashMap<String, Integer> persones) {
-        ArrayList<String> keys = persones.keySet();
+        Set<String> claus = persones.keySet();
+        ArrayList<String> keys = new ArrayList<>(claus);
         keys.sort((name1, name2) -> {
-            String a = (String) persones.get(name1);
-            String b = (String) persones.get(name2);
+            Integer a = persones.get(name1);
+            Integer b = persones.get(name2);
             // String c = (String) name3.get("name");
             return a.compareTo(b);
+
+            // for , string key = keys.get(for), print (key + "(" + personas.get(key) + ")")
+            for (int i = 0; i < keys.size(); i = i + 1){
+                String key = keys.get(i);
+                System.out.println(key + "(" + personas.get(key) + ")");
+            }
         });
 
     }
@@ -312,7 +321,21 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testMostrarFrecuenciaParaules
      */
     public static void mostrarFrecuenciaParaules() {
+        System.out.println("Introdueix una frase: ");
+        String frase = scanner.nextLine();
 
+        frase = frase.replace(",", "").replace(".", "");
+        String[] paraules = frase.split(" ");
+        HashMap<String, Integer> freq = new HashMap<>();
+        for (String paraula : paraules) {
+            if (freq.containsKey(paraula)) {
+                freq.put(paraula, freq.get(paraula) + 1);
+            } else {
+                freq.put(paraula, 1);
+            }
+        }
+        System.out.println("Freqüència de paraules: " + freq);
+        
     }
 
     /**
@@ -329,7 +352,22 @@ public class Exercici0201 {
      */
     public static void invertirMapaClauValor() {
 
-    }
+        HashMap<String, Integer> ori = new HashMap<>();
+        ori.put("A", 1);
+        ori.put("B", 2);
+        ori.put("C", 3);
+
+        System.out.println("Mapa original: " + ori);
+
+        HashMap<Integer, String> inverso = new HashMap<>();
+
+        for (String pas : ori.keySet()) {
+            inverso.put(ori.get(pas), pas);
+        }
+
+        System.out.println("Mapa invertit: " + inverso);
+
+    } 
 
     /**
      * Fusiona dos HashMap sumant els valors de les claus comuns.
@@ -348,9 +386,24 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testFusionarMapesSumantValors
      */
     public static void fusionarMapesSumantValors() {
-
+        HashMap<String, Integer> mapa1 = new HashMap<>();
+        mapa1.put("X", 10);
+        mapa1.put("Y", 20);
+        HashMap<String, Integer> mapa2 = new HashMap<>();
+        mapa2.put("Y", 5);
+        mapa2.put("Z", 15);
+        
+        HashMap<String, Integer> mapaFusionado = new HashMap<>(mapa1);
+        
+        for (String clau : mapa2.keySet()) {
+            if (mapaFusionado.containsKey(clau)) {
+                mapaFusionado.put(clau, mapaFusionado.get(clau) + mapa2.get(clau));
+            } else {
+                mapaFusionado.put(clau, mapa2.get(clau));
+            }
+        }
+        System.out.println("Mapa fusionat: " + mapaFusionado);
     }
-
     /**
      * Ordena un HashMap per les claus mitjançant un TreeMap i mostra el resultat.
      * 
@@ -359,7 +412,7 @@ public class Exercici0201 {
      * 
      * 
      * Es mostra per pantalla:
-     * "Mapa ordenat per claus: {Banana=3, Poma=5, Taronja=2}".
+     * "Mapa ordenat per claus: {Banana=3, Poma=5, Taronja=2} (Mostrar las claves con su valor odenado por nombre de clave)".
      * 
      * @test ./runTest.sh com.exercicis.TestExercici0201#testOrdenarMapaPerClaus
      */
