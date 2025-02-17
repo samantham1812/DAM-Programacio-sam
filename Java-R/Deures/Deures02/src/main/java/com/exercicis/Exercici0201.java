@@ -3,6 +3,7 @@ package com.exercicis;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
@@ -405,18 +406,24 @@ public class Exercici0201 {
         System.out.println("Mapa fusionat: " + mapaFusionado);
     }
     /**
-     * Ordena un HashMap per les claus mitjançant un TreeMap i mostra el resultat.
+     * Ordena un HashMap per les clausi mostra el resultat.
      * 
-     * Es crea un HashMap amb elements (Banana=3, Poma=5, Taronja=2) i es transfereix a un TreeMap
+     * Es crea un HashMap amb elements (Banana=3, Poma=5, Taronja=2) 
      * per obtenir un ordre natural de les claus (alfabètic).
      * 
      * 
      * Es mostra per pantalla:
-     * "Mapa ordenat per claus: {Banana=3, Poma=5, Taronja=2} (Mostrar las claves con su valor odenado por nombre de clave)".
+     * "Mapa ordenat per claus: {Banana=3, Poma=5, Taronja=2}".
      * 
      * @test ./runTest.sh com.exercicis.TestExercici0201#testOrdenarMapaPerClaus
      */
     public static void ordenarMapaPerClaus() {
+        HashMap<String, Integer> elements = new HashMap<>();
+        elements.put("Banana", 3);
+        elements.put("Poma", 5);
+        elements.put("Taronja", 2);
+
+        List<String> clavesOrdena = new ArrayList<>(elements.keySet());
 
     }
 
