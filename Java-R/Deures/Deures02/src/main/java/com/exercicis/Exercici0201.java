@@ -15,11 +15,11 @@ public class Exercici0201 {
     public static Locale defaultLocale;
 
     public static void main(String[] args) {
-        /* 
+        
         scanner = new Scanner(System.in);
         defaultLocale = Locale.getDefault();
         Locale.setDefault(Locale.US);
-        
+        /*
         int[] arrEnters = generaArrayEnters(10);
         mostraArrayEstadistiques(arrEnters);
 
@@ -28,19 +28,19 @@ public class Exercici0201 {
 
         filtraArrayParaulesAmbA();
         filtraLlistaParaulesAmbA();
-
+        *//* 
         double[] arrDecimals = generaArrayDecimals(15);
-        filtraArrayDecimalsSuperiors50(arrDecimals);
-        */
+        filtraArrayDecimalsSuperiors50(arrDecimals);*/
+        /*
         ArrayList<Double> lstDecimals = generaLlistaDecimals(15);
-        filtraLlistaDecimalsSuperiors50(lstDecimals);
-        /* 
+        filtraLlistaDecimalsSuperiors50(lstDecimals);*/
+        
         HashMap<String, Integer> persones = new HashMap<>();
         persones.put("Anna", 25);
         persones.put("Joan", 30);
         persones.put("Marc", 20);
         mostrarLlistaOrdenadesPerEdat(persones);
-
+        /*
         mostrarFrecuenciaParaules();
         invertirMapaClauValor();
         fusionarMapesSumantValors();
@@ -226,7 +226,25 @@ public class Exercici0201 {
      */
     public static void filtraArrayDecimalsSuperiors50(double[] decimals) {
 
-    }   
+        String array = "";
+        String valors = "";
+
+        for (int i = 0; i < decimals.length; i++) {
+            array += String.format("%.2f, ", decimals[i]);
+        }
+        array = array.substring(0, array.length() - 2) + "]";
+
+        for (int j = 0; j < decimals.length; j++) {
+            if (decimals[j] > 50) {
+                valors += String.format("%.2f, ", decimals[j]);
+            }
+        }
+
+        valors = valors.substring(0, valors.length() - 2) + "]";
+
+        System.out.println("Array original: [" + array);
+        System.out.println("Valors majors que 50: [" +valors);
+    }
 
     /**
      * Filtra i mostra els decimals superiors a 50 d'una llista.
@@ -242,9 +260,24 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testFiltraLlistaDecimalsSuperiors50
      */
     public static void filtraLlistaDecimalsSuperiors50(ArrayList<Double> decimals) {
+        String llista = "";
+        String valors = "";
 
+        for (int i = 0; i < decimals.size(); i++) {
+            llista += String.format("%.2f, ", decimals.get(i));
+        }
+        llista = llista.substring(0, llista.length() - 2) + "]";
+
+        for (int j = 0; j < decimals.size(); j++) {
+            if (decimals.get(j) > 50) {
+                valors += String.format("%.2f, ", decimals.get(j));
+            }
+        }
+        valors = valors.substring(0, valors.length() - 2) + "]";
+
+        System.out.println("Llista original: [" + llista);
+        System.out.println("Valors majors que 50: [" + valors);
     }
-    
     /**
      * Mostra per pantalla les persones ordenades per edat.
      * 
@@ -256,6 +289,13 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testMostrarLlistaOrdenadesPerEdat
      */
     public static void mostrarLlistaOrdenadesPerEdat(HashMap<String, Integer> persones) {
+        ArrayList<String> keys = persones.keySet();
+        keys.sort((name1, name2) -> {
+            String a = (String) persones.get(name1);
+            String b = (String) persones.get(name2);
+            // String c = (String) name3.get("name");
+            return a.compareTo(b);
+        });
 
     }
 
