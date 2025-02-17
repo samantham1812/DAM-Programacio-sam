@@ -30,7 +30,7 @@ public class Container extends Component {
         return rst;
     } 
 
-    private ArrayList<String> addBorder(ArrayList<String> buffCmp) {
+    private ArrayList<String> addBorder(Component cmp,ArrayList<String> buffCmp) {
         ArrayList<String> rst = new ArrayList<>();
 
         for (int cntLine = 0; cntLine < buffCmp.size(); cntLine = cntLine + 1) {
@@ -38,6 +38,11 @@ public class Container extends Component {
             if (cntLine == 0) {
                 // Primea linia
                 line = "┌" + "─".repeat(line.length() - 2) + "┐";
+                /*Modificar esto para añadir cosas */
+
+
+
+                
             } else if (cntLine == (buffCmp.size() - 1)) {
                 // Última linia
                 line = "└" + "─".repeat(line.length() - 2) + "┘";
@@ -69,7 +74,7 @@ public class Container extends Component {
         for (Component cmp : components) {
             ArrayList<String> buffCmp = cmp.render();
 
-            buffCmp = addBorder(buffCmp);
+            buffCmp = addBorder(cmp.getTitle(), buffCmp);
 
             int posY = cmp.getY();
             for (String lineCmp : buffCmp) {

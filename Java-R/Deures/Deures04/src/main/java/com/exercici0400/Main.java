@@ -9,6 +9,7 @@ import javax.swing.plaf.MenuItemUI;
 import main.java.com.exercici0400.Component;
 import main.java.com.exercici0400.Container;
 import main.java.com.exercici0400.Menu;
+import main.java.com.exercici0400.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -36,8 +37,8 @@ public class Main {
         Menu mnu1 = new Menu(22,1,25,8, "Titol Menu", mapMnu,true);
 
         ArrayList<Component> components = new ArrayList<>();
-        components.add(mnu0);
-        components.add(mnu1);
+        components.add(mapMnu);
+        //components.add(mnu1);
         /*components.add(txt2);*/
 
         Container container = new Container(50, 10, components);

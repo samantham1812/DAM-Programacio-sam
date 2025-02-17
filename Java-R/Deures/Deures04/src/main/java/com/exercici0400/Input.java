@@ -7,8 +7,8 @@ public class Input extends Component {
 
     private String label;
     
-    public Input(int x, int y, int width, int height, String label) {
-        super(x, y, width, height);
+    public Input(int x, int y, int width, int height, String title, String label) {
+        super(x, y, width, height, title);
         this.label = label;
     }
 
