@@ -15,7 +15,7 @@ public class Exercici0201 {
     public static Locale defaultLocale;
 
     public static void main(String[] args) {
-        
+        /* 
         scanner = new Scanner(System.in);
         defaultLocale = Locale.getDefault();
         Locale.setDefault(Locale.US);
@@ -31,10 +31,10 @@ public class Exercici0201 {
 
         double[] arrDecimals = generaArrayDecimals(15);
         filtraArrayDecimalsSuperiors50(arrDecimals);
-
+        */
         ArrayList<Double> lstDecimals = generaLlistaDecimals(15);
         filtraLlistaDecimalsSuperiors50(lstDecimals);
-
+        /* 
         HashMap<String, Integer> persones = new HashMap<>();
         persones.put("Anna", 25);
         persones.put("Joan", 30);
@@ -46,7 +46,7 @@ public class Exercici0201 {
         fusionarMapesSumantValors();
         ordenarMapaPerClaus();
         calcularEstadistiquesNotesEstudiants();
-
+        */
         Locale.setDefault(defaultLocale);
         scanner.close();
     }
@@ -203,6 +203,10 @@ public class Exercici0201 {
      */
     public static ArrayList<Double> generaLlistaDecimals(int mida) {
         ArrayList<Double> rst = new ArrayList<>();
+        for (int cnt = 0; cnt < mida; cnt++) {
+            Random rd = new Random();
+            rst.add(rd.nextDouble(100));
+        }
         return rst;
     }
 
