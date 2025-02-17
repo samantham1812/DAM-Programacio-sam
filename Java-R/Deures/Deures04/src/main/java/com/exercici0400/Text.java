@@ -9,8 +9,8 @@ public class Text extends Component implements Alignable {
     private boolean ellipsis;
     private String align;
     
-    public Text(int x, int y, int width, int height, String text, int truncate, boolean ellipsis, String align) {
-        super(x, y, width, height);
+    public Text(int x, int y, int width, int height, String title, String text, int truncate, boolean ellipsis, String align) {
+        super(x, y, width, height, title);
         this.text = text;
         this.truncate = truncate;
         this.ellipsis = ellipsis;
@@ -78,14 +78,17 @@ public class Text extends Component implements Alignable {
 
     public ArrayList<String> render() {
         ArrayList<String> rst = wrapText();
-
+        
         // Afegir linia buida al principi
         rst.add(0, " ".repeat(width)); 
 
         // TODO: afegir espai blanc al principi de cada linia
-        // TODO: retallar linies massa llargues
-        // TODO: afegir espais blancs al prinicpi o final segons alineació
-
+        // TODO: afegir espais blancs al principi o final segons alineació
+        for (int i = 1; i < rst.size(); i = i + 1){
+            rst.set(i, " " + rst.get(i) + " ");
+        }
+        
+        
         // Afegir linies buides al final
         for (int i = rst.size(); i < height; i++) {
             rst.add(" ".repeat(width));

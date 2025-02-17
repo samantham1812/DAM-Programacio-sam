@@ -7,9 +7,8 @@ public class Container extends Component {
 
     private ArrayList<Component> components;
 
-    public Container(int width, int height, ArrayList<Component> components) {
-        super(0, 0, width, height);
-
+    public Container(int width, int height, String title, ArrayList<Component> components) {
+        super(0, 0, width, height, title);
         this.components = components;
     }
 
