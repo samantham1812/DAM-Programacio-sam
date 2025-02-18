@@ -30,26 +30,39 @@ public class Exercici0201 {
 
         filtraArrayParaulesAmbA();
         filtraLlistaParaulesAmbA();
-        *//* 
+        
         double[] arrDecimals = generaArrayDecimals(15);
-        filtraArrayDecimalsSuperiors50(arrDecimals);*/
-        /*
+        filtraArrayDecimalsSuperiors50(arrDecimals);
+    
         ArrayList<Double> lstDecimals = generaLlistaDecimals(15);
-        filtraLlistaDecimalsSuperiors50(lstDecimals);*/
-        /* 
+        filtraLlistaDecimalsSuperiors50(lstDecimals);
+         
         HashMap<String, Integer> persones = new HashMap<>();
         persones.put("Anna", 25);
         persones.put("Joan", 30);
         persones.put("Marc", 20);
         mostrarLlistaOrdenadesPerEdat(persones);
 
-        mostrarFrecuenciaParaules(); */
+        mostrarFrecuenciaParaules(); 
         invertirMapaClauValor();
         /*
         fusionarMapesSumantValors();
         ordenarMapaPerClaus();
         calcularEstadistiquesNotesEstudiants();
         */
+
+        HashMap<String, Double> notes = new HashMap<>();
+        notes.put("Maria", 7.5);
+        notes.put("Pedro", 6.8);
+        notes.put("Sofia", 8.2);
+        notes.put("Alex", 4.1);
+        notes.put("Martina", 2.0);
+        notes.put("Nuria", 6.9);
+        notes.put("Miguel", 9.0);
+        notes.put("Marc", 2.2);
+
+        calcularEstadistiquesNotesEstudiants(notes);
+
         Locale.setDefault(defaultLocale);
         scanner.close();
     }
@@ -434,12 +447,22 @@ public class Exercici0201 {
      * El mètode calcula la mitjana, la nota màxima i la nota mínima i les mostra per pantalla.
      * 
      * 
-     * Es mostra per pantalla:
+     * Es mostra per pantalla: amb 2 decimal
      * "Mitjana: [valor], Màxim: [valor], Mínim: [valor]".
      * 
      * @test ./runTest.sh com.exercicis.TestExercici0201#testCalcularEstadistiquesNotesEstudiants
      */
-    public static void calcularEstadistiquesNotesEstudiants() {
+    public static void calcularEstadistiquesNotesEstudiants(HashMap<String, Double> notes) {
+        Double min = Double.MAX_VALUE;
+        Double max = Double.MIN_VALUE;
+        Double suma = 0;
 
+        for (Double nota : notes.values()) {
+            suma = suma + nota;
+            if (nota > max) max = nota;
+            if (nota < min) min = nota;
+        }
+        double mitjana = nota / notes.size();
+        System.out.println("Mitjana: " + mitjana + ", Máxim: " + max + ", Mínim: " + min);
     }
 }
