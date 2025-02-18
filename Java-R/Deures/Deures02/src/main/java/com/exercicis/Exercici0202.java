@@ -1,5 +1,7 @@
 package com.exercicis;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Locale;
@@ -23,10 +25,46 @@ public class Exercici0202 {
         defaultLocale = Locale.getDefault();
         Locale.setDefault(Locale.US);
 
-        showJSONAstronautes("./data/astronautes.json");
+        //showJSONAstronautes("./data/astronautes.json");
 
-        showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "or");
-        showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "plata");
+        // showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "or");
+        // showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "plata");
+
+        //mostrarPlanetesOrdenats("./data/planetes.json", "nom");
+        //mostrarPlanetesOrdenats("./data/planetes.json", "radi");
+        //mostrarPlanetesOrdenats("./data/planetes.json", "massa");
+        //mostrarPlanetesOrdenats("./data/planetes.json", "distància");
+
+
+        ArrayList<HashMap<String, Object>> dades = new ArrayList<>();
+
+        ArrayList<String> caracteristiquesPacific = new ArrayList<>();
+        caracteristiquesPacific.add("És l'oceà més gran del món");
+        caracteristiquesPacific.add("Conté la fossa de les Marianes, la més profunda del món");
+        caracteristiquesPacific.add("Conté una illa de plàstics contaminants.");
+
+        ArrayList<String> caracteristiquesAtlantic = new ArrayList<>();
+        caracteristiquesAtlantic.add("Separa Amèrica d'Europa i Àfrica");
+        caracteristiquesAtlantic.add("Conté el famós Triangle de les Bermudes");
+
+        ArrayList<String> caracteristiquesMediterrani = new ArrayList<>();
+        caracteristiquesMediterrani.add("És un mar gairebé tancat");
+        caracteristiquesMediterrani.add("Connecta amb l'oceà Atlàntic a través de l'estret de Gibraltar");
+
+        dades.add(crearMassaAigua("Oceà Pacífic", "oceà", 168723000, 10924, caracteristiquesPacific));
+        dades.add(crearMassaAigua("Oceà Atlàntic", "oceà", 85133000, 8486, caracteristiquesAtlantic));
+        dades.add(crearMassaAigua("Oceà Índic", "oceà", 70560000, 7450, new ArrayList<>()));
+        dades.add(crearMassaAigua("Oceà Àrtic", "oceà", 15558000, 5450, new ArrayList<>()));
+        dades.add(crearMassaAigua("Mar Mediterrani", "mar", 2500000, 5121, caracteristiquesMediterrani));
+        dades.add(crearMassaAigua("Mar Carib", "mar", 2754000, 7686, new ArrayList<>()));
+        dades.add(crearMassaAigua("Mar de la Xina Meridional", "mar", 3500000, 5560, new ArrayList<>()));
+
+        try {
+            generarJSON(dades, "./data/aigua.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         Locale.setDefault(defaultLocale);
         scanner.close();
@@ -39,7 +77,7 @@ public class Exercici0202 {
      * > Astronauta 0:
      *   Nom: Yuri Gagarin
      *   Naixement: 1934
-     *   > Astronauta 1:
+     * > Astronauta 1:
      *   Nom: Neil Armstrong
      *   Naixement: 1930
      * 
@@ -114,5 +152,103 @@ public class Exercici0202 {
      * @test ./runTest.sh com.exercicis.TestExercici0202#testShowEsportistesOrdenatsPerBronze
      */
     public static void showEsportistesOrdenatsPerMedalla(String filePath, String tipusMedalla) {
+    }
+
+    /**
+     * Llegeix l'arxiu JSON i converteix la informació dels planetes en una llista d'objectes HashMap.
+     * 
+     * Cada planeta es representa com un HashMap amb les claus:
+     * - "nom" -> String amb el nom del planeta.
+     * - "dades_fisiques" -> HashMap amb:
+     *     - "radi_km" -> Double amb el radi en quilòmetres.
+     *     - "massa_kg" -> Double amb la massa en kilograms.
+     * - "orbita" -> HashMap amb:
+     *     - "distancia_mitjana_km" -> Double amb la distància mitjana al Sol en quilòmetres.
+     *     - "periode_orbital_dies" -> Double amb el període orbital en dies.
+     * 
+     * @param filePath Ruta de l'arxiu JSON amb les dades dels planetes.
+     * @return Una ArrayList de HashMap amb la informació dels planetes.
+     * 
+     * @test ./runTest.sh com.exercicis.TestExercici0202#testJSONPlanetesToArrayList
+     */
+    public static ArrayList<HashMap<String, Object>> JSONPlanetesToArrayList(String filePath) {
+        ArrayList<HashMap<String, Object>> planetesList = new ArrayList<>();
+        return planetesList;
+    }
+
+    /**
+     * Mostra una taula amb els planetes ordenats segons una columna especificada.
+     * 
+     * Els valors vàlids per a la columna d'ordenació són:
+     * - "nom" -> Ordena alfabèticament pel nom del planeta.
+     * - "radi" -> Ordena numèricament pel radi del planeta.
+     * - "massa" -> Ordena numèricament per la massa del planeta.
+     * - "distància" -> Ordena numèricament per la distància mitjana al Sol.
+     * 
+     * El format de la taula ha de fer servir els caràcters: "┌", "┬", "┐", "├", "┼", "┤", "└", "┴" i "┘".
+     * 
+     * Ex.:
+     * ┌──────────────┬────────────┬──────────────┬────────────────┐
+     * │ Nom          │ Radi (km)  │ Massa (kg)   │ Distància (km) │
+     * ├──────────────┼────────────┼──────────────┼────────────────┤
+     * │ Mercuri      │ 2439.7     │ 3.3011e23    │ 57910000       │
+     * │ Venus        │ 6051.8     │ 4.8675e24    │ 108200000      │
+     * └──────────────┴────────────┴──────────────┴────────────────┘
+     * 
+     * @param filePath Ruta de l'arxiu JSON amb les dades dels planetes.
+     * @param columnaOrdenacio La columna per la qual es vol ordenar ("nom", "radi", "massa", "distància").
+     * 
+     * @throws IllegalArgumentException si el paràmetre de columna és invàlid.
+     * 
+     * @test ./runTest.sh com.exercicis.TestExercici0202#testMostrarPlanetesOrdenatsNom
+     * @test ./runTest.sh com.exercicis.TestExercici0202#testMostrarPlanetesOrdenatsRadi
+     * @test ./runTest.sh com.exercicis.TestExercici0202#testMostrarPlanetesOrdenatsMassa
+     * @test ./runTest.sh com.exercicis.TestExercici0202#testMostrarPlanetesOrdenatsDistancia
+     */
+    public static void mostrarPlanetesOrdenats(String filePath, String columnaOrdenacio) {
+    }
+
+    /**
+     * Crea un HashMap que representa una massa d'aigua amb característiques addicionals.
+     * 
+     * @param nom Nom del mar o oceà.
+     * @param tipus Tipus (mar o oceà).
+     * @param superficie_km2 Superfície en km².
+     * @param profunditat_max_m Profunditat màxima en metres.
+     * @param caracteristiques Llista d'informació addicional sobre el mar o oceà.
+     * @return Un HashMap amb les dades del mar o oceà.
+     * 
+     * @test ./runTest.sh com.exercicis.TestExercici0202#testCrearMassaAigua
+     */
+    public static HashMap<String, Object> crearMassaAigua(String nom, String tipus, double superficie_km2, double profunditat_max_m, ArrayList<String> caracteristiques) {
+        HashMap<String, Object> massaAigua = new HashMap<>();
+        return massaAigua;
+    }
+
+    /**
+     * Genera un arxiu JSON amb la informació de mars i oceans. Identat amb "4 espais":
+     * [
+     *     {
+     *         "nom": "Oceà Pacífic",
+     *          "tipus": "oceà",
+     *          "profunditat_max_m": 10924,
+     *          "superficie_km2": 1.68723E8,
+     *          "caracteristiques": [
+     *              "És l'oceà més gran del món",
+     *              "Conté la fossa de les Marianes, la més profunda del món",
+     *              "Conté una illa de plàstics contaminants."
+     *         ]
+     *      },
+     *      {
+     *          "nom": "Oceà Atlàntic",
+     *          "tipus": "oceà", ...
+     * 
+     * @param filePath Ruta de l'arxiu JSON a crear.
+     * @throws IOException Si hi ha algun problema amb l'escriptura de l'arxiu.
+     * 
+     * @test ./runTest.sh com.exercicis.TestExercici0202#testValidarFormatJSON
+     */
+    public static void generarJSON(ArrayList<HashMap<String, Object>> dades, String filePath) throws IOException {
+
     }
 }
