@@ -1,8 +1,10 @@
 package com.exercicis;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Map;
@@ -12,6 +14,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import org.json.JSONObject;
+
+import netscape.javascript.JSObject;
+
 import org.json.JSONArray;
 
 public class Exercici0202 {
@@ -25,10 +30,10 @@ public class Exercici0202 {
         defaultLocale = Locale.getDefault();
         Locale.setDefault(Locale.US);
 
-        //showJSONAstronautes("./data/astronautes.json");
+        // showJSONAstronautes("./data/astronautes.json");
 
-        // showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "or");
-        // showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "plata");
+        showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "or");
+        showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "plata");
 
         //mostrarPlanetesOrdenats("./data/planetes.json", "nom");
         //mostrarPlanetesOrdenats("./data/planetes.json", "radi");
@@ -84,7 +89,20 @@ public class Exercici0202 {
      * @test ./runTest.sh com.exercicis.TestExercici0202#testShowJSONAstronautes
      */
     public static void showJSONAstronautes(String filePath) {
-
+        try {
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+            JSONObject jSONObject = new JSONObject(content); 
+            JSONArray datos = jSONObject.getJSONArray("astronautes"); 
+            
+            for (int i = 0; i < datos.length(); i++) {
+                JSONObject astronauta = datos.getJSONObject(i);
+                System.out.println("> Astronauta " + i + ":");
+                System.out.println("  Nom: " + astronauta.getString("nom"));
+                System.out.println("  Naixement: " + astronauta.getInt("any_naixement"));
+            }       
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -95,8 +113,26 @@ public class Exercici0202 {
      */
     public static ArrayList<HashMap<String, Object>> JSONAstronautesToArrayList(String filePath) {
         ArrayList<HashMap<String, Object>> rst = new ArrayList<>();
+
+        try {
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+            JSONObject jSONObject = new JSONObject(content); //Passar a objecte
+            JSONArray jSONArray = jSONObject.getJSONArray("astronautes"); //Passar a array
+
+            for (int i = 0; i < jSONArray.length(); i++) {
+                JSONObject astronauta = jSONArray.getJSONObject(i);
+                HashMap<String, Object> astronautaHM = new HashMap<>(); 
+                astronautaHM.put("nom", astronauta.getString("nom"));
+                astronautaHM.put("any_naixement", astronauta.getInt("any_naixement"));
+                rst.add(astronautaHM);
+            }
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return rst;
     }
+    
 
     /**
      * Llegeix l'arxiu de 'filePath', retorna un ArrayList amb les dades dels esportistes
@@ -107,6 +143,28 @@ public class Exercici0202 {
      */
     public static ArrayList<HashMap<String, Object>> JSONEsportistesToArrayList(String filePath) {
         ArrayList<HashMap<String, Object>> rst = new ArrayList<>();
+
+        try{
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+            JSONArray jSONArray = new jSONArray(content);
+
+            for (int i = 0; i < jSONArray.length;i = i + 1){
+                JSONArray datos = jSONArray.getJSONObject(i);
+                HashMap<String,Object> esportistes = new HashMap<>();
+                esportistes.put("nom", datos.getString("nom"));
+                esportistes.put("naixement", datos.getInt("any_naixement"));
+                esportistes.put("pais", datos.getString("pais"));
+                esportistes.put("medallas", );
+
+                JSObject jsonmedallas = esportistes.getJSONObject("medalles_olimpiques");
+                HashMap<String, Object> medalles = new HashMap<>();
+                medalles.put("or", jsonmedallas.getString("or"));
+
+            }   
+
+        } catch (IOException) {
+            e.printStackTrace();
+        }
         return rst;
     }
 
