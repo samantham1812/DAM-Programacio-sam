@@ -33,8 +33,6 @@ public class Table extends Component {
                 capcelera = capcelera + "|";
             } 
             
-            
-            
 
         }
         rst.add(1, " " + capcelera + " ");
