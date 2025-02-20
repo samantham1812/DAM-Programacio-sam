@@ -14,9 +14,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import org.json.JSONObject;
-
-import netscape.javascript.JSObject;
-
+import org.jline.terminal.impl.jna.win.Kernel32.MENU_EVENT_RECORD;
 import org.json.JSONArray;
 
 public class Exercici0202 {
@@ -146,23 +144,27 @@ public class Exercici0202 {
 
         try{
             String content = new String(Files.readAllBytes(Paths.get(filePath)));
-            JSONArray jSONArray = new jSONArray(content);
+            JSONArray jSONArray = new JSONArray(content);
 
-            for (int i = 0; i < jSONArray.length;i = i + 1){
-                JSONArray datos = jSONArray.getJSONObject(i);
+            for (int i = 0; i < jSONArray.length();i = i + 1){
+                JSONObject datos = jSONArray.getJSONObject(i);
                 HashMap<String,Object> esportistes = new HashMap<>();
                 esportistes.put("nom", datos.getString("nom"));
                 esportistes.put("naixement", datos.getInt("any_naixement"));
                 esportistes.put("pais", datos.getString("pais"));
-                esportistes.put("medallas", );
 
-                JSObject jsonmedallas = esportistes.getJSONObject("medalles_olimpiques");
+                JSONObject jsonmedallas = datos.getJSONObject("medalles_olimpiques");
                 HashMap<String, Object> medalles = new HashMap<>();
-                medalles.put("or", jsonmedallas.getString("or"));
+                medalles.put("or", jsonmedallas.getInt("or"));
+                medalles.put("plata", jsonmedallas.getInt("plata"));
+                medalles.put("bronze", jsonmedallas.getInt("bronze"));
 
+                esportistes.put("medallas", medalles);
+
+                rst.add(esportistes);
             }   
 
-        } catch (IOException) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return rst;
@@ -183,6 +185,16 @@ public class Exercici0202 {
     public static ArrayList<HashMap<String, Object>> ordenarEsportistesPerMedalla(String filePath, String tipusMedalla) {
         // Obtenir la llista d'esportistes des del fitxer JSON
         ArrayList<HashMap<String, Object>> esportistes = JSONEsportistesToArrayList(filePath);
+
+        if (!tipusMedalla.equals("or") && !tipusMedalla.equals("plata") && !tipusMedalla.equals("bronze")){
+            throw new IllegalArgumentException("Tipus de medalla invàlid" + tipusMedalla + ". Tipus válids: 'or', 'plata', 'bronze'.");
+        }
+        // Ordenar por medalla especifica
+        esportistes.sort((esportista0 ,esportista1) -> {
+            HashMap<?, ?> medallas0 = (HashMap<?, ?>) esportista0.get("medalles");
+            HashMap<?, ?> medallas1 = (HashMap<?, ?>) esportista1.get("medalles");
+            
+        });
         return esportistes;
     }
 
