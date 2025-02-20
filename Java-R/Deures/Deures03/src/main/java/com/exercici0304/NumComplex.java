@@ -35,7 +35,7 @@ public class NumComplex {
 
     @Override
     public String toString() {
-        return partReal + (partImaginaria >= 0 ? "+" : "-") + Math.abs(partImaginaria) + "i";
+        return  String.format("%.1f %s %.1fi", partReal, (partImaginaria >= 0 ? "+" : "-"), Math.abs(partImaginaria));
     }
 
     public static NumComplex suma(NumComplex a, NumComplex b) {
