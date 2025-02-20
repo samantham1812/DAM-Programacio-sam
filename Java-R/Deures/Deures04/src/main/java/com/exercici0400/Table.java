@@ -19,6 +19,11 @@ public class Table extends Component {
 
     public ArrayList<String> render() {
         ArrayList<String> rst = new ArrayList<String>();
+        rst.add(0," ".repeat(width));
+
+        for (int i = 0; i < height; i = i +1){
+            rst.add(i, "x".repeat(width));
+        }
         return rst;
     } 
 }
