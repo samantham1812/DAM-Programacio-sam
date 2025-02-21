@@ -37,7 +37,7 @@ public class Exercici0202 {
         //mostrarPlanetesOrdenats("./data/planetes.json", "massa");
         //mostrarPlanetesOrdenats("./data/planetes.json", "distància");
 
-
+        /* 
         ArrayList<HashMap<String, Object>> dades = new ArrayList<>();
 
         ArrayList<String> caracteristiquesPacific = new ArrayList<>();
@@ -67,7 +67,7 @@ public class Exercici0202 {
             e.printStackTrace();
         }
 
-
+        */
         Locale.setDefault(defaultLocale);
         scanner.close();
     }
@@ -226,7 +226,27 @@ public class Exercici0202 {
      * @test ./runTest.sh com.exercicis.TestExercici0202#testShowEsportistesOrdenatsPerBronze
      */
     public static void showEsportistesOrdenatsPerMedalla(String filePath, String tipusMedalla) {
-        
+        ArrayList<HashMap<String, Object>> esportistas = ordenarEsportistesPerMedalla(filePath, tipusMedalla); 
+
+        String fijo = tipusMedalla.substring(0,1).toUpperCase() + tipusMedalla.substring(1).toLowerCase();
+
+        System.out.println("┌──────────────────────┬─────────────────┬────────────┬────────┐");
+        System.out.printf("| %-20s | %-15s | %-10s | %-6s |\n","Nom", "Pais","Naixement",fijo);
+        System.out.println("├──────────────────────┼─────────────────┼────────────┼────────┤");
+
+        for (HashMap<String,Object> esportista : esportistas) {
+            String nom = (String) esportista.get("nom");
+            String pais = (String) esportista.get("pais");
+            int any_naixement = (Integer) esportista.get("any_naixement");
+
+
+            HashMap<String, Integer> medallas = (HashMap<String, Integer>) esportista.get("medalles");
+            int numMedalles = medallas.get(tipusMedalla);
+            
+            System.out.printf("| %-20s | %-15s | %-10d | %-6d |\n", nom, pais, any_naixement, numMedalles);
+        }
+
+        System.out.println("└──────────────────────┴─────────────────┴────────────┴────────┘");
     }
 
     /**
