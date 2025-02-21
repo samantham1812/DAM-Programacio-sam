@@ -14,7 +14,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import org.json.JSONObject;
-import org.jline.terminal.impl.jna.win.Kernel32.MENU_EVENT_RECORD;
 import org.json.JSONArray;
 
 public class Exercici0202 {
@@ -194,6 +193,11 @@ public class Exercici0202 {
             HashMap<?, ?> medallas0 = (HashMap<?, ?>) esportista0.get("medalles");
             HashMap<?, ?> medallas1 = (HashMap<?, ?>) esportista1.get("medalles");
             
+            Integer a = (Integer) medallas0.get(tipusMedalla);
+            Integer b = (Integer) medallas1.get(tipusMedalla);
+
+            // Ordenar en ordre descendent
+            return b.compareTo(a);
         });
         return esportistes;
     }
@@ -222,6 +226,7 @@ public class Exercici0202 {
      * @test ./runTest.sh com.exercicis.TestExercici0202#testShowEsportistesOrdenatsPerBronze
      */
     public static void showEsportistesOrdenatsPerMedalla(String filePath, String tipusMedalla) {
+        
     }
 
     /**
