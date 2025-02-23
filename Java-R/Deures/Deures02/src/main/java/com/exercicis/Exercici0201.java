@@ -356,7 +356,7 @@ public class Exercici0201 {
         keys.sort((name1, name2) -> persones.get(name1).compareTo(persones.get(name2)));
 
         for (String key : keys){
-            System.out.println(key + "(" + persones.get(key) + ")");
+            System.out.println(key + " (" + persones.get(key) + ")");
         }
     }
 
