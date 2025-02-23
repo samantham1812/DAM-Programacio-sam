@@ -21,8 +21,9 @@ public class Exercici0201 {
         scanner = new Scanner(System.in);
         defaultLocale = Locale.getDefault();
         Locale.setDefault(Locale.US);
-        /*
+        
         int[] arrEnters = generaArrayEnters(10);
+        /* 
         mostraArrayEstadistiques(arrEnters);
 
         ArrayList<Integer> lstEnters = generaLlistaEnters(10);
@@ -50,7 +51,7 @@ public class Exercici0201 {
         ordenarMapaPerClaus();
         calcularEstadistiquesNotesEstudiants();
         */
-
+        /* 
         HashMap<String, Double> notes = new HashMap<>();
         notes.put("Maria", 7.5);
         notes.put("Pedro", 6.8);
@@ -62,7 +63,7 @@ public class Exercici0201 {
         notes.put("Marc", 2.2);
 
         calcularEstadistiquesNotesEstudiants(notes);
-
+        */
         Locale.setDefault(defaultLocale);
         scanner.close();
     }
@@ -76,7 +77,11 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testGeneraArrayEnters
      */
     public static int[] generaArrayEnters(int mida) {
-        int[] rst = new int[0];
+        int[] rst = new int[mida];
+
+        for (int i = 0; i < mida; i++) {
+            rst[i] = i;
+        }
         return rst;
     }
 
