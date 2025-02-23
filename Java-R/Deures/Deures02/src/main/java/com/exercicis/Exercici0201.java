@@ -2,7 +2,9 @@ package com.exercicis;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -23,7 +25,7 @@ public class Exercici0201 {
         Locale.setDefault(Locale.US);
         
         int[] arrEnters = generaArrayEnters(10);
-        /* 
+        
         mostraArrayEstadistiques(arrEnters);
 
         ArrayList<Integer> lstEnters = generaLlistaEnters(10);
@@ -46,12 +48,11 @@ public class Exercici0201 {
 
         mostrarFrecuenciaParaules(); 
         invertirMapaClauValor();
-        /*
+        
         fusionarMapesSumantValors();
         ordenarMapaPerClaus();
-        calcularEstadistiquesNotesEstudiants();
-        */
-        /* 
+        
+        
         HashMap<String, Double> notes = new HashMap<>();
         notes.put("Maria", 7.5);
         notes.put("Pedro", 6.8);
@@ -63,7 +64,6 @@ public class Exercici0201 {
         notes.put("Marc", 2.2);
 
         calcularEstadistiquesNotesEstudiants(notes);
-        */
         Locale.setDefault(defaultLocale);
         scanner.close();
     }
@@ -97,6 +97,29 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testMostraArrayEstadistiques
      */
     public static void mostraArrayEstadistiques(int[] array) {
+        int maximo = Integer.MIN_VALUE;
+        int minimo = Integer.MAX_VALUE;
+        double media = 0.0;
+
+        for (int valor : array) {
+            media += valor;
+            if (valor > maximo) {
+                maximo = valor;
+            }
+            if (valor < minimo) {
+                minimo = valor;
+            }
+        }
+        media = media / array.length;
+
+        System.out.println("Array[");
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(array[i]);
+            if (i < array.length - 1)
+            System.out.print(", ");
+        }
+        System.out.println("]");
+        System.out.println("Màxim: " + maximo + " Mínim: " + minimo + " Mitjana: " + media);
     }
 
     /**
@@ -109,6 +132,11 @@ public class Exercici0201 {
      */
     public static ArrayList<Integer> generaLlistaEnters(int mida) {
         ArrayList<Integer> rst = new ArrayList<>();
+        Random nran = new Random();
+
+        for (int i = 0; i < mida; i++) {
+            rst.add((int) (nran.nextInt(100)));
+        }
         return rst;
     }
 
@@ -126,7 +154,23 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testMostraLlistaEstadistiques
      */
     public static void mostraLlistaEstadistiques(ArrayList<Integer> llista) {
+        int maximo = Integer.MIN_VALUE;
+        int minimo = Integer.MAX_VALUE;
+        int suma = 0;
 
+        for (int valor : llista){
+            if (valor > maximo) {
+                maximo = valor;
+            }
+            if (valor < minimo) {
+                minimo = valor;
+            }
+            suma += valor;
+        }
+        double mitjana = (double) suma / llista.size();
+
+        System.out.println("Llista: " + llista);
+        System.out.println("Màxim: " + maximo + " Mínim: " + minimo + " Mitjana: " + mitjana);
     }
 
     /**
@@ -176,17 +220,15 @@ public class Exercici0201 {
      */
     public static void filtraLlistaParaulesAmbA() {
         System.out.print("Escriu 5 paraules separades per ',' o ', ':");
-        String inipalabras = scanner.nextLine();
-
-        inipalabras = inipalabras.replace(",", ", ");
-        String cosas[] = split(",");
-        ArrayList<String> paraules = new Array.asList(cosas);
+        String cosas = scanner.nextLine();
+        String cosasarray[] = cosas.replace(", ", ",").split(",");
+        ArrayList<String> paraules = new ArrayList<>(Arrays.asList(cosasarray));
 
         String filtro = "";
         for (int cnt = 0; cnt < paraules.size(); cnt = cnt + 1) {
             String paraula = paraules.get(cnt);
             if (paraula.toLowerCase().startsWith("a")) {
-                if (filtro.size()<1){
+                if (filtro.length()<1){
                     filtro = filtro + paraula;
                 } else {
                     filtro = filtro + ", " + paraula;
@@ -310,21 +352,12 @@ public class Exercici0201 {
      * @test ./runTest.sh com.exercicis.TestExercici0201#testMostrarLlistaOrdenadesPerEdat
      */
     public static void mostrarLlistaOrdenadesPerEdat(HashMap<String, Integer> persones) {
-        Set<String> claus = persones.keySet();
-        ArrayList<String> keys = new ArrayList<>(claus);
-        keys.sort((name1, name2) -> {
-            Integer a = persones.get(name1);
-            Integer b = persones.get(name2);
-            // String c = (String) name3.get("name");
-            return a.compareTo(b);
+        ArrayList<String> keys = new ArrayList<>(persones.keySet());
+        keys.sort((name1, name2) -> persones.get(name1).compareTo(persones.get(name2)));
 
-            // for , string key = keys.get(for), print (key + "(" + personas.get(key) + ")")
-            for (int i = 0; i < keys.size(); i = i + 1){
-                String key = keys.get(i);
-                System.out.println(key + "(" + personas.get(key) + ")");
-            }
-        });
-
+        for (String key : keys){
+            System.out.println(key + "(" + persones.get(key) + ")");
+        }
     }
 
     /**
@@ -442,7 +475,13 @@ public class Exercici0201 {
         elements.put("Taronja", 2);
 
         List<String> clavesOrdena = new ArrayList<>(elements.keySet());
+        Collections.sort(clavesOrdena);
 
+        Map<String, Integer> elemeMap = new LinkedHashMap<>();
+        for (String clau : clavesOrdena) {
+            elemeMap.put(clau, elements.get(clau));
+        }
+        System.out.println("Mapa ordenat per claus: " + elemeMap);
     }
 
     /**
@@ -460,14 +499,14 @@ public class Exercici0201 {
     public static void calcularEstadistiquesNotesEstudiants(HashMap<String, Double> notes) {
         Double min = Double.MAX_VALUE;
         Double max = Double.MIN_VALUE;
-        Double suma = 0;
+        Double suma = 0.0;
 
         for (Double nota : notes.values()) {
             suma = suma + nota;
             if (nota > max) max = nota;
             if (nota < min) min = nota;
         }
-        double mitjana = nota / notes.size();
+        double mitjana = (double) suma / notes.size();
         System.out.println("Mitjana: " + mitjana + ", Máxim: " + max + ", Mínim: " + min);
     }
 }

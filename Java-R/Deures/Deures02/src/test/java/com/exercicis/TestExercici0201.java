@@ -349,7 +349,7 @@ class TestExercici0201 {
     @Test
     void testCalcularEstadistiquesNotesEstudiants(TestInfo testInfo) throws Exception {
         try {
-            String output = SystemLambda.tapSystemOut(() -> Exercici0201.calcularEstadistiquesNotesEstudiants());
+            String output = SystemLambda.tapSystemOut(() -> Exercici0201.calcularEstadistiquesNotesEstudiants(null));
             String expected = "Mitjana: 7.333333333333333, Màxim: 8.5, Mínim: 6.0";
             assertEquals(expected, output.trim());
             System.out.println("Test passed, succeeded!");
