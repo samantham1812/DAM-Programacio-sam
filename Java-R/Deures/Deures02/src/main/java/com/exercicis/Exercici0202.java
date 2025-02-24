@@ -9,13 +9,14 @@ import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
+import javax.management.ObjectName;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
-
 import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 public class Exercici0202 {
 
@@ -33,10 +34,10 @@ public class Exercici0202 {
         // showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "or");
         // showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "plata");
 
-        //mostrarPlanetesOrdenats("./data/planetes.json", "nom");
-        //mostrarPlanetesOrdenats("./data/planetes.json", "radi");
-        //mostrarPlanetesOrdenats("./data/planetes.json", "massa");
-        //mostrarPlanetesOrdenats("./data/planetes.json", "distància");
+        mostrarPlanetesOrdenats("./data/planetes.json", "nom");
+        mostrarPlanetesOrdenats("./data/planetes.json", "radi");
+        mostrarPlanetesOrdenats("./data/planetes.json", "massa");
+        mostrarPlanetesOrdenats("./data/planetes.json", "distància");
 
         /* 
         ArrayList<HashMap<String, Object>> dades = new ArrayList<>();
@@ -274,23 +275,24 @@ public class Exercici0202 {
             JSONObject jsonObject = new JSONObject(contenido);
             JSONArray planetes = jsonObject.getJSONArray("planetes");
 
-            for (int i = 0; i < planetes.length(); i++){
+            for (int i = 0; i < planetes.length(); i++) {
                 JSONObject planeta = planetes.getJSONObject(i);
                 HashMap<String, Object> mapPlaneta = new HashMap<>();
                 mapPlaneta.put("nom", planeta.getString("nom"));
 
+                // Dades físiques
                 JSONObject dadesFisiques = planeta.getJSONObject("dades_fisiques");
-                HashMap<String, Double> mapdadfisiques = new HashMap<>();
-                mapdadfisiques.put("radi", dadesFisiques.getDouble("radi_km"));
-                mapdadfisiques.put("massa", dadesFisiques.getDouble("massa_kg"));
+                HashMap<String, Double> mapDadesFisiques = new HashMap<>();
+                mapDadesFisiques.put("radi_km", dadesFisiques.getDouble("radi_km"));
+                mapDadesFisiques.put("massa_kg", dadesFisiques.getDouble("massa_kg"));
+                mapPlaneta.put("dades_fisiques", mapDadesFisiques);
 
-                JSONObject orb = planeta.getJSONObject("orbita");
+                // Òrbita
+                JSONObject orbita = planeta.getJSONObject("orbita");
                 HashMap<String, Double> mapOrbita = new HashMap<>();
-                mapOrbita.put("distancia", orb.getDouble("distancia_mitjana_km"));
-                mapOrbita.put("periodoOrbital", orb.getDouble("periode_orbital_dies"));
-
-                planeta.put("dades_fisiques", mapdadfisiques);
-                planeta.put("orbita", mapOrbita);
+                mapOrbita.put("distancia_mitjana_km", orbita.getDouble("distancia_mitjana_km"));
+                mapOrbita.put("periode_orbital_dies", orbita.getDouble("periode_orbital_dies"));
+                mapPlaneta.put("orbita", mapOrbita);
 
                 planetesList.add(mapPlaneta);
             }
@@ -330,11 +332,53 @@ public class Exercici0202 {
      * @test ./runTest.sh com.exercicis.TestExercici0202#testMostrarPlanetesOrdenatsDistancia
      */
     public static void mostrarPlanetesOrdenats(String filePath, String columnaOrdenacio) {
+        ArrayList<HashMap<String, Object>> planetes =  JSONPlanetesToArrayList(filePath);
+
+        Comparator<HashMap<String, Object>> comparator;
+        switch (columnaOrdenacio) {
+            case "nom":
+                comparator = Comparator.comparing(p -> (String) p.get("nom"));
+                break;
+            case "radi_km":
+                comparator = Comparator.comparing(p -> ((HashMap<String, Double>) p.get("dades_fisiques")).get("radi_km"));
+                break;
+            case "massa_kg":
+                comparator = Comparator.comparing(p -> ((HashMap<String, Double>) p.get("dades_fisiques")).get("massa_kg"));
+                break;
+            case "distancia_mitjana_km":
+                comparator = Comparator.comparing(p -> ((HashMap<String, Double>) p.get("orbita")).get("distancia_mitjana_km"));
+                break;
+            default:
+                throw new IllegalArgumentException("Columna d'ordenació invàlida");
+        }
+
+        planetes.sort(comparator);
+
+        String format = "| %-12s | %-10s | %-12s | %-14s |%n";
+        System.out.println("┌──────────────┬────────────┬──────────────┬────────────────┐");
+        System.out.printf("| %-12s | %-10s | %-12s | %-14s |%n", "Nom", "Radi (km)", "Massa (kg)", "Distancia (km)");
+        System.out.println("├──────────────┼────────────┼──────────────┼────────────────┤");
+
+        for (HashMap<String, Object> planeta : planetes) {
+            String nom = (String) planeta.get("nom");
+            HashMap<String, Double> dadesFisiques = (HashMap<String, Double>) planeta.get("dades_fisiques");
+            HashMap<String, Double> orbita = (HashMap<String, Double>) planeta.get("orbita");
+    
+            System.out.printf(format, 
+                nom, 
+                String.format("%.1f", dadesFisiques.get("radi_km")), 
+                String.format("%.3e", dadesFisiques.get("massa_kg")), 
+                String.format("%.0f", orbita.get("distancia_mitjana_km"))
+            );
+        }
+    
+        System.out.println("└──────────────┴────────────┴──────────────┴────────────────┘");
+    }
+        
        // String contenido = new String(Files.readAllBytes(Paths.get(filePath)));
        // JSONObject jsonObject = new JSONObject(contenido);
         // JSONArray planetes = jsonObject.getJSONArray("planetes");
         // ArrayList<String, Object> colValidas = Arrays.asList("nom", "radi", "massa", "distancia");
-    }
 
     /**
      * Crea un HashMap que representa una massa d'aigua amb característiques addicionals.
