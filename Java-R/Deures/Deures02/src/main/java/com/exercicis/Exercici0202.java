@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -29,8 +30,8 @@ public class Exercici0202 {
 
         // showJSONAstronautes("./data/astronautes.json");
 
-        showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "or");
-        showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "plata");
+        // showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "or");
+        // showEsportistesOrdenatsPerMedalla("./data/esportistes.json", "plata");
 
         //mostrarPlanetesOrdenats("./data/planetes.json", "nom");
         //mostrarPlanetesOrdenats("./data/planetes.json", "radi");
@@ -268,6 +269,34 @@ public class Exercici0202 {
      */
     public static ArrayList<HashMap<String, Object>> JSONPlanetesToArrayList(String filePath) {
         ArrayList<HashMap<String, Object>> planetesList = new ArrayList<>();
+        try {
+            String contenido = new String(Files.readAllBytes(Paths.get(filePath)));
+            JSONObject jsonObject = new JSONObject(contenido);
+            JSONArray planetes = jsonObject.getJSONArray("planetes");
+
+            for (int i = 0; i < planetes.length(); i++){
+                JSONObject planeta = planetes.getJSONObject(i);
+                HashMap<String, Object> mapPlaneta = new HashMap<>();
+                mapPlaneta.put("nom", planeta.getString("nom"));
+
+                JSONObject dadesFisiques = planeta.getJSONObject("dades_fisiques");
+                HashMap<String, Double> mapdadfisiques = new HashMap<>();
+                mapdadfisiques.put("radi", dadesFisiques.getDouble("radi_km"));
+                mapdadfisiques.put("massa", dadesFisiques.getDouble("massa_kg"));
+
+                JSONObject orb = planeta.getJSONObject("orbita");
+                HashMap<String, Double> mapOrbita = new HashMap<>();
+                mapOrbita.put("distancia", orb.getDouble("distancia_mitjana_km"));
+                mapOrbita.put("periodoOrbital", orb.getDouble("periode_orbital_dies"));
+
+                planeta.put("dades_fisiques", mapdadfisiques);
+                planeta.put("orbita", mapOrbita);
+
+                planetesList.add(mapPlaneta);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return planetesList;
     }
 
@@ -301,6 +330,10 @@ public class Exercici0202 {
      * @test ./runTest.sh com.exercicis.TestExercici0202#testMostrarPlanetesOrdenatsDistancia
      */
     public static void mostrarPlanetesOrdenats(String filePath, String columnaOrdenacio) {
+       // String contenido = new String(Files.readAllBytes(Paths.get(filePath)));
+       // JSONObject jsonObject = new JSONObject(contenido);
+        // JSONArray planetes = jsonObject.getJSONArray("planetes");
+        // ArrayList<String, Object> colValidas = Arrays.asList("nom", "radi", "massa", "distancia");
     }
 
     /**
