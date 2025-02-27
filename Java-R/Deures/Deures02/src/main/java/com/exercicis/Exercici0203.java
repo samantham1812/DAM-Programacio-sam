@@ -115,6 +115,35 @@ public class Exercici0203 {
      */
     public static ArrayList<HashMap<String, Object>> loadMonuments(String filePath) throws IOException {
         ArrayList<HashMap<String, Object>> rst = new ArrayList<>();
+        String content = new String(Files.readAllBytes(Paths.get(filePath)));
+        JSONArray monumentsArray = new JSONObject(content).getJSONArray("monuments");
+        for (int i = 0; i < monumentsArray.length(); i++) {
+            JSONObject monument = monumentsArray.getJSONObject(i);
+            HashMap<String, Object> monumentHM = new HashMap<>();
+
+            for (String key : monument.keySet()) {
+                if (key.equals("nom") || key.equals("pais") || key.equals("categoria")) {
+                    monumentHM.put(key, monument.get(key));
+                } else if (key.equals("detalls")) {
+                    JSONObject detalls = monument.getJSONObject(key);
+                    HashMap<String, Object> detallsMap = new HashMap<>();
+                    HashMap<String, Object> altres = new HashMap<>();
+                    for (String detallsKey : detalls.keySet()) {
+                        if (!detallsKey.equals("any_declaracio") && !detallsKey.equals("coordenades")) {
+                            HashMap<String, Object> altre = new HashMap<>();
+                            altre.put("clau", detallsKey);
+                            altre.put("valor", detalls.get(detallsKey));
+                            altres.put(detallsKey, altre);
+                        } else {
+                            detallsMap.put(detallsKey, detalls.get(detallsKey));
+                        }
+                    }
+                    detallsMap.put("altres", altres);
+                    monumentHM.put(key, detallsMap);
+                }
+            }
+            rst.add(monumentHM);
+        }
         return rst;
     }
 
