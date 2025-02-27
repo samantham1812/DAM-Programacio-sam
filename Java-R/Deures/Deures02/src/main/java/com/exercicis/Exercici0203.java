@@ -160,12 +160,31 @@ public class Exercici0203 {
      * - Si el valor no existeix o la jerarquia de dades no està present, retorna null.
      * 
      * @param monument HashMap amb les dades del monument.
-     * @param key Clau pel qual es vol obtenir el valor (pot ser "nom", "any", "latitud" o "longitud").
+     * @param key Clau pel qual es vol obtenir el valor (pot ser "nom",( "any", "latitud" o "longitud").
      * @return Un 'Object' amb el valor corresponent si existeix, en cas contrari retorna null.
      * 
      * @test ./runTest.sh com.exercicis.TestExercici0203#testGetMonumentValue
      */
     private static Object getMonumentValue(HashMap<String, Object> monument, String key) {
+        if (key.equals("nom") || key.equals("pais") || key.equals("categoria")){
+        return monument.get(key);
+        } else if (key.equals("any")) {
+            HashMap<String, Object> detalls = (HashMap<String, Object>) monument.get("detalls");
+            if (detalls != null) {
+                Object any = detalls.get("any_declaracio");
+                return any;
+            }
+        } else if (key.equals("latitud") || key.equals("longitud")) {
+            HashMap<String, Object> detalls = (HashMap<String, Object>) monument.get("detalls");
+            if (detalls != null) {
+                HashMap<String, Object> coordenades = detalls.get("coordenades");
+                if (coordenades != null) {
+                   Object datos = coordenades.get(key);
+                   return datos;
+                }
+            }
+
+        }
         return null;
     }
     
