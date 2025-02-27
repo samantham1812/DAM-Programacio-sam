@@ -24,6 +24,7 @@ public class Table extends Component {
         rst.add(0, " ".repeat(width)); 
 
         String capcelera = "";
+
         for (int i = 0; i < headers.size(); i++){
             String header = headers.get(i);
             capcelera = capcelera + header;
@@ -41,6 +42,7 @@ public class Table extends Component {
         for (int i = 2; i < height; i++) {
             rst.add(i, "x".repeat(width));
         }
+
         return rst;
     } 
 }
