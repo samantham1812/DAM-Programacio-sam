@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -35,8 +34,16 @@ public class Exercici0203 {
         
         try {
             ArrayList<HashMap<String, Object>> monuments = loadMonuments("./data/monuments.json");
-            ArrayList<HashMap<String, Object>> monumentsOrdenats = ordenaMonuments(monuments, "nom");
-            ArrayList<HashMap<String, Object>> monumentsFiltrats = filtraMonuments(monuments, "categoria", "cultural");
+            //ArrayList<HashMap<String, Object>> monumentsOrdenats = ordenaMonuments(monuments, "nom");
+            //ArrayList<HashMap<String, Object>> monumentsFiltrats = filtraMonuments(monuments, "categoria", "cultural");
+            System.out.println(getMonumentValue(monuments.get(2), "nom"));
+            System.out.println(getMonumentValue(monuments.get(2), "pais"));
+            System.out.println(getMonumentValue(monuments.get(2), "categoria"));
+            System.out.println(getMonumentValue(monuments.get(2), "any"));
+            System.out.println(getMonumentValue(monuments.get(2), "longitud"));
+
+            System.out.println(getCoordsString((monuments.get(2))));
+            taulaMonuments(monuments);
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
@@ -62,7 +69,7 @@ public class Exercici0203 {
      * - No pot ser null ni una cadena de text buida
      * - No pot contenir espais
      * - Ha de començar amb 'http://' o 'https://'
-     * - El domini ha de contenir almenys un punt 
+     * - El domini ha de contenir almenys un punt (excepte localhost)
      * - El domini no pot començar ni acabar amb un punt
      * 
      * URLs vàlides: ["http://example.com", "https://www.google.com", "https://sub.domini.cat/pagina", "http://localhost:8080", "http://www.ieti.cat:8080/horaris"]
@@ -74,25 +81,29 @@ public class Exercici0203 {
      * @test ./runTest.sh com.exercicis.TestExercici0203#testValidarURL
      */
     public static boolean validarURL(String url) {
-        if (url == null || url.isEmpty() || url.contains(" ")) {
-            return false;
-        } else if (!url.startsWith("http://") && !url.startsWith("https://")){
+
+        if (url == null || url.isEmpty()) return false;
+
+        // No ha de contenir espais
+        if (url.contains(" ")) {
             return false;
         }
 
+        // Ha de començar amb http:// o https://
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            return false;
+        }
+
+        // Eliminar el protocol i el port per validar el domini
         String senseProtocol = url.substring(url.indexOf("://") + 3);
-
-        String domini = "";
-        if (senseProtocol.contains("/")) {
-            domini = senseProtocol.split("/", 2)[0];
-        } else {
-            domini = senseProtocol;
-        }
-
-        if (!domini.contains(".") || domini.startsWith(".") || domini.endsWith(".")) {
+        String sensePort = senseProtocol.contains(":") ? senseProtocol.split(":", 2)[0] : senseProtocol;
+        String domini = sensePort.contains("/") ? sensePort.split("/", 2)[0] : sensePort;
+        
+        // El domini ha de tenir almenys un punt i no començar/acabar en punt
+        if ((!domini.contains(".") && !domini.equals("localhost")) || domini.startsWith(".") || domini.endsWith(".")) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -115,6 +126,46 @@ public class Exercici0203 {
      */
     public static ArrayList<HashMap<String, Object>> loadMonuments(String filePath) throws IOException {
         ArrayList<HashMap<String, Object>> rst = new ArrayList<>();
+        String content = new String(Files.readAllBytes(Paths.get(filePath)));
+        JSONArray monumentsArray = new JSONObject(content).getJSONArray("monuments");
+        for (int i = 0; i < monumentsArray.length(); i++) {
+            JSONObject monument = monumentsArray.getJSONObject(i);
+            HashMap<String, Object> monumentHM = new HashMap<>();
+
+            for (String key : monument.keySet()) {
+                if (key.equals("nom") || key.equals("pais") || key.equals("categoria")) {
+                    monumentHM.put(key, monument.get(key));
+                } else if (key.equals("detalls")) {
+                    JSONObject detalls = monument.getJSONObject(key);
+                    HashMap<String, Object> detallsMap = new HashMap<>();
+                    HashMap<String, Object> altres = new HashMap<>();
+                    for (String detallsKey : detalls.keySet()) {
+                        if (detallsKey.equals("coordenades")) {
+                            HashMap<String, Object> coordsMap = new HashMap<>();
+                            JSONObject coordenadesJSON = detalls.getJSONObject("coordenades");
+                            Double lat = coordenadesJSON.getDouble("latitud");
+                            Double lon =  coordenadesJSON.getDouble("longitud");
+                            coordsMap.put("latitud", lat);
+                            coordsMap.put("longitud",lon);
+                            detallsMap.put("coordenades", coordsMap);
+
+                        } else if (detallsKey.equals("any_declaracio")) {
+                                int any =  detalls.getInt("any_declaracio");
+                                detallsMap.put("any_declaracio", any);
+                        } else {
+                            HashMap<String, Object> altre = new HashMap<>();
+                            altre.put("clau", detallsKey);
+                            altre.put("valor", detalls.get(detallsKey));
+                            altres.put(detallsKey, altre);
+                        }
+                        
+                    }
+                    detallsMap.put("altres", altres);
+                    monumentHM.put(key, detallsMap);
+                }
+            }
+            rst.add(monumentHM);
+        }
         return rst;
     }
 
@@ -136,11 +187,26 @@ public class Exercici0203 {
      * 
      * @test ./runTest.sh com.exercicis.TestExercici0203#testGetMonumentValue
      */
-    private static Object getMonumentValue(HashMap<String, Object> monument, String key) {
+    static Object getMonumentValue(HashMap<String,Object> monument, String key) {
+
+        switch (key) {
+            case "nom", "pais", "categoria" -> {
+            return monument.get(key);
+            }
+            case "any" -> {
+            HashMap<String, Object> detalls = (HashMap<String, Object>) monument.get("detalls");
+            return detalls != null ? detalls.get("any_declaracio") : null;
+            }
+            case "latitud", "longitud" -> {
+            HashMap<String, Object> detalls = (HashMap<String, Object>) monument.get("detalls");
+            HashMap<String, Object> coordenades = (HashMap<String, Object>) detalls.get("coordenades");
+            return coordenades != null ? coordenades.get(key) : null;
+
+            }
+        }
         return null;
     }
     
-
     /**
      * Comprova si un valor es troba dins d'una llista de valors vàlids.
      * 
@@ -167,8 +233,7 @@ public class Exercici0203 {
      * @test ./runTest.sh com.exercicis.TestExercici0203#testOrdenaMonuments
      */
     public static ArrayList<HashMap<String, Object>> ordenaMonuments(ArrayList<HashMap<String, Object>> monuments, String sortKey) throws IllegalArgumentException {
-
-        ArrayList<HashMap<String, Object>> rst = new ArrayList<>(monuments);
+        ArrayList<HashMap<String, Object>> rst = new ArrayList<>();    
         return rst;
     }
 
@@ -186,8 +251,8 @@ public class Exercici0203 {
      * @test ./runTest.sh com.exercicis.TestExercici0203#testOrdenaMonuments
      */
     public static ArrayList<HashMap<String, Object>> filtraMonuments(ArrayList<HashMap<String, Object>> monuments, String filterKey, String filterValue) throws IllegalArgumentException {
-
-        return new ArrayList<>();
+        ArrayList<HashMap<String, Object>> filteredMonuments = new ArrayList<>( );    
+        return filteredMonuments;
     }
 
     /**
@@ -216,44 +281,36 @@ public class Exercici0203 {
      *
      * Exemples:
      * formatRow(new String[]{"Nom", "País", "Any"}, new int[]{10, 6, 4});
-     * Retorna: "│ Nom       │ País  │ Any  │"
+     * Retorna: "│ Nom       │ País  │ Any │"
      *
      * formatRow(new String[]{"Machu Picchu", "Perú", "1983"}, new int[]{10, 6, 4});
-     * Retorna: "│ Machu Picchu │ Perú  │ 1983 │"
+     * Retorna: "│ Machu Picc│ Perú  │ 1983│"
      *
      * @param values Array amb els valors de cada columna.
      * @param columnWidths Array amb l'amplada de cada columna.
      * @return Una cadena de text formatejada representant una fila de la taula.
+     * 
+     * @test ./runTest.sh com.exercicis.TestExercici0203#testFormatRow
      */
     private static String formatRow(String[] values, int[] columnWidths) {
         return "";
     }
+    
 
     /**
      * Obté una representació en format text de les coordenades d'un monument.
      *
-     * La funció busca dins de la clau "detalls" del monument i accedeix a 
-     * "coordenades", d'on obté la "latitud" i "longitud". 
-     * Si algun d'aquests valors no és present, retorna una cadena buida.
-     *
-     * Exemple de monument:
-     * {
-     *   "detalls": {
-     *     "coordenades": {
-     *       "latitud": "40.4",
-     *       "longitud": "116.5"
-     *     }
-     *   }
-     * }
+     * Fa servir la funció 'getMonumentValue'
      * 
      * Crida a getCoordsString(monument) → Retorna "40.4,116.5"
      *
      * @param monument HashMap que representa un monument.
      * @return Una cadena de text amb les coordenades en format "latitud,longitud",
      *         o una cadena buida si no es troben les dades.
+     * 
+     * @test ./runTest.sh com.exercicis.TestExercici0203#testGetCoordsString
      */
-    private static String getCoordsString(HashMap<String, Object> monument) {
-
+    static String getCoordsString(HashMap<String, Object> monument) {
         return "";
     }
 
@@ -263,12 +320,14 @@ public class Exercici0203 {
      * El format de la taula ha de fer servir els caràcters: "┌", "┬", "┐", "├", "┼", "┤", "└", "┴" i "┘".
      * 
      * Ex.:
-     * ┌────────────────┬────────────┬──────┬────────────────┐
-     * │ Nom            │ Pais       │ Any  │ Coords         │
-     * ├────────────────┼────────────┼──────┼────────────────┤
-     * │ Gran Muralla C.│ Xina       │ 1987 │ 40.4,116.5     │
-     * │ Machu Picchu   │ Perú       │ 1983 │ -13.1,-72.5    │
-     * └────────────────┴────────────┴──────┴────────────────┘
+     * ┌──────────────┬─────┬────┬────────────┐
+     * │Nom           │Pais │Any │Coords      │
+     * ├──────────────┼─────┼────┼────────────┤
+     * │Gran Muralla X│Xina │1987│40.4,116.6  │
+     * │Machu Picchu  │Perú │1983│-13.2,-72.5 │
+     * │Catedral de No│Franç│1991│48.9,2.3    │
+     * │Parc Nacional │Tanzà│1981│-2.3,34.8   │
+     * └──────────────┴─────┴────┴────────────┘
      * 
      * @param monuments llista dels monuments     
      * @param columnaOrdenacio La columna per la qual es vol ordenar ("nom", "radi", "massa", "distància").
@@ -276,7 +335,6 @@ public class Exercici0203 {
      * @test ./runTest.sh com.exercicis.TestExercici0203#testTaulaMonuments
      */
     public static void taulaMonuments(ArrayList<HashMap<String, Object>> monuments) {
-        
     }
 
     /**
@@ -298,7 +356,6 @@ public class Exercici0203 {
      */
     public static ArrayList<HashMap<String, Object>> generaBaralla() {
         ArrayList<HashMap<String, Object>> baralla = new ArrayList<>();
-
         return baralla;
     }
 
@@ -307,8 +364,6 @@ public class Exercici0203 {
      * 
      * @param filePath
      * @throws IOException si hi ha algun error amb l'escriptura de l'arxiu forçant un 'try/catch'
-     * 
-     * @test ./runTest.sh com.exercicis.TestExercici0203#testGuardaBaralla
      */
     public static void guardaBaralla(String filePath) throws IOException {
 
