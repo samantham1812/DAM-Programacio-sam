@@ -37,7 +37,10 @@ public class Exercici0203 {
         try {
             ArrayList<HashMap<String, Object>> monuments = loadMonuments("./data/monuments.json");
             ArrayList<HashMap<String, Object>> monumentsOrdenats = ordenaMonuments(monuments, "nom");
-            ArrayList<HashMap<String, Object>> monumentsFiltrats = filtraMonuments(monuments, "categoria", "cultural");
+            ArrayList<HashMap<String, Object>> monumentsFiltrats = filtraMonuments(monuments, "categoria", "Monumental");
+
+            taulaMonuments(monumentsOrdenats);
+            taulaMonuments(monumentsFiltrats);
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
@@ -360,9 +363,15 @@ public class Exercici0203 {
      * @return Una cadena de text amb les coordenades en format "latitud,longitud",
      *         o una cadena buida si no es troben les dades.
      */
-    private static String getCoordsString(HashMap<String, Object> monument) {
-        for ()
-        return "";
+    public static String getCoordsString(HashMap<String, Object> monument) {
+        Double latitud = (Double) getMonumentValue(monument, "latitud");
+        Double longitud = (Double) getMonumentValue(monument, "longitud");
+
+        if (latitud == null || longitud == null){
+            return " ";
+        }
+        
+        return String.format("%.1f,%.1f", latitud, longitud);
     }
 
     /**
@@ -384,7 +393,29 @@ public class Exercici0203 {
      * @test ./runTest.sh com.exercicis.TestExercici0203#testTaulaMonuments
      */
     public static void taulaMonuments(ArrayList<HashMap<String, Object>> monuments) {
+        StringBuilder rst = new StringBuilder();
         
+        int [] columnWidths = {15, 10, 5, 10};
+        char[] separators0 = {'┌', '┬', '┐'};
+        rst.append(generaMarcTaula(columnWidths, separators0)).append("\n");
+        
+        String[] headers = {"Nom", "Pais", "Any", "Coords"};
+        rst.append(formatRow(headers, columnWidths)).append("\n");
+        
+        char [] separators1 = {'├','┼', '┤'};
+        rst.append(generaMarcTaula(columnWidths, separators1)).append("\n");
+
+        for (HashMap<String, Object> monument : monuments) {
+            String[] rows = {
+                getMonumentValue(monument, "nom").toString(),
+                getMonumentValue(monument, "pais").toString(),
+                getMonumentValue(monument, "any").toString(),
+                getCoordsString(monument)
+            };
+            System.out.println(formatRow(rows, columnWidths));
+        }
+        char [] separators2 = {'└', '┴', '┘'};
+        rst.append(generaMarcTaula(columnWidths, separators2)).append("\n");
     }
 
     /**
