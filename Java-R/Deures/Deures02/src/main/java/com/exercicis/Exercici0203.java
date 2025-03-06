@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -166,27 +167,30 @@ public class Exercici0203 {
      * @test ./runTest.sh com.exercicis.TestExercici0203#testGetMonumentValue
      */
     private static Object getMonumentValue(HashMap<String, Object> monument, String key) {
-        if (key.equals("nom") || key.equals("pais") || key.equals("categoria")){
-        return monument.get(key);
+
+        if (key.equals("nom") || key.equals("pais") || key.equals("categoria")) {
+            return monument.get(key);
+
         } else if (key.equals("any")) {
             HashMap<String, Object> detalls = (HashMap<String, Object>) monument.get("detalls");
-            if (detalls != null) {
-                Object any = detalls.get("any_declaracio");
-                return any;
-            }
-        } else if (key.equals("latitud") || key.equals("longitud")) {
-            HashMap<String, Object> detalls = (HashMap<String, Object>) monument.get("detalls");
-            if (detalls != null) {
-                HashMap<String, Object> coordenades = detalls.get("coordenades");
-                if (coordenades != null) {
-                   Object datos = coordenades.get(key);
-                   return datos;
-                }
+
+            if (detalls == null) {
+                return null;
+            } else {
+                return detalls.get("any_declaracio");
             }
 
+        } else if (key.equals("latitud") || key.equals("longitud")) {
+            HashMap<String, Object> detalls = (HashMap<String, Object>) monument.get("detalls");                   
+            if (detalls != null) {
+                HashMap<String, Object> coordenades = (HashMap<String, Object>) detalls.get("coordenades");
+                if (coordenades != null) {
+                    return coordenades.get(key);
+                }
+            }
         }
         return null;
-    }
+    } 
     
 
     /**
@@ -199,7 +203,7 @@ public class Exercici0203 {
      * @test ./runTest.sh com.exercicis.TestExercici0203#testIsValidValue
      */
     private static boolean isValid(String value, String[] validValues) {
-        return false;
+        return Arrays.asList(validValues).contains(value);
     }
 
     /**
@@ -215,8 +219,25 @@ public class Exercici0203 {
      * @test ./runTest.sh com.exercicis.TestExercici0203#testOrdenaMonuments
      */
     public static ArrayList<HashMap<String, Object>> ordenaMonuments(ArrayList<HashMap<String, Object>> monuments, String sortKey) throws IllegalArgumentException {
-
         ArrayList<HashMap<String, Object>> rst = new ArrayList<>(monuments);
+
+        if (!isValid(sortKey, new String[]{"nom", "any", "latitud", "longitud"})) {
+            throw new IllegalArgumentException("Clau no vàlida: " + sortKey);
+        }
+
+        Collections.sort(rst, (m1, m2) -> {
+            Object value1 = getMonumentValue(m1, sortKey);
+            Object value2 = getMonumentValue(m2, sortKey);
+
+            if (sortKey.equals("nom")) {
+                return ((String) value1).compareTo((String) value2);
+            } else if (sortKey.equals("any")) {
+                return ((Integer) value1).compareTo((Integer) value2);
+            } else{
+                return ((Double) value1).compareTo((Double) value2);
+            }
+        });
+
         return rst;
     }
 
@@ -234,8 +255,16 @@ public class Exercici0203 {
      * @test ./runTest.sh com.exercicis.TestExercici0203#testOrdenaMonuments
      */
     public static ArrayList<HashMap<String, Object>> filtraMonuments(ArrayList<HashMap<String, Object>> monuments, String filterKey, String filterValue) throws IllegalArgumentException {
-
-        return new ArrayList<>();
+        ArrayList<HashMap<String, Object>> rst = new ArrayList<>();
+        if (!isValid(filterKey, new String[]{"nom", "pais", "categoria"})) {
+            throw new IllegalArgumentException("Columna invalida");
+        }
+        for (HashMap<String, Object> monument : monuments) {
+            if (getMonumentValue(monument, filterKey).toString().equals(filterValue)) {
+                rst.add(monument);
+            }
+        }
+        return rst;
     }
 
     /**
@@ -252,7 +281,18 @@ public class Exercici0203 {
      * @test ./runTest.sh com.exercicis.TestExercici0203#testGeneraMarcTaula
      */
     public static String generaMarcTaula(int[] columnWidths, char[] separators) {
-        return "";
+        StringBuilder rst = new StringBuilder();
+
+        rst.append(separators[0]);
+        for (int i = 0; i < columnWidths.length; i++) {
+            rst.append(("─").repeat(columnWidths[i]));
+            if (i < columnWidths.length - 1) {
+                rst.append(separators[1]);
+            }
+        }
+        rst.append(separators[2]);
+
+        return rst.toString();
     }
 
     /**
