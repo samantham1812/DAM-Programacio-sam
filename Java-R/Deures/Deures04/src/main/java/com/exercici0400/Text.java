@@ -1,6 +1,7 @@
 package com.exercici0400;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Text extends Component implements Alignable {
 

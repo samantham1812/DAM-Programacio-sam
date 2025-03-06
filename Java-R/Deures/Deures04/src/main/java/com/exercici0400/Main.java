@@ -3,6 +3,7 @@ package com.exercici0400;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /*
  Estructura ✅
@@ -15,9 +16,33 @@ import java.util.HashMap;
 
 public class Main { 
     public static void main(String[] args) {
-   
 
+        Scanner scanner = new Scanner(System.in);
+        String txt = "";
         ArrayList<Component> components = new ArrayList<>();
+
+        while (!txt.equalsIgnoreCase("0") && !txt.equalsIgnoreCase("sortir")) {
+
+            HashMap<Integer, MenuItem> mapMnu = new HashMap<>();
+    
+            mapMnu.put(0, new MenuItem("Sortir", new String[] {"sortir", "exit"}));
+            mapMnu.put(1, new MenuItem("Esquerra", new String[]{"esquerra", "left"}));
+            mapMnu.put(2, new MenuItem("Dreta", new String[]{"dreta", "right"}));
+            mapMnu.put(3, new MenuItem("Centrada", new String[]{"centrat", "center"}));
+    
+            Menu mnu0 = new Menu(0, 0, 20, 8, "Menú", mapMnu, true);
+            components.add(mnu0);
+
+            Container container = new Container(50, 10, components);
+            container.draw();
+
+            System.out.print("Escull una opció: ");
+            txt = scanner.nextLine();
+        }
+        
+        scanner.close();
+}
+       // ArrayList<Component> components = new ArrayList<>();
 /*
         Text txt0 = new Text(1, 1, 20, 8, "Txt0", "Lorem ipsum dolor sit amet, consectetur adipiscing elit", 3, false, "left");
         Text txt1 = new Text(22, 1, 25, 8, "Txt1", "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium", 3, false, "center");
@@ -38,20 +63,33 @@ public class Main {
         components.add(mnu1);
 */
 
-        ArrayList<String> tabHeaders0 = new ArrayList<>(Arrays.asList("col0", "col1", "col2"));
-        ArrayList<Integer> tabWidth0 = new ArrayList<>(Arrays.asList(5, 8, 10));
-        ArrayList<String> tabAligns0 = new ArrayList<>(Arrays.asList("left", "right", "center"));
-        ArrayList<ArrayList<String>> tabRows0 = new ArrayList<>(Arrays.asList(
-            new ArrayList<>(Arrays.asList("ab", "si", "gos")),
-            new ArrayList<>(Arrays.asList("def", "no", "guineu")),
-            new ArrayList<>(Arrays.asList("hi", "perquè", "llop")),
-            new ArrayList<>(Arrays.asList("jklm", "qui", "formiga"))
-        ));
+        // ArrayList<String> tabHeaders0 = new ArrayList<>(Arrays.asList("col0", "col1", "col2"));
+        // ArrayList<Integer> tabWidth0 = new ArrayList<>(Arrays.asList(5, 8, 10));
+        // ArrayList<String> tabAligns0 = new ArrayList<>(Arrays.asList("left", "right", "center"));
+        // ArrayList<ArrayList<String>> tabRows0 = new ArrayList<>(Arrays.asList(
+        //     new ArrayList<>(Arrays.asList("ab", "si", "gos")),
+        //     new ArrayList<>(Arrays.asList("def", "no", "guineu")),
+        //     new ArrayList<>(Arrays.asList("hi", "perquè", "llop")),
+        //     new ArrayList<>(Arrays.asList("jklm", "qui", "formiga"))
+        // ));
+        
+        // Table tab0 = new Table(0, 0, 28, 8, "Taula0", tabHeaders0, tabWidth0, tabAligns0, tabRows0);
+        // components.add(tab0);
 
-        Table tab0 = new Table(0, 0, 28, 8, "Taula0", tabHeaders0, tabWidth0, tabAligns0, tabRows0);
-        components.add(tab0);
+        // ArrayList<String> tabHeaders1 = new ArrayList<>(Arrays.asList("col0", "col1", "col2"));
+        // ArrayList<Integer> tabWidth1 = new ArrayList<>(Arrays.asList(5, 8, 10));
+        // ArrayList<String> tabAligns1 = new ArrayList<>(Arrays.asList("left", "right", "center"));
+        // ArrayList<ArrayList<String>> tabRows1 = new ArrayList<>(Arrays.asList(
+        //     new ArrayList<>(Arrays.asList("ab", "si", "gos")),
+        //     new ArrayList<>(Arrays.asList("def", "no", "guineu")),
+        //     new ArrayList<>(Arrays.asList("hi", "perquè", "llop")),
+        //     new ArrayList<>(Arrays.asList("jklm", "qui", "formiga"))
+        // )); 
 
-        Container container = new Container(50, 10, components);
-        container.draw();
+        // Table tab1 = new Table(0, 0, 28, 8, "Taula1", tabHeaders1, tabWidth1, tabAligns1, tabRows1);
+        // components.add(tab1);
+
+        // Container container0 = new Container(50, 10, components);
+        // container0.draw();
+
     }
-}
