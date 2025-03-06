@@ -18,10 +18,10 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        String txt = "";
+        String entrada = "";
         ArrayList<Component> components = new ArrayList<>();
 
-        while (!txt.equalsIgnoreCase("0") && !txt.equalsIgnoreCase("sortir")) {
+        while (!entrada.equalsIgnoreCase("0") && !entrada.equalsIgnoreCase("sortir")) {
 
             HashMap<Integer, MenuItem> mapMnu = new HashMap<>();
     
@@ -31,13 +31,15 @@ public class Main {
             mapMnu.put(3, new MenuItem("Centrada", new String[]{"centrat", "center"}));
     
             Menu mnu0 = new Menu(0, 0, 20, 8, "Menú", mapMnu, true);
+            Text txt = new Text(22, 1, 25, 8, "Txt", "Lorem ipsum dolor sit amet, consectetur adipiscing elit", 3, false, "center");
             components.add(mnu0);
+            components.add(txt);
 
             Container container = new Container(50, 10, components);
             container.draw();
 
             System.out.print("Escull una opció: ");
-            txt = scanner.nextLine();
+            entrada = scanner.nextLine();
         }
         
         scanner.close();

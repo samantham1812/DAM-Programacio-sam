@@ -1,6 +1,8 @@
 package com.exercici0400;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MenuItem {
 
@@ -26,6 +28,10 @@ public class MenuItem {
 
     public void setKeyWords(String[] keyWords) {
         this.keyWords = keyWords;
+    }
+
+    public boolean IsInKeyWords(String word) {
+        return Arrays.asList(keyWords).contains(word);
     }
     
     
