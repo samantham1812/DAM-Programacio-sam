@@ -130,14 +130,25 @@ public class Exercici0203 {
                     HashMap<String, Object> detallsMap = new HashMap<>();
                     HashMap<String, Object> altres = new HashMap<>();
                     for (String detallsKey : detalls.keySet()) {
-                        if (!detallsKey.equals("any_declaracio") && !detallsKey.equals("coordenades")) {
+                        if (detallsKey.equals("coordenades")) {
+                            HashMap<String, Object> coordsMap = new HashMap<>();
+                            JSONObject coordenadesJSON = detalls.getJSONObject("coordenades");
+                            Double lat = coordenadesJSON.getDouble("latitud");
+                            Double lon =  coordenadesJSON.getDouble("longitud");
+                            coordsMap.put("latitud", lat);
+                            coordsMap.put("longitud",lon);
+                            detallsMap.put("coordenades", coordsMap);
+
+                        } else if (detallsKey.equals("any_declaracio")) {
+                                int any =  detalls.getInt("any_declaracio");
+                                detallsMap.put("any_declaracio", any);
+                        } else {
                             HashMap<String, Object> altre = new HashMap<>();
                             altre.put("clau", detallsKey);
                             altre.put("valor", detalls.get(detallsKey));
                             altres.put(detallsKey, altre);
-                        } else {
-                            detallsMap.put(detallsKey, detalls.get(detallsKey));
                         }
+                        
                     }
                     detallsMap.put("altres", altres);
                     monumentHM.put(key, detallsMap);
@@ -166,31 +177,25 @@ public class Exercici0203 {
      * 
      * @test ./runTest.sh com.exercicis.TestExercici0203#testGetMonumentValue
      */
-    private static Object getMonumentValue(HashMap<String, Object> monument, String key) {
+    private static Object getMonumentValue(HashMap<String,Object> monument, String key) {
 
-        if (key.equals("nom") || key.equals("pais") || key.equals("categoria")) {
+        switch (key) {
+            case "nom", "pais", "categoria" -> {
             return monument.get(key);
-
-        } else if (key.equals("any")) {
-            HashMap<String, Object> detalls = (HashMap<String, Object>) monument.get("detalls");
-
-            if (detalls == null) {
-                return null;
-            } else {
-                return detalls.get("any_declaracio");
             }
+            case "any" -> {
+            HashMap<String, Object> detalls = (HashMap<String, Object>) monument.get("detalls");
+            return detalls != null ? detalls.get("any_declaracio") : null;
+            }
+            case "latitud", "longitud" -> {
+            HashMap<String, Object> detalls = (HashMap<String, Object>) monument.get("detalls");
+            HashMap<String, Object> coordenades = (HashMap<String, Object>) detalls.get("coordenades");
+            return coordenades != null ? coordenades.get(key) : null;
 
-        } else if (key.equals("latitud") || key.equals("longitud")) {
-            HashMap<String, Object> detalls = (HashMap<String, Object>) monument.get("detalls");                   
-            if (detalls != null) {
-                HashMap<String, Object> coordenades = (HashMap<String, Object>) detalls.get("coordenades");
-                if (coordenades != null) {
-                    return coordenades.get(key);
-                }
             }
         }
         return null;
-    } 
+    }
     
 
     /**
@@ -313,8 +318,23 @@ public class Exercici0203 {
      * @param columnWidths Array amb l'amplada de cada columna.
      * @return Una cadena de text formatejada representant una fila de la taula.
      */
-    private static String formatRow(String[] values, int[] columnWidths) {
-        return "";
+    public static String formatRow(String[] values, int[] columnWidths) {
+        String rst = "";
+        for (int i = 0; i < values.length; i++) { 
+            rst += "│";
+            String value = values[i];
+            if (value.length() > columnWidths[i]) {
+                value = value.substring(0, columnWidths[i]);
+            }
+            rst += value;
+            int spaceCount = columnWidths[i] - value.length();
+            if (spaceCount > 0) {
+                rst += " ".repeat(spaceCount);
+            }
+            
+        }
+        rst += "│";
+        return rst;
     }
 
     /**
@@ -341,7 +361,7 @@ public class Exercici0203 {
      *         o una cadena buida si no es troben les dades.
      */
     private static String getCoordsString(HashMap<String, Object> monument) {
-
+        for ()
         return "";
     }
 
