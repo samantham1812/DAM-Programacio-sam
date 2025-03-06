@@ -405,17 +405,21 @@ public class Exercici0203 {
         char [] separators1 = {'├','┼', '┤'};
         rst.append(generaMarcTaula(columnWidths, separators1)).append("\n");
 
-        for (HashMap<String, Object> monument : monuments) {
-            String[] rows = {
-                getMonumentValue(monument, "nom").toString(),
-                getMonumentValue(monument, "pais").toString(),
-                getMonumentValue(monument, "any").toString(),
-                getCoordsString(monument)
-            };
-            System.out.println(formatRow(rows, columnWidths));
+        for (int i = 0; i < monuments.size(); i++) {
+            HashMap<String, Object> monument = monuments.get(i);
+            String nom = (String) getMonumentValue(monument, "nom");
+            String pais = (String) getMonumentValue(monument, "pais");
+            String any = String.valueOf(getMonumentValue(monument, "any"));
+            String coords = getCoordsString(monument);
+
+            String[] rowValues = {nom, pais, any, coords};
+            rst.append(formatRow(rowValues, columnWidths)).append("\n");
         }
+
         char [] separators2 = {'└', '┴', '┘'};
         rst.append(generaMarcTaula(columnWidths, separators2)).append("\n");
+        
+        System.out.println(rst);
     }
 
     /**
