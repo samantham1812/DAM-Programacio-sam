@@ -20,6 +20,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String entrada = "";
         ArrayList<Component> components = new ArrayList<>();
+        boolean repetirBucle = true;
 
         while (!entrada.equalsIgnoreCase("0") && !entrada.equalsIgnoreCase("sortir")) {
 
@@ -32,6 +33,7 @@ public class Main {
     
             Menu mnu0 = new Menu(0, 0, 20, 8, "Menú", mapMnu, true);
             Text txt = new Text(22, 1, 25, 8, "Txt", "Lorem ipsum dolor sit amet, consectetur adipiscing elit", 3, false, "center");
+            
             components.add(mnu0);
             components.add(txt);
 
@@ -40,6 +42,22 @@ public class Main {
 
             System.out.print("Escull una opció: ");
             entrada = scanner.nextLine();
+            String align = "";
+
+            int selection = mnu0.getSelection(entrada);
+            switch (selection) {
+                case 0:
+                    repetirBucle = false;
+                    break;
+                case 1:
+                    align = "left";
+                    break;
+                case 2:
+
+                case 3:
+                default:
+                    break;
+            }
         }
         
         scanner.close();

@@ -30,7 +30,7 @@ public class MenuItem {
         this.keyWords = keyWords;
     }
 
-    public boolean IsInKeyWords(String word) {
+    public boolean isInKeyWords(String word) {
         return Arrays.asList(keyWords).contains(word);
     }
     
