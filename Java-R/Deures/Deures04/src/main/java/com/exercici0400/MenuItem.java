@@ -34,5 +34,12 @@ public class MenuItem {
         return Arrays.asList(keyWords).contains(word);
     }
     
-    
+    /**
+     * Retorna si la paraula està a KeyWords
+     * @param word paraula a analitzar
+     * @return true si ha trobat la paraula
+     */
+    public boolean isInKeyWords(String word) {
+        return Arrays.asList(keyWords).contains(word);
+    }
 }
