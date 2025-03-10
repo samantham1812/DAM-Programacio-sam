@@ -7,17 +7,34 @@ import java.util.Locale;
 public class Biblioteca {
 
     public static void crearTaulaEditorials() {
-        // TODO 
+        AppData db = AppData.getInstance();
+
+        db.update("DROP TABLE IF EXISTS Editorials");
         String sql = """
+            CREATE TABLE IF NOT EXISTS Editorials (
+                id_editorial INTEGER PRIMARY KEY AUTOINCREMENT,
+                nom TEXT NOT NULL
+            );
         """;
-        AppData.getInstance().update(sql);
+       db.update(sql);
     }
 
     public static void crearTaulaLlibres() {
-        // TODO 
+        AppData db = AppData.getInstance();
+
+        db.update("DROP TABLE IF EXISTS Llibres");
+
         String sql = """
+            CREATE TABLE IF NOT EXIST Llibres (
+                id_llibre INTEGER PRIMARY KEY AUTOINCREMENT,
+                titol TEXT,
+                autor TEXT,
+                any_publicacio INTEGER,
+                id_editorial INTEGER,
+                FOREIGN KEY(id_editorial) REFERENCES Editorials(id_editorial))";
+            )
         """;
-        AppData.getInstance().update(sql);
+       AppData.getInstance().update(sql);
     }
 
     public static void afegirEditorial(String nom) {

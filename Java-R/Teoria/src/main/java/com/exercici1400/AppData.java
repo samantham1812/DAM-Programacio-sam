@@ -38,7 +38,7 @@ public class AppData {
      * Es desactiva l'autocommit per permetre el control manual de transaccions.
      */
     private void connect() {
-        String url = "jdbc:sqlite:./data/exemple1400.sqlite";
+        String url = "jdbc:sqlite:./data/exercici1400.sqlite";
         try {
             conn = DriverManager.getConnection(url);
             conn.setAutoCommit(false);
