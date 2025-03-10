@@ -48,6 +48,8 @@ public class Exercici0203 {
             e.printStackTrace();
         }
 
+        System.out.println(generaBaralla());
+
         try {
             guardaBaralla("./data/baralla.json");
         } catch (IOException e) {
@@ -425,7 +427,7 @@ public class Exercici0203 {
     /**
      * Genera una baralla de cartes espanyola i la retorna en un ArrayList ordenat aleatòriament.
      * 
-     * La baralla consta de 40 cartes, amb quatre pals: "oros", "copes", "espases" i "bastos".
+     * La baralla consta de 48 cartes, amb quatre pals: "oros", "copes", "espases" i "bastos".
      * Cada pal té cartes numerades de l'1 al 12.
      * 
      * Cada carta es representa com un HashMap amb dues claus:
@@ -442,6 +444,19 @@ public class Exercici0203 {
     public static ArrayList<HashMap<String, Object>> generaBaralla() {
         ArrayList<HashMap<String, Object>> baralla = new ArrayList<>();
 
+        Integer totalCartes = 12;
+        String[] pals = {"oros", "copes", "espases", "bastos"};
+        for (String pal : pals) {
+            for (int i = 1; i < totalCartes + 1; i ++) {
+                HashMap<String, Object> carta = new HashMap<>();
+                carta.put("pal", pal);
+                carta.put("número", i);
+                baralla.add(carta);
+            }
+        }
+
+        Collections.shuffle(baralla);
+
         return baralla;
     }
 
@@ -454,6 +469,8 @@ public class Exercici0203 {
      * @test ./runTest.sh com.exercicis.TestExercici0203#testGuardaBaralla
      */
     public static void guardaBaralla(String filePath) throws IOException {
-
+        ArrayList<HashMap<String, Object>> barralla = generaBaralla();
+        JSONArray jsonArray = new JSONArray(barralla);
+        Files.write(Paths.get(filePath), jsonArray.toString(4).getBytes());
     }
 }
