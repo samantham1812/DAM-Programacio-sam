@@ -1,5 +1,7 @@
 package com.exercici0500;
 
+import net.ibizsys.central.cloud.core.util.domain.AppData;
+
 public class MainDB {
 
     // Fes anar aquest programa amb:
