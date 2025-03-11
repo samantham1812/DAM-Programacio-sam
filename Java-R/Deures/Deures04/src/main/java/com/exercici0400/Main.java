@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
-<<<<<<< HEAD
+
 
 /*
  Estructura ✅
@@ -14,17 +14,6 @@ import java.util.Scanner;
  Table
  Input
  */
-
-public class Main { 
-    public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-        String entrada = "";
-        ArrayList<Component> components = new ArrayList<>();
-        boolean repetirBucle = true;
-
-        while (!entrada.equalsIgnoreCase("0") && !entrada.equalsIgnoreCase("sortir")) {
-=======
 
 public class Main { 
 
@@ -37,21 +26,12 @@ public class Main {
         ArrayList<Component> components = new ArrayList<>();
         boolean repetirBucle = true;
 
-        while (repetirBucle) {
->>>>>>> b4a6cc0e5a619ecc78d92bb46e983e57647818fd
-
+        while (repetirBucle)
+        
             HashMap<Integer, MenuItem> mapMnu = new HashMap<>();
     
             mapMnu.put(0, new MenuItem("Sortir", new String[] {"sortir", "exit"}));
-<<<<<<< HEAD
-            mapMnu.put(1, new MenuItem("Esquerra", new String[]{"esquerra", "left"}));
-            mapMnu.put(2, new MenuItem("Dreta", new String[]{"dreta", "right"}));
-            mapMnu.put(3, new MenuItem("Centrada", new String[]{"centrat", "center"}));
-    
-            Menu mnu0 = new Menu(0, 0, 20, 8, "Menú", mapMnu, true);
-            Text txt = new Text(22, 1, 25, 8, "Txt", "Lorem ipsum dolor sit amet, consectetur adipiscing elit", 3, false, "center");
-            
-=======
+
             mapMnu.put(1, new MenuItem("Esquerra", new String[] {"esquerra", "left"}));
             mapMnu.put(2, new MenuItem("Dreta", new String[] {"dreta", "right"}));
             mapMnu.put(3, new MenuItem("Centrada", new String[] {"centrat", "center"}));
@@ -59,7 +39,6 @@ public class Main {
             Menu mnu0 = new Menu(0, 0, 20, 8, "Menú", mapMnu, true);
             Text txt = new Text(21, 0, 25, 8, "Txt", "Lorem ipsum dolor sit amet, consectetur adipiscing elit", 3, false, align);
 
->>>>>>> b4a6cc0e5a619ecc78d92bb46e983e57647818fd
             components.add(mnu0);
             components.add(txt);
 
@@ -67,28 +46,15 @@ public class Main {
             container.draw();
 
             System.out.print("Escull una opció: ");
-<<<<<<< HEAD
-            entrada = scanner.nextLine();
-            String align = "";
 
-            int selection = mnu0.getSelection(entrada);
-=======
             input = scanner.nextLine();
 
             int selection = mnu0.getSelection(input);
->>>>>>> b4a6cc0e5a619ecc78d92bb46e983e57647818fd
+
             switch (selection) {
                 case 0:
                     repetirBucle = false;
                     break;
-<<<<<<< HEAD
-                case 1:
-                    align = "left";
-                    break;
-                case 2:
-
-                case 3:
-=======
                 case 1: 
                     align = "left";
                     break;
@@ -98,19 +64,14 @@ public class Main {
                 case 3: 
                     align = "center";
                     break;
->>>>>>> b4a6cc0e5a619ecc78d92bb46e983e57647818fd
                 default:
                     break;
             }
         }
         
         scanner.close();
-<<<<<<< HEAD
-}
-       // ArrayList<Component> components = new ArrayList<>();
-=======
-   
->>>>>>> b4a6cc0e5a619ecc78d92bb46e983e57647818fd
+    }
+
 /*
         ArrayList<Component> components = new ArrayList<>();
 
@@ -161,13 +122,9 @@ public class Main {
         // Container container0 = new Container(50, 10, components);
         // container0.draw();
 
-<<<<<<< HEAD
-    }
 =======
         Container container = new Container(50, 10, components);
         container.draw();
         */
-    }
+    
 
-}
->>>>>>> b4a6cc0e5a619ecc78d92bb46e983e57647818fd
