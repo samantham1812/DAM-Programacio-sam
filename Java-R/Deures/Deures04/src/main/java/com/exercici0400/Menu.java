@@ -2,8 +2,6 @@ package com.exercici0400;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
-
 
 public class Menu extends Component {
 
@@ -25,13 +23,6 @@ public class Menu extends Component {
     }
 
     public int getSelection(String text) {
-        for (int i = 0; i < items.size(); i++) {
-            MenuItem item = items.get(i);
-
-            if (item.isInKeyWords(text)) {
-                return i;
-            }
-        }
         return -1;
     }
 
@@ -62,15 +53,20 @@ public class Menu extends Component {
                 rst.add(fixLine(linia));
             } else {
                 if (lastZero && doneZero == false && items.get(0) != null) {
-                    String line = " " + "0." + items.get(0).getTitle();
-                    rst.add(fixLine(line));
+                    String linia0 = " " + "0." + items.get(0).getTitle();
+                    rst.add(fixLine(linia0));
                     doneZero = true;
+                } else {
+                    String liniaBuida = " ".repeat(width);
+                    rst.add(liniaBuida);
                 }
-                String linia = " ".repeat(width);
-                rst.add(linia);
             } 
         }
-        
+
+        if (!lastZero) {
+            rst.remove(rst.size() - 1);
+        }
+
         return rst;
     } 
 

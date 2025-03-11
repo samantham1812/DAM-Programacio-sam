@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
+<<<<<<< HEAD
 
 /*
  Estructura ✅
@@ -23,10 +24,26 @@ public class Main {
         boolean repetirBucle = true;
 
         while (!entrada.equalsIgnoreCase("0") && !entrada.equalsIgnoreCase("sortir")) {
+=======
+
+public class Main { 
+
+    // ./run.sh com.exercici0400.Main
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
+        String align = "left";
+        ArrayList<Component> components = new ArrayList<>();
+        boolean repetirBucle = true;
+
+        while (repetirBucle) {
+>>>>>>> b4a6cc0e5a619ecc78d92bb46e983e57647818fd
 
             HashMap<Integer, MenuItem> mapMnu = new HashMap<>();
     
             mapMnu.put(0, new MenuItem("Sortir", new String[] {"sortir", "exit"}));
+<<<<<<< HEAD
             mapMnu.put(1, new MenuItem("Esquerra", new String[]{"esquerra", "left"}));
             mapMnu.put(2, new MenuItem("Dreta", new String[]{"dreta", "right"}));
             mapMnu.put(3, new MenuItem("Centrada", new String[]{"centrat", "center"}));
@@ -34,6 +51,15 @@ public class Main {
             Menu mnu0 = new Menu(0, 0, 20, 8, "Menú", mapMnu, true);
             Text txt = new Text(22, 1, 25, 8, "Txt", "Lorem ipsum dolor sit amet, consectetur adipiscing elit", 3, false, "center");
             
+=======
+            mapMnu.put(1, new MenuItem("Esquerra", new String[] {"esquerra", "left"}));
+            mapMnu.put(2, new MenuItem("Dreta", new String[] {"dreta", "right"}));
+            mapMnu.put(3, new MenuItem("Centrada", new String[] {"centrat", "center"}));
+    
+            Menu mnu0 = new Menu(0, 0, 20, 8, "Menú", mapMnu, true);
+            Text txt = new Text(21, 0, 25, 8, "Txt", "Lorem ipsum dolor sit amet, consectetur adipiscing elit", 3, false, align);
+
+>>>>>>> b4a6cc0e5a619ecc78d92bb46e983e57647818fd
             components.add(mnu0);
             components.add(txt);
 
@@ -41,35 +67,58 @@ public class Main {
             container.draw();
 
             System.out.print("Escull una opció: ");
+<<<<<<< HEAD
             entrada = scanner.nextLine();
             String align = "";
 
             int selection = mnu0.getSelection(entrada);
+=======
+            input = scanner.nextLine();
+
+            int selection = mnu0.getSelection(input);
+>>>>>>> b4a6cc0e5a619ecc78d92bb46e983e57647818fd
             switch (selection) {
                 case 0:
                     repetirBucle = false;
                     break;
+<<<<<<< HEAD
                 case 1:
                     align = "left";
                     break;
                 case 2:
 
                 case 3:
+=======
+                case 1: 
+                    align = "left";
+                    break;
+                case 2: 
+                    align = "right";
+                    break;
+                case 3: 
+                    align = "center";
+                    break;
+>>>>>>> b4a6cc0e5a619ecc78d92bb46e983e57647818fd
                 default:
                     break;
             }
         }
         
         scanner.close();
+<<<<<<< HEAD
 }
        // ArrayList<Component> components = new ArrayList<>();
+=======
+   
+>>>>>>> b4a6cc0e5a619ecc78d92bb46e983e57647818fd
 /*
+        ArrayList<Component> components = new ArrayList<>();
+
         Text txt0 = new Text(1, 1, 20, 8, "Txt0", "Lorem ipsum dolor sit amet, consectetur adipiscing elit", 3, false, "left");
         Text txt1 = new Text(22, 1, 25, 8, "Txt1", "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium", 3, false, "center");
         components.add(txt0);
         components.add(txt1);
-*/
-/* 
+
         HashMap<Integer, MenuItem> mapMnu = new HashMap<>();
 
         mapMnu.put(0, new MenuItem("Sortir", new String[] {"sortir", "exit"}));
@@ -81,7 +130,7 @@ public class Main {
         Menu mnu1 = new Menu(22, 1, 25, 8, "Titol menú", mapMnu, true);
         components.add(mnu0);
         components.add(mnu1);
-*/
+
 
         // ArrayList<String> tabHeaders0 = new ArrayList<>(Arrays.asList("col0", "col1", "col2"));
         // ArrayList<Integer> tabWidth0 = new ArrayList<>(Arrays.asList(5, 8, 10));
@@ -112,4 +161,13 @@ public class Main {
         // Container container0 = new Container(50, 10, components);
         // container0.draw();
 
+<<<<<<< HEAD
     }
+=======
+        Container container = new Container(50, 10, components);
+        container.draw();
+        */
+    }
+
+}
+>>>>>>> b4a6cc0e5a619ecc78d92bb46e983e57647818fd
