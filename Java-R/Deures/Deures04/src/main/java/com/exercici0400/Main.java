@@ -3,6 +3,7 @@ package com.exercici0400;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import com.easyText.*;
 
 /*
  Estructura ✅
