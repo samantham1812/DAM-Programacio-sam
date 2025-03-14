@@ -1,6 +1,12 @@
 package com.exercici0501;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.InvalidParameterException;
+
+import netscape.javascript.JSONObject;
 
 public class Restaurants {
  
@@ -79,9 +85,31 @@ public class Restaurants {
      * - S'ha afegit un nou 'client' amb 'id': 1
      * - S'ha afegit un nou 'servei' amb 'id': 5
      */
-    public static void loadData(String filePath) {
-        AppData db = AppData.getInstance();
-        
+    public static void loadData(String filePath) throws IOException {
+        String content = Files.readString(Paths.get(filePath));
+        JSONObject jsonObject = new JSONObject(content);
+        JSONArray restaurants = jsonObject.getJSONArray("restaurants");
+        for (int i = 0; i < restaurants.length(); i++) {
+            JSONObject restaurant = restaurants.getJSONObject(i);
+            addRestaurant(restaurant.getInt("id_restaurant"),restaurant.getString("name"),restaurant.getString("kind"),
+            restaurant.getInt("tables"),
+            restaurant.getString("pricing"));
+            System.out.println("S'ha afegit un nou 'restaurant' amb 'id': " + restaurant.getInt("id_restaurant"));
+
+        }
+        JSONArray clients = jsonObject.getJSONArray("clients");
+        for (int i = 0; i < clients.length(); i++) {
+            JSONObject client = clients.getJSONObject(i);
+            int id = addClient(client.getString("name"),client.getString("birth"),client.getBoolean("isVIP"));
+            System.out.println("S'ha afegit un nou 'client' amb 'id': " + id);
+        }
+        JSONArray services = jsonObject.getJSONArray("services");
+        for (int i = 0; i < services.length(); i++) {
+            JSONObject service = services.getJSONObject(i);
+            int id = addService(service.getInt("id_restaurant"),service.getInt("id_client"),service.getString("date"),service.getDouble("expenditure"));
+            System.out.println("S'ha afegit un nou 'servei' amb 'id': " + id);
+        }
+        System.out.println("Dades carregades correctament");
     }
 
     /**
