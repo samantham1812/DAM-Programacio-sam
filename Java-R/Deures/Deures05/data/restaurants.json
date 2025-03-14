@@ -38,7 +38,6 @@
     ],
     "clients": [
       {
-        "id_client": 1,
         "name": "Anna Garcia",
         "birth": "1985-04-23",
         "isVIP": false
