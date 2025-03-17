@@ -272,6 +272,28 @@ public class Restaurants {
      * - ??
      */
     public static void llistarMitjanes() {
+        AppData db = AppData.getInstance();
+        ArrayList<HashMap<String, Object>> restaurants = db.query("SELECT * FROM restaurants");
+        double total = 0;
+        for (HashMap<String, Object> restaurant : restaurants) {
+            total += Double.parseDouble((String) restaurant.get("pricing"));
+        }
+
+        double mitjana = total / restaurants.size();
+
+        System.out.printf("Preu mitjà: %.2f€\n", mitjana);
+        System.out.println("Restaurants barats:");
+        for (HashMap<String, Object> restaurant : restaurants) {
+            if (Double.parseDouble((String) restaurant.get("pricing")) < mitjana) {
+                System.out.println("- " + restaurant.get("name") +" "+ " || Preu: " + restaurant.get("pricing"));
+            }
+        }
+        System.out.println("Restaurants cars:");
+        for (HashMap<String, Object> restaurant : restaurants) {
+            if (Double.parseDouble((String) restaurant.get("pricing")) > mitjana) {
+                System.out.println("- " + restaurant.get("name") + " " + " || Preu: " + restaurant.get("pricing"));
+            }
+        }
 
     }
 }

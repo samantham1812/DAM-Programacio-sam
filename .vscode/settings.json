@@ -6,5 +6,6 @@
     "workbench.editorAssociations": {   
         "*.md": "vscode.markdown.preview.editor",
     },
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "sqldeveloper.plsqlDebugger.host": "127.0.0.1"
 }

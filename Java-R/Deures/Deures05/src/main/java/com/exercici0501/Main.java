@@ -33,6 +33,7 @@ public class Main {
             e.printStackTrace();
         }
 
+        Restaurants.llistarMitjanes();
         db.close();
     }
 }
