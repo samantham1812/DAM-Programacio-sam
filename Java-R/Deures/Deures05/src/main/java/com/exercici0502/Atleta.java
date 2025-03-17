@@ -29,7 +29,7 @@ public class Atleta {
     }
 
     public void updateFromDB() {
-    
+        
     }
 
     public void updateToDB() {

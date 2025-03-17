@@ -84,20 +84,34 @@ public class Olimpiades {
     }
 
     public Esport afegirEsport(String nom, String categoria) {
-        Esport esport = new Esport(0, nom, categoria);
-        esport.updateDB();
-        return esport;
+       AppData db = AppData.getInstance();
+        String sql = String.format("INSERT INTO esports (nom, categoria) VALUES ('%s', '%s')", nom, categoria);
+        Integer id = db.insertAndGetId(sql);
+
+        Esport nou_Esport = new Esport(id, nom, categoria);
+        this.esports.add(nou_Esport);
+
+        return nou_Esport;
     }
 
     public Competicio afegirCompeticio(Esport esport, String lloc, String data) {
-        Competicio competicio = new Competicio(0, esport, lloc, data);
-        competicio.updateDB();
-        return competicio;
+        AppData db = AppData.getInstance();
+        String sql = String.format("INSERT INTO competicions (id_esport, lloc, data) VALUES (%d, '%s', '%s')", esport.getId(), lloc, data);
+        Integer id = db.insertAndGetId(sql);
+
+        Competicio nova_Competicio = new Competicio(id, esport, lloc, data);
+        this.competicions.add(nova_Competicio);
+
+        return nova_Competicio;
     }
 
     public void afegirParticipant(Atleta atleta, Competicio competicio, int posicio, String medalla) {
-        Participant participant = new Participant(0, atleta, competicio, posicio, medalla);
-        participant.updateDB();
+        AppData db = AppData.getInstance();
+        String sql = String.format("INSERT INTO participants (id_atleta, id_competicio, posicio, medalla) VALUES (%d, %d, %d, '%s')", atleta.getId(), competicio.getId(), posicio, medalla);
+        db.update(sql);
+
+        Participant nou_Participant = new Participant(atleta, competicio, posicio, medalla);
+        this.participants.add(nou_Participant);
     }
 
     public void llistarAtletes() {
