@@ -3,10 +3,12 @@ package com.exercici0501;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.InvalidParameterException;
-
-import netscape.javascript.JSONObject;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Restaurants {
  
@@ -57,7 +59,7 @@ public class Restaurants {
      */
     public static void addRestaurant(int idRestaurant, String name, String kind, int tables, String pricing) {
         AppData db = AppData.getInstance();
-        String sql = String.format("INSERT INTO directors (id_restaurant, name, kind, tables, pricing ) VALUES ('%d', '%s','%s','%d','%s')",idRestaurant,name,kind,tables,pricing);
+        String sql = String.format("INSERT INTO restaurants (id_restaurant, name, kind, tables, pricing ) VALUES ('%d', '%s','%s','%d','%s')",idRestaurant,name,kind,tables,pricing);
         db.update(sql);
     }
 
@@ -122,12 +124,95 @@ public class Restaurants {
      * │ DongFang   │ Xinès           │ 15     │ 12   │
      * └────────────┴─────────────────┴────────┴──────┘
      */
-    public static void llistarTaulaRestautants() {
+    public static String generaMarcTaula(int[] columnWidths, char[] separators) {
 
+        String rst = "";
+
+        rst += separators[0];
+        for (int i = 0; i < columnWidths.length; i++) {
+            for (int j = 0; j < columnWidths[i];j++){
+                rst += "─";
+            }
+            if (i<columnWidths.length -1) {
+                rst += separators[1];
+            }   
+            
+        }
+        rst += separators[2];
+
+
+        return rst;
     }
 
-    public static void llisarTaulaClients() {
+    public static String formatRow(String[] values, int[] columnWidths) {
 
+        String rst = "│";
+        for (int val = 0; val < values.length; val++) {
+            if (values[val].length() > columnWidths[val]) {
+                rst += values[val].substring(0, columnWidths[val]) + "│";
+            } else {
+                rst += values[val] + " ".repeat(columnWidths[val] - values[val].length()) + "│";
+            }
+        }
+        return rst;
+    }
+
+    public static void llistarTaulaRestautants() throws IOException {
+        AppData db = AppData.getInstance();
+        ArrayList<HashMap<String, Object>> restaurants = db.query("SELECT * FROM restaurants");
+
+
+        String[] titol = {"ID", "Nom", "Tipus", "Taules", "Preu"};
+        int[] columnWidths = {10, 20, 20, 8, 5};
+        char[] separadorsTop = {'┌', '┬', '┐'};
+        char[] separadorsMid = {'├', '┼', '┤'};
+        char[] separadorsBot = {'└', '┴', '┘'};
+
+        System.out.println(generaMarcTaula(columnWidths, separadorsTop));
+        System.out.println(formatRow(titol, columnWidths));
+        System.out.println(generaMarcTaula(columnWidths, separadorsMid));
+
+        for (int i = 0; i < restaurants.size(); i++) {
+            HashMap<String, Object> restaurant = new HashMap<>(restaurants.get(i));
+            String[] row = {
+                String.valueOf(restaurant.get("id_restaurant")),
+                (String) restaurant.get("name"),
+                (String) restaurant.get("kind"),
+                String.valueOf(restaurant.get("tables")),
+                (String) restaurant.get("pricing")
+            };
+            System.out.println(formatRow(row, columnWidths));
+        }
+
+        System.out.println(generaMarcTaula(columnWidths, separadorsBot));
+    }
+   
+    public static void llistarTaulaClients() {
+
+        AppData db = AppData.getInstance();
+        ArrayList<HashMap<String, Object>> clients = db.query("SELECT * FROM clients");
+
+        String[] titol = {"ID", "Nom", "Data de naixement", "VIP"};
+        int[] columnWidths = {10, 20, 20, 5};
+        char[] separadorsTop = {'┌', '┬', '┐'};
+        char[] separadorsMid = {'├', '┼', '┤'};
+        char[] separadorsBot = {'└', '┴', '┘'};
+
+        System.out.println(generaMarcTaula(columnWidths, separadorsTop));
+        System.out.println(formatRow(titol, columnWidths));
+        System.out.println(generaMarcTaula(columnWidths, separadorsMid));
+
+        for (int i = 0; i < clients.size(); i++) {
+            HashMap<String, Object> client = new HashMap<>(clients.get(i));
+            String[] row = {
+                String.valueOf(client.get("id_client")),
+                (String) client.get("name"),
+                (String) client.get("birth"),
+                (String) client.get("isVIP")
+            };
+            System.out.println(formatRow(row, columnWidths));
+        }
+        System.out.println(generaMarcTaula(columnWidths, separadorsBot));
     }
 
     /**
@@ -138,7 +223,40 @@ public class Restaurants {
      * @param idClient
      */
     public static void llistarTaulaServeis(int idClient) throws InvalidParameterException {
+        AppData db = AppData.getInstance();
+        ArrayList<HashMap<String, Object>> services;
+        
+        if (idClient == -1) {
+            services = db.query("SELECT * FROM services");
+        } else {
+            services = db.query(String.format("SELECT * FROM services WHERE id_client = %d", idClient));
+            if (services.isEmpty()) {
+                throw new InvalidParameterException("Invalid client ID: " + idClient);
+            }
+        }
 
+        String[] titol = {"ID Servei", "ID Restaurant", "ID Client", "Data", "Despesa"};
+        int[] columnWidths = {10, 15, 10, 15, 10};
+        char[] separadorsTop = {'┌', '┬', '┐'};
+        char[] separadorsMid = {'├', '┼', '┤'};
+        char[] separadorsBot = {'└', '┴', '┘'};
+
+        System.out.println(generaMarcTaula(columnWidths, separadorsTop));
+        System.out.println(formatRow(titol, columnWidths));
+        System.out.println(generaMarcTaula(columnWidths, separadorsMid));
+
+        for (HashMap<String, Object> service : services) {
+            String[] row = {
+                String.valueOf(service.get("id_servei")),
+                String.valueOf(service.get("id_restaurant")),
+                String.valueOf(service.get("id_client")),
+                (String) service.get("date"),
+                String.valueOf(service.get("expenditure"))
+            };
+            System.out.println(formatRow(row, columnWidths));
+        }
+
+        System.out.println(generaMarcTaula(columnWidths, separadorsBot));
     }
 
     /** Mostra dues llistes, 
