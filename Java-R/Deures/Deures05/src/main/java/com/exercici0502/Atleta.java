@@ -18,11 +18,27 @@ public class Atleta {
         this.equip = equip;
     }
     
-    public void updateDB() {
+    public void setNom(String value) {
+        this.nom = value;
+        updateDB();
+    }
+
+    public void setEdat(int value) {
+        this.edat = value;
+        updateDB();
+    }
+
+    public void updateFromDB() {
+    
+    }
+
+    public void updateToDB() {
         String sql = String.format(
             "UPDATE atletes SET nom='%s', edat=%d, pais='%s', equip=%b WHERE id_atleta=%d;",
             nom, edat, pais, equip, id
         );
         AppData.getInstance().update(sql);
     }
+    
+
 }
