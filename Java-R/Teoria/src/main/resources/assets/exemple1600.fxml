@@ -14,4 +14,12 @@
       </Text>
       <Button fx:id="buttonAdd" layoutX="417.0" layoutY="187.0" mnemonicParsing="false" onAction="#actionAdd" text="Add" />
    </children>
+   <children>
+      <Text fx:id="textCounter" layoutX="25.0" layoutY="220.173828125" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="LEFT" wrappingWidth="285.13671875" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="167.0">
+         <font>
+            <Font name="Lato Black" size="55.0" />
+         </font>
+      </Text>
+      <Button fx:id="buttonSub" layoutX="417.0" layoutY="187.0" mnemonicParsing="false" onAction="#actionSub" text="Sub" />
+   </children>
 </AnchorPane>

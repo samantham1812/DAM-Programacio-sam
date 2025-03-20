@@ -1,4 +1,4 @@
-package com.exercici1600;
+package com.exemple1600;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
