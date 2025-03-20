@@ -11,6 +11,7 @@ public class Main {
     
     public static void main(String[] args) {
         AppData db = AppData.getInstance();
+        db.connect("./data/dbOlimpiades.sqlite");
 
         Olimpiades olm = new Olimpiades();
 
@@ -18,6 +19,9 @@ public class Main {
 
         Atleta atleta1 = olm.afegirAtleta("Usain Bolt", 34, "Jamaica", false);
         Atleta atleta2 = olm.afegirAtleta("Michael Phelps", 36, "EUA", false);
+
+        atleta1.setNom("Usain");
+        atleta1.setEdat(35);
 
         Esport atletisme = olm.afegirEsport("Atletisme", "Velocitat");
         Esport natacio = olm.afegirEsport("Natació", "Aigua");

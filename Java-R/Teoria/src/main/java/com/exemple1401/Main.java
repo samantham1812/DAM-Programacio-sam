@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class Main {
     /**
      * Mètode principal que inicia l'execució del programa.
+     * ./run.sh com.exemple1401.Main
      *
      * @param args arguments de la línia de comandes.
      */
@@ -17,7 +18,11 @@ public class Main {
 
         // Crear el singleton (això es connecta a la base de dades)
         AppData db = AppData.getInstance();
+<<<<<<< HEAD
         db.connect("//localhost:3306/hr?useSSL=false&allowPublicKeyRetrieval=true", "root", "admin");
+=======
+        db.connect("//localhost:3308/world?useSSL=false&allowPublicKeyRetrieval=true", "root", "pwd");
+>>>>>>> 305044a35cfed8b858aa3e5c5dcb1bcf20656a78
 
         System.out.println("\nLlistar totes les taules:");
         llistarTaules();

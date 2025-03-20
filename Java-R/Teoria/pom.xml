@@ -82,7 +82,10 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.47.0.0</version>
         </dependency>
+<<<<<<< HEAD
         <!-- Dependency for MySQL -->
+=======
+>>>>>>> 305044a35cfed8b858aa3e5c5dcb1bcf20656a78
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

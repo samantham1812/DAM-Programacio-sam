@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
+<<<<<<< HEAD
 
 /*
  Estructura ✅
@@ -14,6 +15,9 @@ import java.util.Scanner;
  Table
  Input
  */
+=======
+import com.easyText.*;
+>>>>>>> 305044a35cfed8b858aa3e5c5dcb1bcf20656a78
 
 public class Main { 
 
