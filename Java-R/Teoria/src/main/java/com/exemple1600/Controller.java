@@ -26,7 +26,7 @@ public class Controller {
 
     @FXML
     private void actionSub(ActionEvent event) {
-        counter--;
+        counter = counter - 1;
         textCounter.setText(String.valueOf(counter));
     }
 }
