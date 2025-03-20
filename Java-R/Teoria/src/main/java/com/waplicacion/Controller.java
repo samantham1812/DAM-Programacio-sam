@@ -20,6 +20,29 @@ public class Controller {
     private TextField texto;
 
     @FXML
+    private Button load;
+
+    @FXML
+    private void cargarInformacion(ActionEvent event) {
+        try {
+            // Leer el archivo JSON
+            String content = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get("aplicacion.json")));
+            JSONObject jsonObject = new JSONObject(content);
+
+            // Obtener los valores del JSON y mostrarlos en los campos de texto
+            String titulo = jsonObject.getString("title");
+            String parrafo = jsonObject.getString("paragraph");
+
+            Entrada.setText(titulo);
+            texto.setText(parrafo);
+        } catch (IOException e) {
+            texto.setText("Error loading data: " + e.getMessage());
+        } catch (org.json.JSONException e) {
+            texto.setText("Error parsing JSON: " + e.getMessage());
+        }
+    }
+
+    @FXML
     private void guardarInformacion(ActionEvent event) {
         String titulo = Entrada.getText();
         String parrafo = texto.getText();
@@ -40,5 +63,6 @@ public class Controller {
     @FXML
     private void initialize() {
         Guardar.setOnAction(this::guardarInformacion);
+        load.setOnAction(this::cargarInformacion);
     }
 }
