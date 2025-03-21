@@ -3,7 +3,12 @@ package com.exemple1602;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +18,9 @@ import javafx.stage.Stage;
 public class Controller {
 
     @FXML
+    private Button buttonLoadJSON, buttonSaveJSON, buttonLoadImage;
+
+    @FXML
     private TextArea txt;
 
     @FXML
@@ -20,7 +28,7 @@ public class Controller {
 
     @FXML
     private void actionLoadJSON() {
-        Stage stage = (Stage) txt.getScene().getWindow();
+        Stage stage = (Stage) buttonLoadJSON.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arxius JSON", "*.json"));
@@ -28,7 +36,7 @@ public class Controller {
         if (selectedFile != null) {
             try {
                 String content = new String(Files.readAllBytes(selectedFile.toPath()));
-                txt.setText(content);
+                txt.setText(content); // "content" és el text que s'ha llegit de l'arxiu
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -37,14 +45,21 @@ public class Controller {
 
     @FXML
     private void actionSaveJSON() {
-        Stage stage = (Stage) txt.getScene().getWindow();
+        Stage stage = (Stage) buttonSaveJSON.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arxius JSON", "*.json"));
         File selectedFile = fileChooser.showSaveDialog(stage);
         if (selectedFile != null) {
             try {
-                Files.write(selectedFile.toPath(), txt.getText().getBytes());
+                String jsonData = txt.getText(); // "txt.getText()" és el text .json que es vol guardar
+                if (jsonData.substring(0, 1).equalsIgnoreCase("[")) {
+                    JSONArray json = new JSONArray(jsonData);
+                    Files.write(selectedFile.toPath(), json.toString(4).getBytes());
+                } else {
+                    JSONObject json = new JSONObject(jsonData);
+                    Files.write(selectedFile.toPath(), json.toString(4).getBytes());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -53,7 +68,7 @@ public class Controller {
 
     @FXML
     private void actionLoadImage() {
-        Stage stage = (Stage) txt.getScene().getWindow();
+        Stage stage = (Stage) buttonLoadImage.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imatges", "*.png", "*.jpg", "*.jpeg", "*.gif"));
