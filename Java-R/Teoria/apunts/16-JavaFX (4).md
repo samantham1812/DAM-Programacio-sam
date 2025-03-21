@@ -8,12 +8,13 @@
 </div>
 <br/>
 
-# JavaFX (4)
+# JavaFX (5)
 
-## Dades, arxius .json
+Els elements d'una aplicació *JavaFX* no només es poden afegir a partir d'arxius *.fxml*, també es poden afegir programant codi *Java*
 
+## Funció al iniciar una vista
 
+## Elements programàtics
 
-## Dades, DDBB .sqlite
-
+## Llistes dinàmiques
 

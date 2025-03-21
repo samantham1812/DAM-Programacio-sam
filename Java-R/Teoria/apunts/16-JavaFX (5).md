@@ -8,12 +8,8 @@
 </div>
 <br/>
 
-# JavaFX (5)
+# JavaFX (4)
 
-## Llistes dinàmiques
-
-## Imatges a les llistes
-
-
+## DDBB i taules amb dades
 
 

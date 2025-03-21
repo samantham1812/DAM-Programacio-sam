@@ -54,18 +54,6 @@ El codi FXML està basat en arxius de text amb format XML, per tant, es poden ed
 </AnchorPane>
 ```
 
-## Exemple 0000
-
-Feu anar l'exemple amb:
-```bash
-./run.sh com.project.Main
-```
-
-O bé a Windows PowerShell:
-```bash
-.\run.ps1 com.project.Main
-```
-
 ## Gluon SceneBuilder
 
 Editar interfícies FXML manualment és complicat, ja que cal conèixer els components del llenguatge. 
@@ -153,10 +141,10 @@ src/main/resources/assets
 
 ### Exemple 1600
 
-**Nota:** Per fer anar l'exemple cal 'Maven'
+Fes anar l'exemple amb:
 
 ```bash
-./run.sh com.project.Main
+./run.sh com.exemple1600.Main
 ```
 
 Aquest exemple mostra com: 
@@ -210,25 +198,38 @@ A *Gluon SceneBuilder* les configuracions anteriors es veuen a:
 
 **Nota:** A Windows fer servir './run.ps1'
 
-# Events
-
-A l'escena es poden capturar events, per exemple:
-
-Executar la funció *"actionSetSize"* quan canvia la mida de la finestra:
-```java
-UtilsViews.parentContainer.heightProperty().addListener((observable, oldValue, newvalue) ->{
-           actionSetSize(); 
-});
-```
-
-Cridar a la funció *"keyEvent"* quan l'usuari prem una tecla:
-```java
-scene.addEventFilter(KeyEvent.ANY, keyEvent -> { keyEvent(keyEvent); });
-```
-
 ### Exercici 1600
 
-Fes un programa que permeti calcular la suma de dos números:
+Modifica l'exemple 1600 per afegir un botó de restar.
 
-- Amb Gluon modifica *./resources/assets/exercici1600.fxml*
-- Modifica el codi del controlador *./com/exercici1600/Controller.java* 
+Fes anar l'exercici amb:
+
+```bash
+./run.sh com.exercici1600.Main
+```
+
+### Exercici 1601
+
+Modifica el codi per fer un programa que fa una suma a partir de dos camps de text:
+
+Fes anar l'exercici amb:
+
+```bash
+./run.sh com.exercici1601.Main
+```
+
+<center><img src="./assets/exercici1601.png" style="max-width: 90%; max-height: 200px;" alt="">
+<br/></center>
+<br/>
+
+### Exercici 1602
+
+Modifica el codi per fer un programa que té un "titol" i un "text" i permet guardar la informació a un arxiu "./data/dades1601.json"
+
+Després afegeix un botó "Carregar" que llegeix les dades de l'arxiu *.json* anterior i les mostra als camps del programa.
+
+Fes anar l'exercici amb:
+
+```bash
+./run.sh com.exercici1601.Main
+```

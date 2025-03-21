@@ -1,4 +1,4 @@
-package com.exercici1600;
+package com.exemple1601;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 // Fes anar l'exemple amb:
-// ./run.sh com.exemple1600.Main
+// ./run.sh com.exemple1601.Main
 
 public class Main extends Application {
 
@@ -23,7 +23,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         // Carrega la vista inicial des del fitxer FXML
-        Parent root = FXMLLoader.load(getClass().getResource("/assets/exercici1600.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/assets/exemple1601.fxml"));
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
