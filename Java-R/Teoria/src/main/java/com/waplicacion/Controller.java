@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Controller {
@@ -33,15 +35,12 @@ public class Controller {
         fileChooser.setTitle("Seleccionar archivo JSON");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos JSON", "*.json"));
 
-        // Mostrar el diálogo para seleccionar un archivo
         File file = fileChooser.showOpenDialog(new Stage());
         if (file != null) {
             try {
-                // Leer el archivo JSON
                 String content = new String(Files.readAllBytes(file.toPath()));
                 JSONObject jsonObject = new JSONObject(content);
 
-                // Obtener los valores del JSON y mostrarlos en los campos de texto
                 String titulo = jsonObject.getString("title");
                 String parrafo = jsonObject.getString("paragraph");
 
@@ -61,7 +60,6 @@ public class Controller {
         fileChooser.setTitle("Guardar archivo JSON");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos JSON", "*.json"));
 
-        // Mostrar el diálogo para guardar el archivo
         File file = fileChooser.showSaveDialog(new Stage());
         if (file != null) {
             String titulo = Entrada.getText();
