@@ -44,6 +44,6 @@
       <TextField fx:id="txtexplicatiu" alignment="TOP_LEFT" layoutX="62.0" layoutY="245.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="161.0" prefWidth="392.0" promptText="explicatiu" style="-fx-background-color: #fcfc8d;" />
       <ImageView fx:id="imagen" fitHeight="325.0" fitWidth="236.0" layoutX="500.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="toficha" layoutX="639.0" layoutY="28.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="130.0" style="-fx-background-color: #659e94;" text="Ver la información" textFill="#f8f8f8" />
-      <Button fx:id="savebut" layoutX="296.0" layoutY="438.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="147.0" style="-fx-background-color: #659e94;" text="Guardar cambios" textFill="#f8f8f8" />
+      <Button fx:id="savebut" layoutX="307.0" layoutY="438.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="147.0" style="-fx-background-color: #659e94;" text="Guardar cambios" textFill="#f8f8f8" />
    </children>
 </AnchorPane>

@@ -40,7 +40,7 @@
       </Text>
       <Button fx:id="toforms" layoutX="651.0" layoutY="36.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #659e94;" text="Modificar" textFill="WHITE" />
       <ImageView fx:id="imagen" fitHeight="325.0" fitWidth="236.0" layoutX="505.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="loadjson" layoutX="352.0" layoutY="436.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="114.0" style="-fx-background-color: #659e94;" text="load" textFill="WHITE" />
+      <Button fx:id="loadjson" layoutX="60.0" layoutY="436.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="114.0" style="-fx-background-color: #659e94;" text="load" textFill="WHITE" />
       <TextField fx:id="nom" layoutX="60.0" layoutY="111.0" prefHeight="26.0" prefWidth="392.0" promptText="nom" style="-fx-background-color: #fcfc8d;" />
       <TextField fx:id="activitat" layoutX="60.0" layoutY="150.0" prefHeight="26.0" prefWidth="392.0" promptText="activitat" style="-fx-background-color: #fcfc8d;" />
       <TextField fx:id="datanaixement" layoutX="60.0" layoutY="192.0" prefHeight="26.0" prefWidth="392.0" promptText="data" style="-fx-background-color: #fcfc8d;" />
