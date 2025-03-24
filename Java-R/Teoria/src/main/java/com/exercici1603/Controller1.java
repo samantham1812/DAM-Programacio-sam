@@ -35,6 +35,8 @@ public class Controller1 {
     @FXML
     private ImageView imagen;
 
+    
+
     @FXML
     private void animateToView0(ActionEvent event) {
         UtilsViews.setViewAnimating("View0");
