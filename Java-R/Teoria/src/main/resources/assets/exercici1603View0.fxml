@@ -33,12 +33,12 @@
             </VBox>
          </children>
       </HBox>
-      <Text layoutX="71.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View 0" wrappingWidth="328.13671875" AnchorPane.leftAnchor="71.0" AnchorPane.topAnchor="25.205001831054688">
+      <Text layoutX="68.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datos de la persona" wrappingWidth="426.13671875" AnchorPane.leftAnchor="68.0" AnchorPane.topAnchor="29.964000701904297">
          <font>
-            <Font name="Lato Black" size="55.0" />
+            <Font size="44.0" />
          </font>
       </Text>
-      <Button fx:id="toforms" layoutX="651.0" layoutY="36.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #659e94;" text="Ir a ficha" textFill="WHITE" />
+      <Button fx:id="toforms" layoutX="651.0" layoutY="36.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="97.0" style="-fx-background-color: #659e94;" text="Modificar" textFill="WHITE" />
       <ImageView fx:id="imagen" fitHeight="325.0" fitWidth="236.0" layoutX="505.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="loadjson" layoutX="352.0" layoutY="436.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="114.0" style="-fx-background-color: #659e94;" text="load" textFill="WHITE" />
       <TextField fx:id="nom" layoutX="60.0" layoutY="111.0" prefHeight="26.0" prefWidth="392.0" promptText="nom" style="-fx-background-color: #fcfc8d;" />
