@@ -47,52 +47,6 @@ public class Controller0 {
     @FXML
     private ImageView imagen;
 
-    // @FXML
-    // private void actionLoadJson(ActionEvent event) {
-    //     Stage stage = (Stage) loadjson.getScene().getWindow();
-    //     FileChooser fileChooser = new FileChooser();
-    //     fileChooser.setTitle("Seleccionar archivos JSON");
-    //     fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files", "*.json"));
-        
-    //     File selectedFile = fileChooser.showOpenDialog(new Stage());
-    //     if (selectedFile != null) {
-    //         try {
-    //             String content = new String(Files.readAllBytes(selectedFile.toPath()));
-    //             JSONObject jsonObject = new JSONObject(content);
-                
-    //             String nm = jsonObject.getString("Nom");
-    //             String act = jsonObject.getString("Activitat");
-    //             String data = jsonObject.getString("Data de naixement");
-    //             String explicatiu = jsonObject.getString("Text explicatiu");
-
-    //             nom.setText(nm);
-    //             activitat.setText(act);
-    //             datanaixement.setText(data);
-    //             txtexplicatiu.setText(explicatiu);    
-
-    //         } catch (IOException e) {
-    //             e.printStackTrace();
-    //         } 
-    //     }
-    // }
-
-    // @FXML
-    // private void actionLoadImage(){
-    //     Stage stage = (Stage) loadjson.getScene().getWindow();
-    //     FileChooser fileChooser = new FileChooser();
-    //     fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-    //     fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image files", "*.png", "*.jpg", "*.jpeg"));
-        
-    //     File selectedFile = fileChooser.showOpenDialog(stage);
-    //     if (selectedFile != null) {
-    //         try {
-    //             Image im1 = new Image(selectedFile.toURI().toString());
-    //             imagen.setImage(im1);
-    //         } catch (Exception e) {
-    //             e.printStackTrace();
-    //         }
-    //     }
-    // }
     @FXML
     private void actionLoadJson(ActionEvent event) {
     Stage stage = (Stage) loadjson.getScene().getWindow();
@@ -120,7 +74,7 @@ public class Controller0 {
             txtexplicatiu.setText(explicatiu);
 
             // Llamar a la función para cargar la imagen
-            //loadImageFromPath(imagePath);
+            loadImageFromPath(imagePath);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -145,8 +99,6 @@ private void loadImageFromPath(String imagePath) {
     @FXML
     private void initialize(){
         loadjson.setOnAction(this::actionLoadJson);
-        
-        //imagen.setOnMouseClicked(e -> actionLoadImage());
     }
 
     @FXML

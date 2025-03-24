@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="container" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.exercici1603.Controller0">
+<AnchorPane fx:id="container" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #dd9f9f;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.exercici1603.Controller0">
    <children>
       <HBox maxHeight="100.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0">
          <children>
@@ -44,6 +44,6 @@
       <TextField fx:id="nom" layoutX="60.0" layoutY="111.0" prefHeight="26.0" prefWidth="392.0" promptText="nom" style="-fx-background-color: #fcfc8d;" />
       <TextField fx:id="activitat" layoutX="60.0" layoutY="150.0" prefHeight="26.0" prefWidth="392.0" promptText="activitat" style="-fx-background-color: #fcfc8d;" />
       <TextField fx:id="datanaixement" layoutX="60.0" layoutY="192.0" prefHeight="26.0" prefWidth="392.0" promptText="data" style="-fx-background-color: #fcfc8d;" />
-      <TextField fx:id="txtexplicatiu" alignment="TOP_LEFT" layoutX="60.0" layoutY="237.0" prefHeight="161.0" prefWidth="392.0" promptText="explicatiu" style="-fx-background-color: #fcfc8d;" />
+      <TextField fx:id="txtexplicatiu" alignment="TOP_LEFT" layoutX="60.0" layoutY="237.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="161.0" prefWidth="392.0" promptText="explicatiu" style="-fx-background-color: #fcfc8d;" />
    </children>
 </AnchorPane>
