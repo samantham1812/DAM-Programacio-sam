@@ -84,17 +84,17 @@ public class Controller0 {
     }
 }
 
-@FXML
-private void loadImageFromPath(String imagePath) {
+    @FXML
+    private void loadImageFromPath(String imagePath) {
     // Cargar la imagen en el ImageView
-    File imageFile = new File(imagePath);
-    if (imageFile.exists()) {
-        Image image = new Image(imageFile.toURI().toString());
-        imagen.setImage(image);
-    } else {
-        System.out.println("La ruta de la imagen no es válida: " + imagePath);
+        File imageFile = new File(imagePath);
+        if (imageFile.exists()) {
+            Image image = new Image(imageFile.toURI().toString());
+            imagen.setImage(image);
+        } else {
+            System.out.println("La ruta de la imagen no es válida: " + imagePath);
+        }
     }
-}
 
     @FXML
     private void initialize(){
