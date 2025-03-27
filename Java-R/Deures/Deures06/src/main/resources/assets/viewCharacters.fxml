@@ -3,12 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.exercici0601.ControllerCharacters">
+<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.exercici0601.ControllerCharacters">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -39,20 +41,23 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <AnchorPane maxHeight="50.0" style="-fx-background-color: white; -fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-border-color: grey;" VBox.vgrow="ALWAYS">
+            <AnchorPane fx:id="container" maxHeight="50.0" style="-fx-background-color: white; -fx-border-style: solid; -fx-border-width: 0 0 1 0; -fx-border-color: grey;" VBox.vgrow="ALWAYS">
                <children>
-                  <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox fx:id="vboxCarac" prefHeight="536.0" prefWidth="300.0">
                      <children>
-                        <Label maxHeight="50.0" text="TODO">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets left="15.0" />
-                           </HBox.margin>
-                        </Label>
+                        <AnchorPane fx:id="container" maxHeight="50.0" maxWidth="301.0" minHeight="-Infinity" prefHeight="50.0" prefWidth="300.0">
+                           <children>
+                              <Label fx:id="nom" layoutX="107.0" layoutY="13.0" prefHeight="25.0" prefWidth="81.0" text="TitleText" AnchorPane.leftAnchor="107.0" AnchorPane.rightAnchor="112.0" AnchorPane.topAnchor="13.0">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fx:id="img" fitHeight="40.0" fitWidth="50.0" layoutX="22.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </AnchorPane>
+                        <ScrollPane prefHeight="144.0" prefWidth="300.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
             </AnchorPane>
          </children>
