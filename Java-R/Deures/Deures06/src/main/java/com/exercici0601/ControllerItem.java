@@ -20,6 +20,22 @@ import javafx.stage.Stage;
 
 public class ControllerItem {
     
+    private String name;
+    private String imagePath;
+
+    public ControllerItem(String name, String imagePath) {
+        this.name = name;
+        this.imagePath = imagePath;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
 
     @FXML
     private void toViewMain(MouseEvent event) {
