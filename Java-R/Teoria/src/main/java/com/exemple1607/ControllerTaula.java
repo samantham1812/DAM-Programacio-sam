@@ -1,77 +1,36 @@
-<div style="display: flex; width: 100%;">
-    <div style="flex: 1; padding: 0px;">
-        <p>© Albert Palacios Jiménez, 2023</p>
-    </div>
-    <div style="flex: 1; padding: 0px; text-align: right;">
-        <img src="./assets/ieti.png" height="32" alt="Logo de IETI" style="max-height: 32px;">
-    </div>
-</div>
-<br/>
+package com.exemple1607;
 
-# JavaFX (4)
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
-## DDBB i taules amb dades
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.StringConverter;
 
-La interacció amb bases de dades es fa igual que amb les aplicacions de text.
+public class ControllerTaula implements Initializable {
 
-**Però** enlloc d'aturar la connexió amb la base de dades al final del main, s'ha d'aturar quan es tanca l'aplicació. A JavaFX la funció **stop()** es crida quan l'usuari tanca l'aplicació:
-
-```java
-    @Override
-    public void stop() throws Exception {
-        AppData db = AppData.getInstance();
-        db.close();
-        super.stop();
-    }
-```
-
-## Exemple 1607
-
-Per fer anar l'exemple:
-
-```bash
-./run.sh com.exemple1607.Main
-```
-
-Cal escollir un arxiu **".sqlite"** al iniciar l'aplicació. 
-
-<center><img src="./assets/exemple1607.png" style="max-width: 90%; max-height: 500px;" alt="">
-<br/></center>
-<br/>
-
-Quan s'escull un arxiu **".sqlite"**:
-
-- S'obre la connexió amb la base de dades
-- Es carrega la informació de les taules (sense cap sel·lecció de taula o fila)
-- Es canvia a la vista "ViewTaula"
-
-```java
     @FXML
-    public void selectFile(ActionEvent event) {
-        // Escollir un arxiu "*.sqlite*
-        Stage stage = (Stage) buttonSelectFile.getScene().getWindow();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Arxius .sqlite", "*.sqlite"));
-        File selectedFile = fileChooser.showOpenDialog(stage);
-        if (selectedFile != null) {
-            // Obrir connexió amb la base de dades
-            AppData db = AppData.getInstance();
-            db.connect(selectedFile.toPath().toString());
+    private ChoiceBox<String> choiceBox;
 
-            // Carregar la informació de les taules (sense sel·lecció)
-            ControllerTaula ctrlTaula = (ControllerTaula) UtilsViews.getController("ViewTaula");
-            ctrlTaula.loadTables("", -1);
+    @FXML
+    private TableView<HashMap<String, Object>> table;
 
-            // Canviar a la vista "ViewTaula"
-            UtilsViews.setViewAnimating("ViewTaula");
-        }
-    }
-```
+    @FXML
+    private Label label;
 
-Al iniciar la vista, es defineix que el **'CoiceBox'** canvii les dades de la taula **'TableView'** quan l'usuari canvia d'opció. Això es fa a la funció **initialize**:
-
-```java
+    // Called when the FXML file is loaded
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -84,14 +43,13 @@ Al iniciar la vista, es defineix que el **'CoiceBox'** canvii les dades de la ta
             }
         });
     }
-```
 
-La funció **loadTables** llista les taules disponibles a la base de dades, al **ChoiceBox**.
-
-A més, si ja hi ha una taula i una fila escollides, intenta mantenir la sel·lecció:
-
-```java
-public void loadTables(String selectedTable, int selectedRow) {
+    /**
+     * Llista les taules de la base de dades al 'choiceBox'
+     * @param selectedTable taula que s'ha d'escollir (si existeix), o "" per la primera taula
+     * @param selectedRow fila que s'ha de marcar (si existeix), o -1 si no se'n selecciona cap
+     */
+    public void loadTables(String selectedTable, int selectedRow) {
         // Obtenir el nom de les taules de la base de dades
         AppData db = AppData.getInstance();
         String sql = "SELECT name FROM sqlite_master WHERE type='table' AND name <> 'sqlite_sequence'";
@@ -122,17 +80,13 @@ public void loadTables(String selectedTable, int selectedRow) {
             setTable(tableNames.get(0));
         }
     }
-```
-
-Quan es mostren les dades d'una taula a la **'TableView'**:
-
-- Es defineixen les columnes de la taula
-- Es posen les dades a la taula
-- Es defineix la taula com editable
-- Es defineix què cal fer quan es modifica una fila
-
-```java
-private void setTable(String tableName) {
+        
+    /**
+     * Mostra una taula a la TableView 'table'
+     * @param tableName nom de la taula a mostrar
+     */
+    @FXML
+    private void setTable(String tableName) {
 
         // Vigilar que hi ha un 'tableName'
         if (tableName == null || tableName.trim().isEmpty()) {
@@ -189,23 +143,26 @@ private void setTable(String tableName) {
             }
         });
     }
-```
-
-La funció **reload** re-carrega les dades de la base de dades, intenta mantenir la sel·lecció de la taula i fila escollides:
-
-```java
-public void reload(ActionEvent event) {
+    
+    /**
+     * Carrega de nou les dades de la base de dades
+     * si hi ha una taula o fila sel·leccionades, intenta mantenir-les
+     * @param event
+     */
+    @FXML
+    public void reload(ActionEvent event) {
         String selectedTable = choiceBox.getSelectionModel().getSelectedItem();
         int selectedRow = table.getSelectionModel().getSelectedIndex();
 
         loadTables(selectedTable, selectedRow);
     }
-```
 
-La funció **setLabelInfo** mostra la informació de la fila escollida al **'Label'** de la part inferior de l'aplicació:
-
-```java
-private void setLabelInfo(HashMap<String, Object> rowData) {
+    /**
+     * Mostra la informació de la fila sel·lecionada al labe inferior
+     * Si no hi ha cap fila escollida mostra "Cap fila escollida"
+     * @param rowData
+     */
+    private void setLabelInfo(HashMap<String, Object> rowData) {
         if (rowData == null) {
             label.setText("Cap fila escollida");
         } else {
@@ -214,12 +171,14 @@ private void setLabelInfo(HashMap<String, Object> rowData) {
             label.setText(info.toString());
         }
     }
-```
 
-La funció **setModifiedRow** guarda les modificacions que s'han fet a una fila, a la base de dades:
-
-```java
-private boolean setModifiedRow(String tableName, String keyName, HashMap<String, Object> rowData) {
+    /** 
+     * Actualitza la base de dades quan es modifica una fila
+     * @param tableName nom de la taula
+     * @param rowData dades de la fila a actualitzar
+     * @return true si s'ha fet el canvi
+     */ 
+    private boolean setModifiedRow(String tableName, String keyName, HashMap<String, Object> rowData) {
 
         if (rowData == null || tableName == null) return false;
 
@@ -253,4 +212,51 @@ private boolean setModifiedRow(String tableName, String keyName, HashMap<String,
     
         return true;
     }
-```
+        
+    /** 
+     * Transforma una taula en editable
+     * @param table, taula que ha de ser editable
+     * @param onEdit, mètode a executar quan s'ha editat una fila
+     */ 
+    public static void makeTableEditable(TableView<HashMap<String, Object>> table, Consumer<HashMap<String, Object>> onEdit) {
+        table.setEditable(true);
+
+        if (table.getItems().isEmpty()) return;
+
+        for (TableColumn<HashMap<String, Object>, ?> tc : table.getColumns()) {
+            @SuppressWarnings("unchecked")
+            TableColumn<HashMap<String, Object>, Object> col = (TableColumn<HashMap<String, Object>, Object>) tc;
+            String key = col.getText();
+            Object sampleValue = table.getItems().get(0).get(key);
+
+            StringConverter<Object> converter;
+
+            if (sampleValue instanceof Integer) {
+                converter = new StringConverter<>() {
+                    public String toString(Object o) { return o == null ? "" : o.toString(); }
+                    public Object fromString(String s) {
+                        try { return Integer.parseInt(s); } catch (Exception e) { return 0; }
+                    }
+                };
+            } else if (sampleValue instanceof Double) {
+                converter = new StringConverter<>() {
+                    public String toString(Object o) { return o == null ? "" : o.toString(); }
+                    public Object fromString(String s) {
+                        try { return Double.parseDouble(s); } catch (Exception e) { return 0.0; }
+                    }
+                };
+            } else {
+                converter = new StringConverter<>() {
+                    public String toString(Object o) { return o == null ? "" : o.toString(); }
+                    public Object fromString(String s) { return s; }
+                };
+            }
+
+            col.setCellFactory(TextFieldTableCell.forTableColumn(converter));
+            col.setOnEditCommit(e -> {
+                e.getRowValue().put(key, e.getNewValue());
+                onEdit.accept(e.getRowValue());
+            });
+        }
+    }
+}

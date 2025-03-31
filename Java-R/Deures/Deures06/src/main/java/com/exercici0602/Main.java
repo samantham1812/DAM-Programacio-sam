@@ -1,4 +1,4 @@
-package com.exemple1606;
+package com.exercici0602;
 
 import com.utils.*;
 
@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-// Fes anar l'exemple amb:
-// ./run.sh com.exemple1606.Main
+// Fes anar l'exercici amb:
+// ./run.sh com.exercici0602.Main
 
 public class Main extends Application {
 
@@ -22,7 +22,9 @@ public class Main extends Application {
 
         // Carrega la vista inicial des del fitxer FXML
         UtilsViews.parentContainer.setStyle("-fx-font: 14 arial;");
-        UtilsViews.addView(getClass(), "Desktop", "/assets/exemple1606.fxml");
+        UtilsViews.addView(getClass(), "ViewTaula", "/assets/viewPokeList.fxml");
+        UtilsViews.addView(getClass(), "ViewInici", "/assets/viewPokeCard.fxml");
+        UtilsViews.addView(getClass(), "ViewTaula", "/assets/viewPokeForm.fxml");
 
         Scene scene = new Scene(UtilsViews.parentContainer);
 
@@ -40,6 +42,14 @@ public class Main extends Application {
             Image icon = new Image("file:icons/icon.png");
             stage.getIcons().add(icon);
         }
+    }
+
+    // Aquesta funció es crida quan es tanca l'aplicació
+    @Override
+    public void stop() throws Exception {
+        AppData db = AppData.getInstance();
+        db.close();
+        super.stop();
     }
 
     public static void main(String[] args) {
