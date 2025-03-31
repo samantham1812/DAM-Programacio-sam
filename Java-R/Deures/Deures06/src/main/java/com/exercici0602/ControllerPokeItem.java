@@ -1,5 +1,9 @@
 package com.exercici0602;
 
+
+import java.io.File;
+import java.nio.file.Path;
+
 import java.util.Objects;
 
 import javafx.fxml.FXML;
@@ -15,9 +19,6 @@ public class ControllerPokeItem {
 
     @FXML
     private ImageView img;
-
-    @FXML
-    private Circle circle;
 
     public void setTitle(String title) {
         this.title.setText(title);
@@ -37,7 +38,4 @@ public class ControllerPokeItem {
         }
     }
 
-    public void setCircleColor(String color) {
-        circle.setStyle("-fx-fill: " + color);
-    }
 }
