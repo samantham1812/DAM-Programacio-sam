@@ -1,7 +1,7 @@
 [
     {
         "name": "Mario",
-        "image": "character_mario.png",
+        "image": "/assets/images0601/character_mario.png",
         "color": "red",
         "game": "Super Mario Bros"
     },

@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.exercici0602.ControllerPokeList">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.exercici0602.ControllerPokeList">
    <children>
-     
+      <Label layoutX="12.0" layoutY="14.0" prefHeight="49.0" prefWidth="167.0" text="Pokemon DB" />
+      <Button layoutX="510.0" layoutY="32.0" mnemonicParsing="false" onAction="#addPokemon" text="add" />
+      <ScrollPane layoutY="67.0" prefHeight="333.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="67.0">
+         <content>
+            <VBox fx:id="list" prefHeight="321.0" prefWidth="600.0" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

@@ -36,6 +36,9 @@ public class Main extends Application {
         stage.setHeight(WINDOW_HEIGHT);
         stage.show();
         
+        //
+        ControllerPokeList ctrlPokeList = (ControllerPokeList) UtilsViews.getController("ViewTaula");
+        ctrlPokeList.loadList();
 
         // Afegeix una icona només si no és un Mac
         if (!System.getProperty("os.name").contains("Mac")) {
