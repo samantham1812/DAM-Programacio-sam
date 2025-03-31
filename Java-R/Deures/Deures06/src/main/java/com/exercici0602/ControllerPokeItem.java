@@ -1,9 +1,7 @@
 package com.exercici0602;
 
-
 import java.io.File;
 import java.nio.file.Path;
-
 import java.util.Objects;
 
 import javafx.fxml.FXML;
@@ -30,12 +28,12 @@ public class ControllerPokeItem {
 
     public void setImatge(String imagePath) {
         try {
-            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+            File file = new File(imagePath);
+            Image image = new Image(file.toURI().toString());
             this.img.setImage(image);
         } catch (NullPointerException e) {
             System.err.println("Error loading image asset: " + imagePath);
             e.printStackTrace();
         }
     }
-
 }

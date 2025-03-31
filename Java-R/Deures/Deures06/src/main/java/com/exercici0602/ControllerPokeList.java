@@ -1,9 +1,6 @@
 package com.exercici0602;
 
-import com.exercici0601.ControllerItem;
-import com.exercici0602.ControllerPokeItem;
 import com.utils.*;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,17 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.event.ActionEvent;
-
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.image.ImageView;
-
-
-import javafx.scene.layout.VBox;
-
 
 public class ControllerPokeList {
 
@@ -32,7 +19,6 @@ public class ControllerPokeList {
     private VBox list = new VBox();
 
     public void loadList() {
-
         AppData db = AppData.getInstance();
         db.connect("./data/pokemons.sqlite");
 
@@ -47,14 +33,12 @@ public class ControllerPokeList {
 
     private void setList(ArrayList<HashMap<String, Object>> llistaPokemons) throws IOException {
 
-
         URL resource = this.getClass().getResource("/assets/viewPokeItem.fxml");
 
         // Netejar el contingut existent
         list.getChildren().clear();
 
         // Iterar sobre els elements del JSONArray 'jsonInfo' (ja carregat a initialize)
-
         for (int i = 0; i < llistaPokemons.size(); i++) {
             // Obtenir l'objecte JSON individual (animal)
             HashMap<String, Object> pokemon = llistaPokemons.get(i);
@@ -72,22 +56,16 @@ public class ControllerPokeList {
 
             // Assignar els valors als controls del template
             itemController.setTitle(name);
-
             itemController.setSubtitle(type);
             itemController.setImatge(imagePath);
 
             // Afegir el nou element a 'yPane'
             list.getChildren().add(itemTemplate);
-
         }
     }
 
     @FXML
     public void addPokemon(ActionEvent event) {
-        System.out.println("Afegir Pokémon");
-        Label tmp = new Label("hola");
-        list.getChildren().clear();
-        list.getChildren().add(tmp);
+        //TODO
     }
-
 }
