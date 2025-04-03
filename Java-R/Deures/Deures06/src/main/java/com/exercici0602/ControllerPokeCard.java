@@ -8,30 +8,55 @@ import java.util.HashMap;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class ControllerPokeCard {
 
+    @FXML
+    private Label labelAbility = new Label();
+    private Label labelName = new Label();
+    private Label labelType = new Label();
+    private Label labelWeigth = new Label();
 
+    @FXML
+    private ImageView imgBackArrow;
+    private ImageView imgPokemon;
 
-    private int  number;
+    private int number;
 
-    private void loadPokemon(int number) {
-        AppData db = AppData.getInstance();
+    public void loadPokemon(int number) {
         this.number = number;
 
-        ArrayList<HashMap<String, Object>> llistaPokemons = db.query("SELECT * FROM pokemons WHERE number = '%s';", this.number);
-        if(llistaPokemons.size() > 0) {
-            HashMap<String, Object> pokemon = llistaPokemons.get(0);
-            System.out.println(number);
+        AppData db = AppData.getInstance();
+
+        ArrayList<HashMap<String, Object>> llistaPokemons = db.query(String.format("SELECT * FROM pokemons WHERE number = '%d';", this.number));
+        if (llistaPokemons.size() == 1) {
+            HashMap<String, Object> pokemon = llistaPokemons.get(0); 
         }
     }
 
     @FXML
-    public void next(ActionEvent event) {
-        System.out.println("To the next pokemon");;
+    public void goBack(MouseEvent event) {
+        UtilsViews.setViewAnimating("ViewList");
     }
-    
+
+    @FXML
+    public void editPokemon(ActionEvent event) {
+        System.out.println("To view edit pokemon");
+    }
+
+    @FXML
+    public void previous(ActionEvent event) {
+        System.out.println("To previous pokemon");
+    }
+
+    @FXML
+    public void next(ActionEvent event) {
+        System.out.println("To next pokemon");
+    }
 }
