@@ -10,15 +10,15 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
 
 public class ControllerPokeCard implements Initializable {
 
@@ -35,18 +35,31 @@ public class ControllerPokeCard implements Initializable {
     private Label labelWeigth = new Label();
 
     @FXML
-    private Label labelHeight = new Label();
-
-    @FXML
     private Label labelCategory = new Label();
 
     @FXML
+    private Label labelHeight = new Label();
+
+    @FXML
     private ImageView imgBackArrow;
+
+    @FXML
     private ImageView imgPokemon;
 
-    private int number;
+    @FXML
+    private Button buttonPrevious = new Button();
 
-   @Override
+    @FXML
+    private Button buttonNext = new Button();
+
+    @FXML 
+    private Button buttonEdit = new Button();
+
+    private int number;
+    private int previousNumber = -1;
+    private int nextNumber = -1;
+
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         Path imagePath = null;
         try {
@@ -67,25 +80,42 @@ public class ControllerPokeCard implements Initializable {
         ArrayList<HashMap<String, Object>> llistaPokemons = db.query(String.format("SELECT * FROM pokemons WHERE number = '%d';", this.number));
         if (llistaPokemons.size() == 1) {
             HashMap<String, Object> pokemon = llistaPokemons.get(0); 
-            labelName.setText((String) pokemon.get("name"));
-            String numNAme = String.valueOf(this.number) + " " + (String) pokemon.get("name");
-            labelWeigth.setText((String) pokemon.get("weight"));
-            labelType.setText((String) pokemon.get("type"));
             labelAbility.setText((String) pokemon.get("ability"));
+            String numName = String.valueOf(this.number) + " " + (String) pokemon.get("name");
+            labelName.setText(numName);
+            labelType.setText((String) pokemon.get("type"));
             labelCategory.setText((String) pokemon.get("category"));
             labelHeight.setText((String) pokemon.get("height"));
-
-        @Override
-        public void initialize (URL url, ResourceBundle rb) {
-            Path imagePath = null;
+            labelWeigth.setText((String) pokemon.get("weight"));
             try {
-                URL imageURL = getClass().getResource("/data/pokeImages/arrow-back.png");
-                Image image = new Image(imageURL.toExternalForm());
-                imgBackArrow.setImage(image);
+                String imagePath = (String) pokemon.get("image");
+                Image image = new Image("file:" + imagePath);
+                imgPokemon.setImage(image);
             } catch (Exception e) {
-                System.err.println("Error loading image asset: " + imagePath);
+                System.err.println("Error loading image asset: " + (String) pokemon.get("image"));
                 e.printStackTrace();
             }
+        }
+
+        llistaPokemons = db.query(String.format("SELECT * FROM pokemons WHERE number < '%d' ORDER BY number DESC LIMIT 1;", this.number));
+        if (llistaPokemons.size() == 1) {
+            HashMap<String, Object> pokemon = llistaPokemons.get(0); 
+            this.previousNumber = (int) pokemon.get("number");
+            buttonPrevious.setDisable(false);
+        } else {
+            this.previousNumber = -1;
+            buttonPrevious.setDisable(true);
+        }
+
+        llistaPokemons = db.query(String.format("SELECT * FROM pokemons WHERE number > '%d' ORDER BY number ASC LIMIT 1;", this.number));
+        if (llistaPokemons.size() == 1) {
+            HashMap<String, Object> pokemonNext = llistaPokemons.get(0); 
+            this.nextNumber = (int) pokemonNext.get("number");
+            buttonNext.setDisable(false);
+        }
+        else {
+            this.nextNumber = -1;
+            buttonNext.setDisable(true);
         }
     }
 
@@ -96,18 +126,21 @@ public class ControllerPokeCard implements Initializable {
 
     @FXML
     public void editPokemon(ActionEvent event) {
-        System.out.println("To view edit pokemon");
+        ControllerPokeForm ctrl = (ControllerPokeForm) UtilsViews.getController("ViewForm")
+        ctrl.setStatus("edit");
     }
 
     @FXML
     public void previous(ActionEvent event) {
-        loadPokemon(this.number - 1);
-        //System.out.println("To previous pokemon");
+        if (this.previousNumber != -1) {
+            loadPokemon(this.previousNumber);
+        }
     }
 
     @FXML
     public void next(ActionEvent event) {
-        loadPokemon(this.number + 1);
-        //System.out.println("To next pokemon");
+        if (this.nextNumber != -1) {
+            loadPokemon(this.nextNumber);
+        }
     }
 }
