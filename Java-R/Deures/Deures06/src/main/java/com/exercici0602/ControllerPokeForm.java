@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+//import javafx.scene.image.ImageView;
 //import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
@@ -69,11 +69,11 @@ public class ControllerPokeForm implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
         Path imagePath = null;
         try {
-            URL imageURL = getClass().getResource("/assets/images0602/arrow-back.png");
-            Image image = new Image(imageURL.toExternalForm());
-            imgBackArrow.setImage(image);
+            String imagePath = (String) pokemon.get("image");
+            Image image = new Image("file:" + imagePath);
+            imgPokemon.setImage(image);
         } catch (Exception e) {
-            System.err.println("Error loading image asset: " + imagePath);
+            System.err.println("Error loading image asset: " + (String) pokemon.get("image"));
             e.printStackTrace();
         }
     }
@@ -92,6 +92,7 @@ public class ControllerPokeForm implements Initializable{
             fieldHeight.clear();
             fieldWidth.clear();
             imgPokemon.setImage(null);
+            
         }
         if (this.status.equalsIgnoreCase(STATUS_EDIT)){
             buttonAdd.setVisible(false);
@@ -101,6 +102,21 @@ public class ControllerPokeForm implements Initializable{
             ArrayList<HashMap<String, Object>> lista = db.query(String.format("SELECT * FROM pokemons WHERE number = '%d';", this.number));
             if (lista.size() == 1) {
                 HashMap<String, Object> pokemon = lista.get(0);
+                fieldAvility.setText((String) pokemon.get("ability"));
+                String numName = String.valueOf(this.number) + " " + (String) pokemon.get("name");
+                fieldName.setText(numName);
+                fieldType.setText((String) pokemon.get("type"));
+                fieldCategory.setText((String) pokemon.get("category"));
+                fieldHeight.setText((String) pokemon.get("height"));
+                fieldWidth.setText((String) pokemon.get("weight"));
+                try {
+                    String imagePath = (String) pokemon.get("image");
+                    Image image = new Image("file:" + imagePath);
+                    imgPokemon.setImage(image);
+                } catch (Exception e) {
+                    System.err.println("Error loading image asset: " + (String) pokemon.get("image"));
+                    e.printStackTrace();
+                }
             }
         } 
     }

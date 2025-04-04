@@ -66,10 +66,16 @@ public class ControllerPokeList {
         }
     }
 
+
     @FXML
     public void addPokemon(ActionEvent event) {
-        ControllerPokeForm ctrl = (ControllerPokeForm) UtilsViews.getController("ViewForm");
-        ctrl.setStatus(ControllerPokeForm.STATUS_ADD, -1);
-        UtilsViews.setViewAnimating("ViewForm");
+        Object controller = UtilsViews.getController("ViewForm");
+        if (controller instanceof ControllerPokeForm) {
+            ControllerPokeForm ctrl = (ControllerPokeForm) controller;
+            ctrl.setStatus(ControllerPokeForm.STATUS_ADD, -1);
+            UtilsViews.setViewAnimating("ViewForm");
+        } else {
+            System.err.println("Error: Controller for 'ViewForm' is not of type ControllerPokeForm.");
+        }
     }
 }
