@@ -126,7 +126,7 @@ public class ControllerPokeCard implements Initializable {
 
     @FXML
     public void editPokemon(ActionEvent event) {
-        ControllerPokeForm ctrl = (ControllerPokeForm) UtilsViews.getController("ViewForm")
+        ControllerPokeForm ctrl = (ControllerPokeForm) UtilsViews.getController("ViewForm");
         ctrl.setStatus("edit");
     }
 
