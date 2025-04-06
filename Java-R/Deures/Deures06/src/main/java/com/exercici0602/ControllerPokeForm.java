@@ -9,17 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-import javax.print.DocFlavor.STRING;
-import javax.swing.text.html.ImageView;
-
-import org.w3c.dom.events.MouseEvent;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.fxml.Initializable;
+//import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 //import javafx.scene.image.ImageView;
@@ -27,7 +22,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-
+import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 public class ControllerPokeForm implements Initializable{
 
     @FXML
@@ -60,17 +59,23 @@ public class ControllerPokeForm implements Initializable{
     @FXML
     private Button buttonUpdate = new Button();
 
+    @FXML
     public static final String STATUS_ADD = "add";
+    @FXML
     public static final String STATUS_EDIT = "edit";
+
+    @FXML
     private String status = "";
+
+    @FXML
     private int number = -1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Path imagePath = null;
         try {
-            String imagePath = (String) pokemon.get("image");
-            Image image = new Image("file:" + imagePath);
+            String imagPath = (String) pokemon.get("image");
+            Image image = new Image("file:" + imagPath);
             imgPokemon.setImage(image);
         } catch (Exception e) {
             System.err.println("Error loading image asset: " + (String) pokemon.get("image"));

@@ -12,6 +12,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
+//import javafx.fxml.setStatus;
 
 public class ControllerPokeList {
 
@@ -71,8 +80,8 @@ public class ControllerPokeList {
     public void addPokemon(ActionEvent event) {
         Object controller = UtilsViews.getController("ViewForm");
         if (controller instanceof ControllerPokeForm) {
-            ControllerPokeForm ctrl = (ControllerPokeForm) controller;
-            ctrl.setStatus(ControllerPokeForm.STATUS_ADD, -1);
+            ControllerPokeForm ctrle= (ControllerPokeForm) controller;
+            ctrle.setStatus((String) ControllerPokeForm.STATUS_ADD, -1);
             UtilsViews.setViewAnimating("ViewForm");
         } else {
             System.err.println("Error: Controller for 'ViewForm' is not of type ControllerPokeForm.");
