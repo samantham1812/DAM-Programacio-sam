@@ -117,6 +117,7 @@ public class ControllerPokeCard implements Initializable {
             this.nextNumber = -1;
             buttonNext.setDisable(true);
         }
+        System.out.println("hola");
     }
 
     @FXML

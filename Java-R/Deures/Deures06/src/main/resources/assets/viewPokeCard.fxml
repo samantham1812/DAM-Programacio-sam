@@ -63,36 +63,8 @@
                <children>
                   <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="50.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox VBox.vgrow="NEVER">
-                           <children>
-                              <Label minWidth="50.0" text="Ability">
-                                 <HBox.margin>
-                                    <Insets left="10.0" right="10.0" />
-                                 </HBox.margin>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="labelAbility" text="Ability" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label minWidth="80.0" text="Category" textAlignment="RIGHT">
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="labelCategory" text="Category">
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                        </HBox>
+                        <Label fx:id="labelAbility" text="Ability" />
+                        <Label fx:id="labelCategory" text="Category" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -136,19 +108,9 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox VBox.vgrow="NEVER">
-                           <children>
-                              <Label text="Weight">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Label fx:id="labelWeigth" text="Weigth" />
-                           </children>
-                        </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label text="Height">
+                              <Label text="Height:">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -156,6 +118,7 @@
                               <Label fx:id="labelHeight" text="Height" />
                            </children>
                         </HBox>
+                        <Label fx:id="labelWeigth1" text="Weigth" />
                      </children>
                   </VBox>
                </children>
