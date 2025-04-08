@@ -16,11 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.ChoiceBox;
-;
 
 public class ControllerPokeCard implements Initializable {
 
@@ -126,8 +121,8 @@ public class ControllerPokeCard implements Initializable {
     @FXML
     public void editPokemon(ActionEvent event) {
         ControllerPokeForm ctrl = (ControllerPokeForm) UtilsViews.getController("ViewForm");
-        ctrl.setStatus("edit");
-
+        ctrl.setStatus(ControllerPokeForm.STATUS_EDIT, this.number);
+        UtilsViews.setViewAnimating("ViewForm");
     }
 
     @FXML

@@ -3,7 +3,6 @@ package com.exercici0602;
 import com.utils.*;
 
 import java.io.File;
-
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -28,29 +27,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-//import javafx.scene.image.ImageView;
-//import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 
 public class ControllerPokeForm implements Initializable {
 
-    @FXML
     public static final String STATUS_ADD = "add";
-
-    @FXML
     public static final String STATUS_EDIT = "edit";
-
-    @FXML
     private String status = "";
-
-    @FXML
     private int number = -1;
-    @FXML
     private String imagePath = "";
 
     @FXML
