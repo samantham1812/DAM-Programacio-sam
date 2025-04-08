@@ -39,10 +39,18 @@ import javafx.scene.layout.HBox;
 
 public class ControllerPokeForm implements Initializable {
 
+    @FXML
     public static final String STATUS_ADD = "add";
+
+    @FXML
     public static final String STATUS_EDIT = "edit";
+
+    @FXML
     private String status = "";
+
+    @FXML
     private int number = -1;
+    @FXML
     private String imagePath = "";
 
     @FXML
