@@ -1,4 +1,4 @@
-public package com.exercici0602;
+package com.exercici0602;
 
 import java.io.FileWriter;
 import java.io.IOException;
