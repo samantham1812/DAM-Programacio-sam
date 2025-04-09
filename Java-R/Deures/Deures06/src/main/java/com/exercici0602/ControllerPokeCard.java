@@ -2,7 +2,6 @@ package com.exercici0602;
 
 import com.utils.*;
 
-import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -17,8 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 public class ControllerPokeCard implements Initializable {
 
@@ -51,9 +48,6 @@ public class ControllerPokeCard implements Initializable {
 
     @FXML
     private Button buttonNext = new Button();
-
-    @FXML 
-    private Button buttonEdit = new Button();
 
     private int number;
     private int previousNumber = -1;
@@ -101,23 +95,22 @@ public class ControllerPokeCard implements Initializable {
         if (llistaPokemons.size() == 1) {
             HashMap<String, Object> pokemon = llistaPokemons.get(0); 
             this.previousNumber = (int) pokemon.get("number");
-            buttonPrevious.setDisable(false);
+            this.buttonPrevious.setDisable(false);
         } else {
             this.previousNumber = -1;
-            buttonPrevious.setDisable(true);
+            this.buttonPrevious.setDisable(true);
         }
 
         llistaPokemons = db.query(String.format("SELECT * FROM pokemons WHERE number > '%d' ORDER BY number ASC LIMIT 1;", this.number));
         if (llistaPokemons.size() == 1) {
             HashMap<String, Object> pokemonNext = llistaPokemons.get(0); 
             this.nextNumber = (int) pokemonNext.get("number");
-            buttonNext.setDisable(false);
+            this.buttonNext.setDisable(false);
         }
         else {
             this.nextNumber = -1;
-            buttonNext.setDisable(true);
+            this.buttonNext.setDisable(true);
         }
-        System.out.println("hola");
     }
 
     @FXML
@@ -128,7 +121,8 @@ public class ControllerPokeCard implements Initializable {
     @FXML
     public void editPokemon(ActionEvent event) {
         ControllerPokeForm ctrl = (ControllerPokeForm) UtilsViews.getController("ViewForm");
-        ctrl.setStatus("edit");
+        ctrl.setStatus(ControllerPokeForm.STATUS_EDIT, this.number);
+        UtilsViews.setViewAnimating("ViewForm");
     }
 
     @FXML
