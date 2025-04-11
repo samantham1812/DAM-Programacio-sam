@@ -11,6 +11,7 @@ import org.json.JSONObject;
 // ./run.sh com.exercici0602.BuildJSON
 
 public class BuildJSON {
+
     public static void main(String[] args) {
 
         AppData db = AppData.getInstance();
