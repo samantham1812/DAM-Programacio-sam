@@ -1,6 +1,7 @@
 package com.exercici0601;
 
-import com.utils.*;
+import com.utils.UtilsViews;
+import com.exercici0601.ControllerCharacters;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +21,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class ControllerMain {
+
+    private int number;
 
     @FXML
     private void toViewCharacters(MouseEvent event) {

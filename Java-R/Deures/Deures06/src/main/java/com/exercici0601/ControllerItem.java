@@ -18,8 +18,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import com.exercici0601.ControllerMain;
+import com.exercici0601.ControllerCharacters;
 
 public class ControllerItem {
+
+    private int number;
 
     @FXML
     private Label title;
@@ -27,24 +31,42 @@ public class ControllerItem {
     @FXML
     private ImageView img;
 
-    private String name;
-    private String imagePath;
-
-    public void setData(String name, String imagePath) {
-        this.name = name;
-        this.imagePath = imagePath;
-
-        title.setText(name);
-        img.setImage(new Image(getClass().getResource(imagePath).toExternalForm()));
+    public void setNumber(int value) {
+        this.number = value;
     }
+
+    public void setTitle(String title) {
+        this.title.setText(title);
+    }
+
+    public void setImatge(String imagePath) {
+        try {
+            File file = new File(imagePath);
+            Image image = new Image(file.toURI().toString());
+            this.img.setImage(image);
+        } catch (NullPointerException e) {
+            System.err.println("Error loading image asset: " + imagePath);
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     private void toViewMain(MouseEvent event) {
-        UtilsViews.setViewAnimating("ViewMain");
+        Object controller = UtilsViews.getController("ViewMain");
+        if (controller instanceof ControllerMain) {
+            ControllerMain ctrl = (ControllerMain) controller;
+            ctrl.loadList(this.number);
+            UtilsViews.setViewAnimating("ViewMain");
+        } else {
+            System.err.println("Error: Controller for 'ViewMain' is not of type ControllerMain or is null.");
+        }
     }
 
     @FXML
     private void toViewCharacters(MouseEvent event) {
+        ControllerCharacters ctrl = (ControllerCharacters) UtilsViews.getController("ViewCharacters");
+        ctrl.loadList(this.number);
         UtilsViews.setViewAnimating("ViewCharacters");
     }
 

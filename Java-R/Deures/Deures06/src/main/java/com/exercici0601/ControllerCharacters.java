@@ -24,6 +24,8 @@ import javafx.scene.layout.VBox;
 
 public class ControllerCharacters implements Initializable {
 
+    private int number;
+
     @FXML
     private ImageView imgArrowBack;
 
@@ -49,51 +51,32 @@ public class ControllerCharacters implements Initializable {
         }
     }
 
-    public void loadList() {
+    public void loadList(int number) {
         try {
-            // Ruta del archivo JSON
-            File file = new File(getClass().getResource("/data/characters.json").toURI());
-            String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
+            // Cargar el archivo JSON
+            Path path = Paths.get("src/main/resources/assets/json0601/characters.json");
+            String jsonString = Files.readString(path, StandardCharsets.UTF_8);
+            JSONArray jsonArray = new JSONArray(jsonString);
 
-            JSONArray jsonArray = new JSONArray(content);
-            System.out.println("Número de personajes encontrados: " + jsonArray.length());
+            // Limpiar la lista antes de cargar nuevos elementos
+            list.getChildren().clear();
 
+            // Iterar sobre los elementos del JSON y crear los elementos de la interfaz
             for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject obj = jsonArray.getJSONObject(i);
-                String name = obj.getString("name");
-                String imagePath = obj.getString("image");
-
-                System.out.println("Cargando personaje: " + name + ", Imagen: " + imagePath);
-
-                // Crear un ítem visual y añadirlo al VBox
-                AnchorPane item = createCharacterItem(name, imagePath);
-                if (item != null) {
-                    list.getChildren().add(item); // Usar la variable 'list'
-                    System.out.println("Ítem añadido al VBox.");
-                } else {
-                    System.err.println("No se pudo crear el ítem para: " + name);
-                }
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/exercici0601/ItemCharacter.fxml"));
+                AnchorPane item = loader.load();
+                ControllerItem controller = loader.getController();
+                controller.setNumber(i + 1);
+                controller.setTitle(jsonObject.getString("name"));
+                controller.setImatge(jsonObject.getString("image"));
+                list.getChildren().add(item);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
-    private AnchorPane createCharacterItem(String name, String imagePath) {
-        try {
-            System.out.println("Cargando diseño FXML para el ítem...");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewItem.fxml"));
-            AnchorPane anchorPane = loader.load();
 
-            ControllerItem controllerItem = loader.getController();
-            controllerItem.setData(name, imagePath);
-            System.out.println("Datos configurados para el ítem: " + name);
-
-            return anchorPane;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @FXML
