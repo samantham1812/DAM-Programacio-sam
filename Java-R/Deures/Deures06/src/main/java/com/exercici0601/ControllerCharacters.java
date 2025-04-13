@@ -30,12 +30,11 @@ public class ControllerCharacters implements Initializable {
     private ImageView imgArrowBack;
 
     @FXML
-    private VBox list; // Cambiado de vboxContainer a list
+    private VBox list; 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            // Cargar la imagen del botón de retroceso
             URL imageURL = getClass().getResource("/assets/images0601/arrow-back.png");
             if (imageURL != null) {
                 Image image = new Image(imageURL.toExternalForm());
@@ -44,7 +43,6 @@ public class ControllerCharacters implements Initializable {
                 System.err.println("No se encontró la imagen de flecha.");
             }
 
-            // Cargar la lista de personajes al inicializar
             loadList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,18 +51,15 @@ public class ControllerCharacters implements Initializable {
 
     public void loadList(int number) {
         try {
-            // Cargar el archivo JSON
-            Path path = Paths.get("src/main/resources/assets/json0601/characters.json");
+            Path path = Paths.get("/assets/data/characters.json");
             String jsonString = Files.readString(path, StandardCharsets.UTF_8);
             JSONArray jsonArray = new JSONArray(jsonString);
 
-            // Limpiar la lista antes de cargar nuevos elementos
             list.getChildren().clear();
 
-            // Iterar sobre los elementos del JSON y crear los elementos de la interfaz
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/exercici0601/ItemCharacter.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/viewItem.fxml"));
                 AnchorPane item = loader.load();
                 ControllerItem controller = loader.getController();
                 controller.setNumber(i + 1);
