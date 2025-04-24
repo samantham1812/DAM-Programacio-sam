@@ -6,172 +6,100 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@pokemon-theme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #f0f0f0;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BorderPane layoutX="200.0" layoutY="100.0" prefHeight="600.0" prefWidth="800.0" styleClass="main-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="150.0" layoutY="125.0" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-background" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="20.0" style="-fx-background-color: #f5f5f5; -fx-border-color: #cccccc; -fx-border-width: 0 0 1 0;" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" styleClass="menu-button" text="Menu">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@pokeball-icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #FF0000; -fx-text-fill: white; -fx-font-weight: bold;" text="Menu" />
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Nivell #:" textFill="#3b4cca">
+                        <Label text="Nivell #:">
                            <font>
-                              <Font name="System Bold" size="16.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <ProgressBar prefWidth="200.0" progress="0.75" styleClass="pokemon-progress" />
+                        <ProgressBar prefWidth="200.0" progress="0.75" style="-fx-accent: #FFCB05;" />
                      </children>
                   </HBox>
                </children>
                <padding>
-                  <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
                </padding>
             </HBox>
          </top>
          <center>
-            <VBox alignment="TOP_CENTER" spacing="30.0" BorderPane.alignment="CENTER">
+            <VBox alignment="TOP_CENTER" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER">
-                     <children>
-                        <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@master-ball.png" />
-                           </image>
-                        </ImageView>
-                        <Label styleClass="title-label" text="RESUM">
-                           <font>
-                              <Font name="Pokemon Solid" size="36.0" />
-                           </font>
-                        </Label>
-                        <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@master-ball.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <GridPane hgap="15.0" vgap="20.0">
+                  <Label style="-fx-text-fill: #3B4CCA;" text="RESUM">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <GridPane hgap="15.0" vgap="15.0">
                     <columnConstraints>
-                      <columnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="240.0" />
-                      <columnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="150.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <rowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                      <rowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                      <rowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-                      <rowConstraints minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label styleClass="field-label" text="Guanyador:">
+                        <Label style="-fx-text-fill: #3B4CCA;" text="Guanyador:">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label styleClass="field-label" text="Nivel actual / aumentet:" GridPane.rowIndex="1">
+                        <Label style="-fx-text-fill: #3B4CCA;" text="Nivel actual / aumentet:" GridPane.rowIndex="1">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label styleClass="field-label" text="Nuevos pokemos:" GridPane.rowIndex="2">
+                        <Label style="-fx-text-fill: #3B4CCA;" text="Nuevos pokemos:" GridPane.rowIndex="2">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label styleClass="field-label" text="Items recogidos:" GridPane.rowIndex="3">
+                        <Label style="-fx-text-fill: #3B4CCA;" text="Items recogidos:" GridPane.rowIndex="3">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" spacing="15.0" styleClass="pokemon-field" GridPane.columnIndex="1">
+                        <TextField promptText="NGanador" GridPane.columnIndex="1" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
-                              <TextField promptText="NGanador" styleClass="pokemon-textfield" HBox.hgrow="ALWAYS" />
-                              <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@trophy-icon.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" styleClass="pokemon-field" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <children>
-                              <TextField promptText="Nivel actual" styleClass="pokemon-textfield" />
+                              <TextField prefWidth="175.0" promptText="Nivel actual" />
                               <Label text="/">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField promptText="Nivel aumentado" styleClass="pokemon-textfield" />
+                              <TextField prefWidth="175.0" promptText="Nivel aumentado" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" spacing="15.0" styleClass="pokemon-field" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <children>
-                              <TextField promptText="Nuevos Pokémon" styleClass="pokemon-textfield" HBox.hgrow="ALWAYS" />
-                              <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@pokeball-open.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                        <ListView prefHeight="150.0" styleClass="pokemon-listview" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField promptText="Nuevos Pokémon" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ListView prefHeight="120.0" style="-fx-border-color: #3B4CCA; -fx-border-width: 1px;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>
                <padding>
-                  <Insets bottom="30.0" left="30.0" right="30.0" top="20.0" />
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </VBox>
          </center>
-         <bottom>
-            <HBox alignment="CENTER_RIGHT" styleClass="footer-background" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
-               <padding>
-                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-               </padding>
-               <children>
-                  <Button mnemonicParsing="false" styleClass="action-button" text="Guardar">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@save-icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </HBox>
-         </bottom>
       </BorderPane>
-      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="48.0" layoutY="469.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
-         <image>
-            <Image url="@pikachu.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
