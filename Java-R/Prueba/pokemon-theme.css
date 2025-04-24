@@ -1,0 +1,71 @@
+.root {
+    -fx-background-image: url("ruta/a/fondo-pokemon.jpg");
+    -fx-background-size: cover;
+    -fx-font-family: "Pokemon Solid", sans-serif;
+}
+
+.button {
+    -fx-background-color: #FF0000;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+    -fx-border-color: #FFCB05;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0.0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #FFCB05;
+    -fx-text-fill: #3B4CCA;
+}
+
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #3B4CCA;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #3B4CCA;
+    -fx-border-radius: 3px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #FFCB05;
+}
+
+.list-view {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-border-color: #3B4CCA;
+    -fx-border-width: 2px;
+}
+
+.menu-bar {
+    -fx-background-color: #3B4CCA;
+}
+
+.menu .label {
+    -fx-text-fill: white;
+}
+
+.menu-item .label {
+    -fx-text-fill: black;
+}
+
+.label {
+    -fx-text-fill: #3B4CCA;
+    -fx-font-weight: bold;
+}
+
+.titled-pane {
+    -fx-text-fill: #3B4CCA;
+    -fx-font-weight: bold;
+}
+
+.titled-pane > .title {
+    -fx-background-color: #FFCB05;
+    -fx-border-color: #3B4CCA;
+}
