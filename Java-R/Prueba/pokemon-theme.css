@@ -1,5 +1,5 @@
 .main-background {
-    -fx-background-image: url("pokemon-bg.jpg");
+    -fx-background-image: url("pokemon-bg.png");
     -fx-background-size: cover;
 }
 
