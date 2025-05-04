@@ -3,8 +3,10 @@
     "notebook.lineNumbers": "on",
     "files.encoding": "utf8",
     "java.inlayHints.parameterNames.enabled": "none",
-    "workbench.editorAssociations": {   
+    "workbench.editorAssociations": {
         "*.md": "vscode.markdown.preview.editor",
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "*.sqlite": "sqlite-viewer.view"
     },
     "java.configuration.updateBuildConfiguration": "interactive"
 }
